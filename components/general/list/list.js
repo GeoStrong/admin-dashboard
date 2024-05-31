@@ -1,9 +1,10 @@
-import { links } from "@/lib/dummy-database";
 import ActiveLink from "./active-link";
 
-const List = () => {
+const List = ({ links, borderBottom, marginTop }) => {
   return (
-    <ul className="mt-14 flex flex-col px-6">
+    <ul
+      className={`mt-${marginTop} flex flex-col ${borderBottom && "border-b-[1px] border-gray-200"} px-6`}
+    >
       {links.map((link) => (
         <ActiveLink key={link.name} link={link} />
       ))}

@@ -58,6 +58,9 @@ const SalesChart = ({ month }) => {
           dot={{ fill: "#4880FF", strokeWidth: 5 }}
           activeDot={{ stroke: "#F2AC34", fill: "#F2AC34", strokeWidth: 5 }}
           stroke="#4379EE"
+          style={{
+            strokeWidth: 2,
+          }}
         />
       </LineChart>
     </ResponsiveContainer>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import List from "./list/list";
 import LogoImage from "./logo-image";
+import { accountLinks, mainLinks, pagesLinks } from "@/lib/dummy-database";
 
 const Navbar = () => {
   return (
@@ -8,7 +9,12 @@ const Navbar = () => {
       <Link href="/" className="flex justify-center">
         <LogoImage />
       </Link>
-      <List />
+      <List links={mainLinks} borderBottom={true} marginTop="14" />
+      <p className="mt-4 px-10 text-xl font-bold text-grey-50 dark:text-white">
+        Pages
+      </p>
+      <List links={pagesLinks} borderBottom={true} marginTop="6" />
+      <List links={accountLinks} borderBottom={false} marginTop="6" />
     </nav>
   );
 };
