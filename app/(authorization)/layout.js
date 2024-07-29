@@ -1,6 +1,6 @@
 import { Nunito_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/general/navbar";
+import Navbar from "@/components/general/nav/navbar";
 import Header from "@/components/general/header";
 import "@/app/globals.css";
 import ThemeProvider from "@/components/general/theme-proivder";
@@ -17,26 +17,28 @@ const nunito_sans = Nunito_Sans({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "grid-main min-h-screen bg-background font-sans antialiased",
-          nunito_sans.variable,
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <Navbar />
-          <main className="main-position bg-gray-100 p-8 dark:bg-dark-100">
-            {children}
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+    // <html lang="en">
+    //   <body
+    //     className={cn(
+    //       "grid-main min-h-screen bg-background font-sans antialiased",
+    //       nunito_sans.variable,
+    //     )}
+    //   >
+    //     <ThemeProvider
+    //       attribute="class"
+    //       defaultTheme="system"
+    //       enableSystem
+    //       disableTransitionOnChange
+    //     >
+    <>
+      <Header />
+      <Navbar />
+      <main className="main-position bg-gray-100 p-8 dark:bg-dark-100">
+        {children}
+      </main>
+    </>
+    //     </ThemeProvider>
+    //   </body>
+    // </html>
   );
 }
