@@ -1,4 +1,4 @@
-import Navbar from "@/components/general/navbar";
+import Navbar from "@/components/general/nav/navbar";
 import Header from "@/components/general/header";
 
 export const metadata = {
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     <>
       <Header />
       <Navbar />
-      <main className="main-position bg-gray-100 p-8 dark:bg-dark-100">
+      <main className="main-position relative rounded-xl bg-gray-100 p-8 dark:bg-dark-100">
         {children}
       </main>
     </>
