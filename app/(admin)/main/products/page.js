@@ -1,20 +1,21 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/general/UI/card";
 import Image from "next/image";
 import getProducts from "@/lib/actions/getProducts";
+import ProductRating from "@/components/products/product-rating";
+import FavoriteButton from "@/components/products/favorite-button";
+import { Button } from "@/components/general/UI/button";
 
 const Products = async () => {
   const { products } = await getProducts();
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-9">
+      <div className="grid grid-cols-3 gap-7">
         {products.map((product, index) => (
           <Card key={index}>
             <CardHeader className="flex items-center justify-center">
@@ -26,18 +27,22 @@ const Products = async () => {
                 className="rounded-2xl"
               />
             </CardHeader>
-            <CardContent>
-              <div className="">
+            <CardContent className="flex items-center justify-between">
+              <div>
                 <h3 className="font-bold">
                   {product.brand.toUpperCase()} {product.model}
                 </h3>
                 <p className="mt-2 font-bold text-blue-500">
                   ${product.price}.00
                 </p>
+                <ProductRating />
               </div>
+              <FavoriteButton />
             </CardContent>
             <CardFooter>
-              <p>Card Footer</p>
+              <Button className="rounded-xl bg-gray-100 font-bold text-black hover:bg-gray-200 dark:bg-dark-150 dark:text-white">
+                Edit Product
+              </Button>
             </CardFooter>
           </Card>
         ))}
