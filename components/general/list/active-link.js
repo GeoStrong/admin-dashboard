@@ -20,7 +20,7 @@ const ActiveLink = ({ link }) => {
       >
         <Link
           href={link.href}
-          className={`flex items-center gap-4 py-4 md:p-4 `}
+          className={`flex items-center gap-4 px-2 py-4 md:p-4 `}
           onClick={() => {
             dispatch(displayHandler(false));
           }}
