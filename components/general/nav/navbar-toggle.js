@@ -40,8 +40,8 @@ const SheetSide = () => {
       >
         Open Menu <AiOutlineMenuUnfold className="text-2xl" />
       </SheetTrigger>
-      <SheetContent className="overflow-y-scroll">
-        <SheetHeader className="text-left text-xl font-bold">
+      <SheetContent className="overflow-y-scroll bg-white dark:bg-dark-50">
+        <SheetHeader className="mb-3 text-left text-xl font-bold">
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <SheetDescription>
