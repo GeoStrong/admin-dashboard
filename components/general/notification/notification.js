@@ -7,7 +7,7 @@ const Notification = () => {
   const { themeProperty: fillColor } = useModeSwitch("#dc7f14", "#fff");
 
   return (
-    <Button className="bg-transparent hover:bg-transparent">
+    <Button className="w-5 bg-transparent p-0 hover:bg-transparent">
       <svg
         width="24"
         height="26"
