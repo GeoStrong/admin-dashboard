@@ -2,6 +2,7 @@ import { Nunito_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import ThemeProvider from "@/components/general/theme-proivder";
+import StoreProvider from "./store-provider";
 
 export const metadata = {
   title: "DashStack",
@@ -18,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={cn(
-          "grid-main min-h-screen bg-background font-sans antialiased",
+          "grid-main bg-background font-sans antialiased",
           nunito_sans.variable,
         )}
       >
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <StoreProvider>{children}</StoreProvider>
         </ThemeProvider>
       </body>
     </html>
