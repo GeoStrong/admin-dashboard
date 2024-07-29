@@ -3,8 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAppDispatch } from "@/lib/store/redux-hooks";
+import linksMenuSlice from "@/lib/store/links-menu-slice";
 
 const ActiveLink = ({ link }) => {
+  const dispatch = useAppDispatch();
+  const { displayHandler } = linksMenuSlice.actions;
   const pathname = usePathname();
   const activeLink = pathname.includes(link.href);
 
@@ -12,9 +16,15 @@ const ActiveLink = ({ link }) => {
     <>
       <motion.li
         key={link.name}
-        className={`mb-4 rounded-lg text-dark-100 dark:text-white ${activeLink ? "active-link animate-fade-left text-white" : ""}`}
+        className={`rounded-lg text-dark-100 dark:text-white md:mb-4 ${activeLink ? "active-link animate-fade-left text-white" : ""}`}
       >
-        <Link href={link.href} className={`flex items-center gap-4 p-4 `}>
+        <Link
+          href={link.href}
+          className={`flex items-center gap-4 py-4 md:p-4 `}
+          onClick={() => {
+            dispatch(displayHandler(false));
+          }}
+        >
           {link.icon} {link.name}
         </Link>
         {activeLink && (
