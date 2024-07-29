@@ -104,6 +104,27 @@
   }
 
   .active-underline {
-    @apply absolute inset-y-0 -left-10 h-14 w-6 rounded-lg bg-links-background;
+    @apply absolute -left-10 -top-[2px] h-14 w-6 rounded-lg bg-links-background md:inset-y-0;
+  }
+
+  @media (max-width: 768px) {
+    .grid-main {
+      grid-template: 100px 1fr 1fr / 1fr;
+    }
+
+    .header-position {
+      grid-row: 1 / 2;
+      grid-column: 1 / 3;
+    }
+
+    .nav-position {
+      grid-row: 2 / 3;
+      grid-column: 1 / 3;
+    }
+
+    .main-position {
+      grid-row: 4 / 5;
+      grid-column: 1 / 3;
+    }
   }
 }
