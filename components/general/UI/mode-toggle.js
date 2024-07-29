@@ -17,7 +17,7 @@ export function ModeToggle() {
 
   return (
     <DropdownMenu className="bg-transparent">
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger className="hidden sm:flex" asChild>
         <Button
           variant="outline"
           className="border-0 bg-transparent"
