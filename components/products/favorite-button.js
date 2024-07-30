@@ -9,6 +9,7 @@ const FavoriteButton = () => {
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
+    navigator.vibrate(200);
   };
 
   return (
