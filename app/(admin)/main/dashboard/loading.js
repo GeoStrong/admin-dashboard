@@ -3,17 +3,17 @@ import { Skeleton } from "@/components/general/UI/skeleton";
 const DashboardLoading = () => {
   return (
     <>
-      <div className="mt-7 flex w-full gap-6">
-        <div className="w-1/4">
+      <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="w-full">
           <Skeleton className="h-44 w-full rounded-2xl" />
         </div>
-        <div className="w-1/4">
+        <div className="w-full">
           <Skeleton className="h-44 w-full rounded-2xl" />
         </div>
-        <div className="w-1/4">
+        <div className="w-full">
           <Skeleton className="h-44 w-full rounded-2xl" />
         </div>
-        <div className="w-1/4">
+        <div className="w-full">
           <Skeleton className="h-44 w-full rounded-2xl" />
         </div>
       </div>

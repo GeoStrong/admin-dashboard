@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/general/UI/skeleton";
 const StatsLoading = () => {
   return (
     <>
-      <div className="mt-7 flex w-full justify-between gap-4">
+      <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <div className="flex-1">
           <Skeleton className="h-72 w-full rounded-xl" />
         </div>
