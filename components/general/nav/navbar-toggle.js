@@ -25,12 +25,7 @@ const SheetSide = () => {
     isLoaded(true);
   }, []);
 
-  // console.log(loaded);
-
-  // console.log(isOpen);
-
   return (
-    // <Sheet>
     <Sheet open={loaded && isOpen}>
       <SheetTrigger
         className="flex justify-between px-10 text-left text-lg font-bold md:hidden"
