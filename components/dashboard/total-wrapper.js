@@ -4,9 +4,11 @@ import Image from "next/image";
 import profitIcon from "@/public/profit.svg";
 import lossIcon from "@/public/loss.svg";
 import { motion } from "framer-motion";
+import useScreenSize from "@/lib/hooks/useScreenSize";
 
 const TotalWrapper = ({ totalInfo }) => {
   const isProfit = totalInfo.status === "Up";
+  const { width } = useScreenSize();
 
   return (
     <motion.div
@@ -16,9 +18,11 @@ const TotalWrapper = ({ totalInfo }) => {
         duration: 0.8,
         ease: [0, 0.71, 0.2, 1.01],
       }}
-      className="w-1/4 rounded-2xl bg-white p-4 dark:border-2 dark:border-gray-600 dark:bg-dark-50"
+      className="w-full rounded-2xl bg-white p-4 dark:border-2 dark:border-gray-600 dark:bg-dark-50"
     >
-      <div className="flex items-start justify-between gap-10">
+      <div
+        className={`flex items-start justify-between gap-10 ${width <= 300 ? "flex-col-reverse items-center" : "flex-row"}`}
+      >
         <div className="flex flex-col gap-6">
           <h3 className="text-base font-semibold text-grey-50 dark:text-white">
             Total {totalInfo.name}
@@ -27,7 +31,9 @@ const TotalWrapper = ({ totalInfo }) => {
         </div>
         <Image src={totalInfo.icon} alt={totalInfo.name} />
       </div>
-      <p className="mt-8 flex gap-3">
+      <p
+        className={`mt-8 flex gap-3 ${width <= 300 ? "flex-col items-center" : "flex-row"}`}
+      >
         <span
           className={`flex gap-2 text-base font-semibold ${isProfit ? "text-green-500" : "text-red-700"}`}
         >

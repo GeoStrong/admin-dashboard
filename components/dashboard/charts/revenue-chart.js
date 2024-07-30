@@ -1,6 +1,7 @@
 "use client";
 
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
+import useScreenSize from "@/lib/hooks/useScreenSize";
 import {
   CartesianGrid,
   LineChart,
@@ -16,12 +17,11 @@ import {
 
 const RevenueChart = ({ month }) => {
   const { themeProperty: axisColor } = useModeSwitch("#6b6e70", "#fff");
+  const { isXsm, isSm } = useScreenSize();
 
   return (
     <ResponsiveContainer>
       <AreaChart
-        width={730}
-        height={250}
         data={month.data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
@@ -35,25 +35,35 @@ const RevenueChart = ({ month }) => {
             <stop offset="5%" stopColor="#D37B64" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis
-          stroke={axisColor}
-          axisLine={false}
-          allowDataOverflow={true}
-          tickSize={0}
-          tick={{ fontWeight: 600 }}
-          tickMargin={15}
-          tickFormatter={(value) => `${value * 5}k`}
-        />
-        <YAxis
-          stroke={axisColor}
-          axisLine={false}
-          tickSize={0}
-          tickMargin={15}
-          tick={{ fontWeight: 600 }}
-          domain={[0, 100]}
-          allowDataOverflow={true}
-          tickFormatter={(value) => `${value}%`}
-        />
+        {!isXsm && (
+          <XAxis
+            stroke={axisColor}
+            axisLine={false}
+            allowDataOverflow={true}
+            tickSize={0}
+            tick={{
+              fontWeight: 600,
+              fontSize: isSm ? 12 : 16,
+            }}
+            tickMargin={15}
+            tickFormatter={(value) => `${value * 5}k`}
+          />
+        )}
+        {!isXsm && (
+          <YAxis
+            stroke={axisColor}
+            axisLine={false}
+            tickSize={0}
+            tickMargin={15}
+            tick={{
+              fontWeight: 600,
+              fontSize: isSm ? 12 : 16,
+            }}
+            domain={[0, 100]}
+            allowDataOverflow={true}
+            tickFormatter={(value) => `${value}%`}
+          />
+        )}
         <CartesianGrid vertical={false} />
         <Tooltip
           cursor={false}

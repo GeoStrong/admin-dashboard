@@ -1,6 +1,7 @@
 "use client";
 
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
+import useScreenSize from "@/lib/hooks/useScreenSize";
 import {
   CartesianGrid,
   Legend,
@@ -14,30 +15,35 @@ import {
 
 const SalesAnalyticsChart = ({ data }) => {
   const { themeProperty: axisColor } = useModeSwitch("#6b6e70", "#fff");
+  const { isXsm, isSm } = useScreenSize();
 
   return (
     <ResponsiveContainer width="100%" height="92%">
       <LineChart data={data}>
         <CartesianGrid horizontal={false} vertical={false} />
-        <XAxis
-          padding={{ left: 5, right: 5 }}
-          stroke={axisColor}
-          axisLine={false}
-          tickSize={0}
-          tickMargin={10}
-          dataKey="name"
-          tick={{ fontWeight: 600, fontSize: "0.75rem" }}
-        />
-        <YAxis
-          tickMargin={20}
-          stroke={axisColor}
-          axisLine={false}
-          domain={[0, 100]}
-          allowDataOverflow={true}
-          tickFormatter={(value) => `${value}%`}
-          tickSize={0}
-          tick={{ fontWeight: 600, fontSize: "0.75rem" }}
-        />
+        {!isXsm && (
+          <XAxis
+            padding={{ left: 5, right: 5 }}
+            stroke={axisColor}
+            axisLine={false}
+            tickSize={0}
+            tickMargin={10}
+            dataKey="name"
+            tick={{ fontWeight: 600, fontSize: isSm ? 10 : 16 }}
+          />
+        )}
+        {!isXsm && (
+          <YAxis
+            tickMargin={20}
+            stroke={axisColor}
+            axisLine={false}
+            domain={[0, 100]}
+            allowDataOverflow={true}
+            tickFormatter={(value) => `${value}%`}
+            tickSize={0}
+            tick={{ fontWeight: 600, fontSize: isSm ? 10 : 16 }}
+          />
+        )}
         <Tooltip
           cursor={false}
           content={({ payload }) => {
