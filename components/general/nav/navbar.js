@@ -7,7 +7,7 @@ import NavbarToggle from "./navbar-toggle";
 const Navbar = () => {
   const navbarContent = (
     <>
-      <Link href="/" className="mb-3 hidden justify-center md:flex">
+      <Link href="/" className="mb-12  hidden justify-center md:flex">
         <LogoImage className="self-center" />
       </Link>
       <List links={mainLinks} borderBottom={true} />
