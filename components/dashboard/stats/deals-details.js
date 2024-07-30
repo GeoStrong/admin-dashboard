@@ -3,7 +3,6 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/general/UI/avatar";
-import { Badge } from "@/components/general/UI/badge";
 import {
   Table,
   TableBody,
@@ -13,13 +12,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/general/UI/table";
-import getProducts from "@/lib/actions/getProducts";
 import { getRandomProducts } from "@/lib/dummy-database";
 import DeliveryStatus from "./delivery-status";
 
 const DealsDetails = async () => {
-  const { products } = await getProducts();
-  const productsList = getRandomProducts(7, products);
+  const productsList = await getRandomProducts(7);
 
   return (
     <Table className="mt-8">
