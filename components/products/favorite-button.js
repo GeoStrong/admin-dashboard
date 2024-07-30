@@ -3,17 +3,12 @@
 import { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const FavoriteButton = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavorite = async () => {
     setIsFavorite(!isFavorite);
-    navigator.vibrate([200, 100, 200]);
-    console.log(navigator.vibrate);
-    await Haptics.vibrate([200, 100, 200]);
-    await Haptics.vibrate(300);
   };
 
   return (
