@@ -9,7 +9,7 @@ const FavoriteButton = () => {
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
-    navigator.vibrate(200);
+    navigator.vibrate([200, 100, 200]);
   };
 
   return (
@@ -17,7 +17,7 @@ const FavoriteButton = () => {
       className="cursor-pointer rounded-full bg-gray-100 p-4 dark:bg-dark-150"
       onClick={handleFavorite}
     >
-      {isFavorite ? <AiFillHeart fill="red" /> : <AiOutlineHeart />}{" "}
+      {isFavorite ? <AiFillHeart fill="black" /> : <AiOutlineHeart />}{" "}
     </div>
   );
 };

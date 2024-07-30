@@ -38,7 +38,7 @@ const DealsDetails = async () => {
               <Avatar>
                 <AvatarImage src={product.image} />
                 <AvatarFallback></AvatarFallback>
-              </Avatar>{" "}
+              </Avatar>
               {product.brand.toUpperCase()} {product.model}
             </TableCell>
             <TableCell>{product.category}</TableCell>
