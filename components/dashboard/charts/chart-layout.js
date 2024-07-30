@@ -48,9 +48,9 @@ const ChartLayout = () => {
         return (
           <div
             key={chartData.name}
-            className="mt-7 rounded-xl bg-white px-8 py-9 dark:bg-dark-50"
+            className="mt-7 rounded-xl bg-white p-2 dark:bg-dark-50 sm:px-8 sm:py-9"
           >
-            <div className="flex justify-between">
+            <div className="flex flex-col items-center justify-between gap-5 sm:flex-row">
               <h3 className="text-2xl font-bold text-dark-100 dark:text-white">
                 {chartData.name}
               </h3>
