@@ -11,7 +11,9 @@ const FavoriteButton = () => {
   const handleFavorite = async () => {
     setIsFavorite(!isFavorite);
     navigator.vibrate([200, 100, 200]);
-    await Haptics.vibrate();
+    console.log(navigator.vibrate);
+    await Haptics.vibrate([200, 100, 200]);
+    await Haptics.vibrate(300);
   };
 
   return (
