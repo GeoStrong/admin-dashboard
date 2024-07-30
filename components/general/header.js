@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="header-position flex w-full items-center justify-between gap-5 bg-white p-6 dark:bg-dark-50 md:p-4 md:pl-6 md:pr-20">
+    <header className="header-position sticky  top-0 z-10 flex w-full items-center justify-between gap-5 rounded-bl-xl rounded-br-xl bg-white p-6 dark:bg-dark-50 md:static md:rounded-none md:p-4 md:pl-6 md:pr-20">
       <div className="w-1/4 sm:w-1/5 md:hidden">
         <Link href="/">
           <LogoImage className="h-full w-full object-fill" />
