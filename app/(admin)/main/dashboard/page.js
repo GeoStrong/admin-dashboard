@@ -5,7 +5,7 @@ import { totalContainer } from "@/lib/dummy-database";
 const Dashboard = () => {
   return (
     <>
-      <div className="mt-7 flex gap-6">
+      <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         {totalContainer.map((total) => (
           <TotalWrapper key={total.name} totalInfo={total} />
         ))}

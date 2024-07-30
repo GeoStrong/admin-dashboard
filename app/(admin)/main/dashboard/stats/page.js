@@ -8,14 +8,14 @@ import { customersData, salesAnalyticsData } from "@/lib/dummy-database";
 const DashboardStats = () => {
   return (
     <>
-      <div className="mt-7 flex w-full justify-between gap-4">
-        <StatsCard className="flex-1" statsCardTitle="Customers">
+      <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <StatsCard className="h-96 md:h-auto" statsCardTitle="Customers">
           <CustomersPieChart data={customersData} />
         </StatsCard>
-        <StatsCard className="flex-1" statsCardTitle="Featured Products">
+        <StatsCard statsCardTitle="Featured Products">
           <FeaturesProducts />
         </StatsCard>
-        <StatsCard className="flex-1" statsCardTitle="Sales Analytics">
+        <StatsCard statsCardTitle="Sales Analytics">
           <SalesAnalyticsChart data={salesAnalyticsData} />
         </StatsCard>
       </div>
