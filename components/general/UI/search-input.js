@@ -30,7 +30,7 @@ const SearchInput = () => {
   }, [searchRef]);
 
   return (
-    <div>
+    <div className="w-full">
       <Button
         className={`bg-transparent p-0 hover:bg-transparent min-[420px]:hidden ${isSearchOpen ? "hidden" : ""}`}
         onClick={() => {
