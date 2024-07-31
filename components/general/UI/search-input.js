@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { Button } from "./button";
 import searchIcon from "@/public/search.svg";
 import searchDarkIcon from "@/public/search-dark.svg";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
-import Image from "next/image";
-import { Button } from "./button";
 
 const SearchInput = () => {
   const { themeProperty: bgImage } = useModeSwitch(
@@ -12,21 +13,46 @@ const SearchInput = () => {
     searchDarkIcon.src,
   );
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchRef]);
+
   return (
-    <>
-      <Button className="bg-transparent p-0 hover:bg-transparent min-[420px]:hidden">
+    <div>
+      <Button
+        className={`bg-transparent p-0 hover:bg-transparent min-[420px]:hidden ${isSearchOpen ? "hidden" : ""}`}
+        onClick={() => {
+          setIsSearchOpen(true);
+          setTimeout(() => {
+            searchRef.current.focus();
+          }, 1);
+        }}
+      >
         <Image src={bgImage} width={20} height={20} alt="search" />
       </Button>
       <input
+        ref={searchRef}
         type="text"
-        className="search-input w-full rounded-full border bg-gray-100 bg-left bg-no-repeat p-2 pl-10 text-sm font-normal text-gray-700 dark:bg-dark-150 dark:text-white max-[420px]:hidden sm:block lg:block"
+        className={`search-input w-full rounded-full border bg-gray-100 bg-left bg-no-repeat p-2 pl-10 text-sm font-normal text-gray-700 dark:bg-dark-150 dark:text-white sm:block lg:block ${isSearchOpen ? "absolute -bottom-3 left-0 block animate-fade-down animate-duration-500" : "max-[420px]:hidden"}`}
         placeholder="Search"
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundPosition: "1rem",
         }}
       />
-    </>
+    </div>
   );
 };
 
