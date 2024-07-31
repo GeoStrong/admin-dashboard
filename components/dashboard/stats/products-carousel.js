@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/general/UI/carousel";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const ProductsCarousel = ({ products }) => {
@@ -27,13 +28,15 @@ const ProductsCarousel = ({ products }) => {
               key={index}
               className="flex items-center justify-center"
             >
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={220}
-                height={250}
-                className="rounded-md"
-              />
+              <Link href={`/main/product/${product.id}`}>
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={220}
+                  height={250}
+                  className="rounded-md"
+                />
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -42,7 +45,9 @@ const ProductsCarousel = ({ products }) => {
       </Carousel>
       <div className="mt-8 flex flex-col items-center justify-center text-center">
         <h4 className="min-h-12 text-lg font-semibold">
-          {activeProduct.brand.toUpperCase()} {activeProduct.model}
+          <Link href={`/main/product/${activeProduct.id}`}>
+            {activeProduct.brand.toUpperCase()} {activeProduct.model}
+          </Link>
         </h4>
         <p className="text-lg font-bold text-[#F2AC34]">
           ${activeProduct.price}
