@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
-import linksMenuSlice from "@/lib/store/links-menu-slice";
+import { linksAction } from "@/lib/store/links-menu-slice";
 
 const ActiveLink = ({ link }) => {
   const dispatch = useAppDispatch();
-  const { displayHandler } = linksMenuSlice.actions;
+  const { displayHandler } = linksAction;
   const pathname = usePathname();
-  const activeLink = pathname.includes(link.href);
+  const activeLink = pathname.includes(link.hrefName);
 
   return (
     <>
