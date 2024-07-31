@@ -4,7 +4,6 @@ import useLocation from "@/lib/hooks/useLocation";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
