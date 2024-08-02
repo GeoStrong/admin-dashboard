@@ -4,11 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
-import { linksAction } from "@/lib/store/links-menu-slice";
 
 const ActiveLink = ({ link }) => {
-  const dispatch = useAppDispatch();
-  const { displayHandler } = linksAction;
   const pathname = usePathname();
   const activeLink = pathname.includes(link.hrefName);
 
@@ -21,9 +18,6 @@ const ActiveLink = ({ link }) => {
         <Link
           href={link.href}
           className={`flex items-center gap-4 px-2 py-4 md:p-4 `}
-          onClick={() => {
-            dispatch(displayHandler(false));
-          }}
         >
           {link.icon} {link.name}
         </Link>
