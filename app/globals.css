@@ -107,6 +107,15 @@
     @apply absolute -left-10 -top-[2px] h-14 w-6 rounded-lg bg-links-background md:inset-y-0;
   }
 
+  .active-mail-link {
+    @apply bg-links-background bg-opacity-15;
+  }
+
+  .active-mail-link rect,
+  .active-mail-link path {
+    stroke: #4880ff;
+  }
+
   @media (max-width: 768px) {
     .grid-main {
       grid-template: 100px 1fr 1fr / 1fr;

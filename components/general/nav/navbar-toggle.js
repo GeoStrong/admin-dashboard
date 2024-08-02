@@ -7,45 +7,61 @@ import {
   SheetHeader,
   SheetTrigger,
   SheetTitle,
+  SheetOverlay,
+  SheetPortal,
 } from "@/components/general/UI/sheet";
 import List from "../list/list";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { accountLinks, mainLinks, pagesLinks } from "@/lib/dummy-database";
-import { useAppSelector, useAppDispatch } from "@/lib/store/redux-hooks";
-import { linksAction } from "@/lib/store/links-menu-slice";
 import { useEffect, useState } from "react";
+import useLocation from "@/lib/hooks/useLocation";
+import useScreenSize from "@/lib/hooks/useScreenSize";
 
 const SheetSide = () => {
-  const dispatch = useAppDispatch();
-  const isOpen = useAppSelector((state) => state.linksMenu.isOpen);
-  const { displayHandler } = linksAction;
-  const [loaded, isLoaded] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const { location } = useLocation();
+  const { isXsm, isSm } = useScreenSize();
+
+  const closeSheet = () => {
+    setIsOpen(false);
+  };
+
+  const openSheet = () => {
+    setIsOpen(true);
+  };
 
   useEffect(() => {
-    isLoaded(true);
-  }, []);
+    closeSheet();
+  }, [location]);
 
   return (
-    <Sheet open={loaded && isOpen}>
-      <SheetTrigger
-        className="flex justify-between px-10 text-left text-lg font-bold md:hidden"
-        onClick={() => {
-          dispatch(displayHandler(true));
-        }}
-      >
-        Open Menu <AiOutlineMenuUnfold className="text-2xl" />
-      </SheetTrigger>
-      <SheetContent className="overflow-y-scroll bg-white dark:bg-dark-50">
-        <SheetHeader className="mb-3 text-left text-xl font-bold">
-          <SheetTitle>Menu</SheetTitle>
-        </SheetHeader>
-        <SheetDescription>
-          <List links={mainLinks} borderBottom={true} />
-          <List links={pagesLinks} borderBottom={true} />
-          <List links={accountLinks} borderBottom={false} />
-        </SheetDescription>
-      </SheetContent>
-    </Sheet>
+    <>
+      {isXsm || isSm ? (
+        <Sheet open={isOpen}>
+          <SheetTrigger
+            className="flex justify-between px-10 text-left text-lg font-bold md:hidden"
+            onClick={openSheet}
+          >
+            Open Menu <AiOutlineMenuUnfold className="text-2xl" />
+          </SheetTrigger>
+          <SheetOverlay onClick={closeSheet}>
+            <SheetContent
+              className="overflow-y-scroll bg-white dark:bg-dark-50"
+              onCloseClick={closeSheet}
+            >
+              <SheetHeader className="mb-3 text-left font-bold">
+                <SheetTitle>
+                  <SheetDescription className="text-xl">Menu</SheetDescription>
+                </SheetTitle>
+              </SheetHeader>
+              <List links={mainLinks} borderBottom={true} />
+              <List links={pagesLinks} borderBottom={true} />
+              <List links={accountLinks} borderBottom={false} />
+            </SheetContent>
+          </SheetOverlay>
+        </Sheet>
+      ) : null}
+    </>
   );
 };
 
