@@ -23,7 +23,9 @@ const InboxMenuLinks = () => {
               {item.icon}
               <span>{item.name}</span>
             </span>
-            <span className="text-sm font-thin">{item.quantity}</span>
+            <span className="text-sm font-thin md:hidden lg:block">
+              {item.quantity}
+            </span>
           </Link>
         </li>
       ))}
