@@ -21,6 +21,7 @@ const SheetSide = () => {
   const [isOpen, setIsOpen] = useState(true);
   const { location } = useLocation();
   const { isXsm, isSm } = useScreenSize();
+  const [isMounted, setIsMounted] = useState(false);
 
   const closeSheet = () => {
     setIsOpen(false);
@@ -31,8 +32,16 @@ const SheetSide = () => {
   };
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
     closeSheet();
   }, [location]);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <>
