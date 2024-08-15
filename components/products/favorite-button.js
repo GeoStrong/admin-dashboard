@@ -1,22 +1,14 @@
 "use client";
 
-import { productsAction } from "@/lib/store/products-slice";
-import { useAppDispatch } from "@/lib/store/redux-hooks";
 import { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 
 const FavoriteButton = ({ productId, className }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const dispatch = useAppDispatch();
-  const { addFavoriteProduct, removeFavoriteProduct } = productsAction;
 
   const handleFavorite = async () => {
     setIsFavorite(!isFavorite);
-
-    // isFavorite
-    //   ? dispatch(removeFavoriteProduct(productId))
-    //   : dispatch(addFavoriteProduct(productId));
   };
 
   return (
