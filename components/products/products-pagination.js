@@ -12,7 +12,7 @@ import {
 
 const ProductsPagination = ({ pages, activePage }) => {
   const { pathname } = useLocation();
-  const productsPathname = pathname.split("").slice(0, -1).join("");
+  const productsPathname = pathname?.split("").slice(0, -1).join("");
 
   return (
     <Pagination className="mt-5">
