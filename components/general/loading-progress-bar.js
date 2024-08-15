@@ -9,7 +9,7 @@ const LoadingProgressBar = ({ children }) => {
       <ProgressBar
         height="4px"
         color="#4880ff"
-        // options={{ showSpinner: false }}
+        options={{ showSpinner: false }}
         shallowRouting
       />
     </>
