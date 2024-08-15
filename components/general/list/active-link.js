@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useAppDispatch } from "@/lib/store/redux-hooks";
 
 const ActiveLink = ({ link }) => {
   const pathname = usePathname();

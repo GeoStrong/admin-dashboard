@@ -1,8 +1,9 @@
 import ProductsList from "@/components/products/products-list";
+import { RANDOM_PRODUCTS } from "@/lib/constants";
 import { getDividedProducts, getRandomProducts } from "@/lib/dummy-database";
 
 const Favorites = async ({ params }) => {
-  const randomProducts = await getRandomProducts(22);
+  const randomProducts = await getRandomProducts(RANDOM_PRODUCTS);
   const favoriteProducts = await getDividedProducts(randomProducts);
 
   return (
