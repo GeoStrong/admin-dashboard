@@ -1,7 +1,7 @@
 import ProductDescriptionAccordion from "@/components/products/product-description-accordion";
 import { getSingleProduct } from "@/lib/actions/getAsyncData";
 import Image from "next/image";
-import BackNavigation from "@/components/general/back-navigation";
+import BackNavigation from "@/components/general/UI/back-navigation";
 import FavoriteButton from "@/components/products/favorite-button";
 import { Button } from "@/components/general/UI/button";
 

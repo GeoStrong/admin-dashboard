@@ -1,6 +1,6 @@
 import Link from "next/link";
 import List from "../list/list";
-import LogoImage from "../logo-image";
+import LogoImage from "../UI/logo-image";
 import { accountLinks, mainLinks, pagesLinks } from "@/lib/dummy-database";
 import NavbarToggle from "./navbar-toggle";
 

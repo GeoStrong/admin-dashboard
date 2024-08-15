@@ -2,7 +2,7 @@ import { ModeToggle } from "./UI/mode-toggle";
 import SearchInput from "./UI/search-input";
 import LanguageChange from "./UI/lang-change";
 import Notification from "./notification/notification";
-import LogoImage from "./logo-image";
+import LogoImage from "./UI/logo-image";
 import ProfileMenu from "./UI/hamburger-menu";
 import Link from "next/link";
 
