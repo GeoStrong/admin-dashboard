@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import ThemeProvider from "@/components/general/theme-proivder";
 import StoreProvider from "./store-provider";
+import LoadingProgressBar from "@/components/general/loading-progress-bar";
 
 export const metadata = {
   title: "DashStack",
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <LoadingProgressBar>{children}</LoadingProgressBar>
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>
