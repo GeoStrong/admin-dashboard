@@ -107,13 +107,17 @@
     @apply absolute -left-10 -top-[2px] h-14 w-6 rounded-lg bg-links-background md:inset-y-0;
   }
 
-  .active-mail-link {
+  .active-link-background {
     @apply bg-links-background bg-opacity-15;
   }
 
   .active-mail-link rect,
   .active-mail-link path {
     stroke: #4880ff;
+  }
+
+  .compose-shadow {
+    box-shadow: -2px 5px 24px 3px rgba(0, 0, 0, 0.3);
   }
 
   @media (max-width: 768px) {
