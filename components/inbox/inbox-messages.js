@@ -11,11 +11,11 @@ const InboxMessages = ({ isChecked, setIsChecked }) => {
   return (
     <div className="mt-3 flex flex-col">
       <div
-        className={`flex items-center justify-between rounded-lg border border-x-0 border-t-0 border-gray-300 p-4 transition-all ${isChecked && "bg-gray-300 dark:bg-dark-150"}`}
+        className={`flex items-center justify-between gap-3 rounded-lg border border-x-0 border-t-0 border-gray-300 p-4 transition-all ${isChecked && "bg-gray-300 dark:bg-dark-150"}`}
       >
         <div className="flex items-center gap-5">
           <Checkbox
-            className="border-2 border-gray-400 data-[state=checked]:border-black data-[state=checked]:text-gray-200 dark:data-[state=checked]:border-white dark:data-[state=checked]:bg-white dark:data-[state=checked]:text-dark-50"
+            className="hidden border-2 border-gray-400 data-[state=checked]:border-black data-[state=checked]:text-gray-200 dark:data-[state=checked]:border-white dark:data-[state=checked]:bg-white dark:data-[state=checked]:text-dark-50 md:block"
             onClick={() => {
               setIsChecked(!isChecked);
             }}
@@ -35,7 +35,7 @@ const InboxMessages = ({ isChecked, setIsChecked }) => {
             </p>
           </div>
         </div>
-        <div className="">15 Aug</div>
+        <div className="text-xs">15 Aug</div>
       </div>
     </div>
   );
