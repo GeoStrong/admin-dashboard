@@ -18,6 +18,7 @@ import {
 const SalesChart: React.FC<{ month: ChartData }> = ({ month }) => {
   const { themeProperty: axisColor } = useModeSwitch("#6b6e70", "#fff");
   const { isXsm, isSm } = useScreenSize();
+  const strokeColor = typeof axisColor === "string" ? axisColor : undefined;
 
   return (
     <ResponsiveContainer>
@@ -26,7 +27,7 @@ const SalesChart: React.FC<{ month: ChartData }> = ({ month }) => {
         {!isXsm && (
           <XAxis
             padding={{ left: 5, right: 5 }}
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             tickSize={0}
             tickMargin={30}
@@ -38,7 +39,7 @@ const SalesChart: React.FC<{ month: ChartData }> = ({ month }) => {
         {!isXsm && (
           <YAxis
             tickMargin={20}
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             domain={[0, 100]}
             allowDataOverflow={true}

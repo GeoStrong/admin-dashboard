@@ -4,7 +4,8 @@ import useModeSwitch from "@/lib/hooks/useModeSwitch";
 import React from "react";
 
 const FavoritesIcon: React.FC = () => {
-  const { themeProperty: iconFill } = useModeSwitch("#273142", "#fff");
+  const { themeProperty: fillColor } = useModeSwitch("#273142", "#fff");
+  const iconFill = typeof fillColor === "string" ? fillColor : undefined;
 
   return (
     <svg

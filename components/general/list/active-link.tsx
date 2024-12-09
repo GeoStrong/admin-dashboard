@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Links } from "@/lib/dummy-database";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { MotionDiv, MotionLI } from "@/components/motion/motion";
 
 const ActiveLink: React.FC<{ link: Links }> = ({ link }) => {
   const pathname = usePathname();
@@ -12,7 +13,7 @@ const ActiveLink: React.FC<{ link: Links }> = ({ link }) => {
 
   return (
     <>
-      <motion.li
+      <MotionLI
         key={link.name}
         className={`rounded-lg text-dark-100 dark:text-white md:mb-4 ${activeLink ? "active-link animate-fade-left text-white" : ""}`}
       >
@@ -23,12 +24,12 @@ const ActiveLink: React.FC<{ link: Links }> = ({ link }) => {
           {link.icon} {link.name}
         </Link>
         {activeLink && (
-          <motion.div
+          <MotionDiv
             layoutId="underline"
             className="active-underline"
-          ></motion.div>
+          ></MotionDiv>
         )}
-      </motion.li>
+      </MotionLI>
     </>
   );
 };

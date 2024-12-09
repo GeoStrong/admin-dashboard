@@ -3,7 +3,8 @@
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
 
 const PricingIcon: React.FC = () => {
-  const { themeProperty: iconFill } = useModeSwitch("#273142", "#fff");
+  const { themeProperty: fillColor } = useModeSwitch("#273142", "#fff");
+  const iconFill = typeof fillColor === "string" ? fillColor : undefined;
 
   return (
     <svg

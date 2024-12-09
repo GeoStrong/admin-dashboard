@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createElement, useState } from "react";
+import React, { createElement, JSX, useState } from "react";
 import ChartDatePicker from "./chart-date-picker";
 import SalesChart from "./sales-chart";
 import {

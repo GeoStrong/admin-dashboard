@@ -5,7 +5,8 @@ import { Button } from "../UI/button";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
 
 const Notification: React.FC = () => {
-  const { themeProperty: fillColor } = useModeSwitch("#dc7f14", "#fff");
+  const { themeProperty: axisColor } = useModeSwitch("#dc7f14", "#fff");
+  const fillColor = typeof axisColor === "string" ? axisColor : undefined;
 
   return (
     <Button className="w-5 bg-transparent p-0 hover:bg-transparent">

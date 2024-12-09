@@ -78,7 +78,7 @@ const RenderActiveShape = ({
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill={textFill}
+        fill={typeof textFill === 'string' ?  textFill : undefined}
         className="text-xs font-bold"
       >
         {value}

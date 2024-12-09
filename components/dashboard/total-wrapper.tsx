@@ -3,10 +3,10 @@
 import Image from "next/image";
 import profitIcon from "@/public/profit.svg";
 import lossIcon from "@/public/loss.svg";
-import { motion } from "framer-motion";
 import useScreenSize from "@/lib/hooks/useScreenSize";
 import React from "react";
 import { TotalContainer } from "@/lib/dummy-database";
+import { MotionDiv } from "../motion/motion";
 
 const TotalWrapper: React.FC<{ totalInfo: TotalContainer }> = ({
   totalInfo,
@@ -15,7 +15,7 @@ const TotalWrapper: React.FC<{ totalInfo: TotalContainer }> = ({
   const { width } = useScreenSize();
 
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
@@ -46,7 +46,7 @@ const TotalWrapper: React.FC<{ totalInfo: TotalContainer }> = ({
         </span>
         {totalInfo.status} from {totalInfo.time}
       </p>
-    </motion.div>
+    </MotionDiv>
   );
 };
 export default TotalWrapper;

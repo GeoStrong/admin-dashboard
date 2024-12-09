@@ -18,6 +18,7 @@ import {
 const SalesAnalyticsChart: React.FC<{ data: RandomData[] }> = ({ data }) => {
   const { themeProperty: axisColor } = useModeSwitch("#6b6e70", "#fff");
   const { isXsm, isSm } = useScreenSize();
+  const strokeColor = typeof axisColor === "string" ? axisColor : undefined;
 
   return (
     <ResponsiveContainer width="100%" height="92%">
@@ -26,7 +27,7 @@ const SalesAnalyticsChart: React.FC<{ data: RandomData[] }> = ({ data }) => {
         {!isXsm && (
           <XAxis
             padding={{ left: 5, right: 5 }}
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             tickSize={0}
             tickMargin={10}
@@ -37,7 +38,7 @@ const SalesAnalyticsChart: React.FC<{ data: RandomData[] }> = ({ data }) => {
         {!isXsm && (
           <YAxis
             tickMargin={20}
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             domain={[0, 100]}
             allowDataOverflow={true}

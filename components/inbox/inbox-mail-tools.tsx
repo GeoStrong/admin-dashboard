@@ -4,10 +4,11 @@ import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import { motion } from "framer-motion";
 import React from "react";
+import { MotionDiv } from "../motion/motion";
 
 const InboxMailTools: React.FC<{ isChecked: boolean }> = ({ isChecked }) => {
   return (
-    <motion.div
+    <MotionDiv
       animate={{
         scale: isChecked && [0, 1],
       }}
@@ -22,7 +23,7 @@ const InboxMailTools: React.FC<{ isChecked: boolean }> = ({ isChecked }) => {
       <Button className="rounded-xl rounded-s-none border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-dark-150 dark:hover:bg-dark-50">
         <MailBinIcon />
       </Button>
-    </motion.div>
+    </MotionDiv>
   );
 };
 export default InboxMailTools;

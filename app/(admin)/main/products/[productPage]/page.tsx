@@ -10,7 +10,7 @@ const Products: React.FC<{ params: ProductPageParams }> = async ({
 }) => {
   const { productPage } = await params;
   const { products } = await getProducts();
-  const productsPage: Product[] = await getDividedProducts(products);
+  const productsPage = await getDividedProducts(products);
 
   return (
     <>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import useLocation from "@/lib/hooks/useLocation";
 import { mailMenu } from "@/lib/dummy-database";
+import { MotionDiv, MotionLI } from "../motion/motion";
 
 const InboxMenuLinks: React.FC = () => {
   const { location } = useLocation();
@@ -21,7 +22,7 @@ const InboxMenuLinks: React.FC = () => {
   return (
     <ul className="mt-5 flex w-full flex-col gap-3">
       {mailMenu.map((item) => (
-        <motion.li key={item.name}>
+        <MotionLI key={item.name}>
           <Link
             href={item.href}
             className={`hover:active-mail-link relative flex w-full items-center justify-between rounded-md px-5 py-3 transition-all hover:text-links-background
@@ -33,10 +34,10 @@ const InboxMenuLinks: React.FC = () => {
                 `}
           >
             {item.hash === location.hash && (
-              <motion.div
+              <MotionDiv
                 layoutId="active"
                 className="active-link-background absolute left-0 h-full w-full rounded-md"
-              ></motion.div>
+              ></MotionDiv>
             )}
             <span className="flex items-center gap-3">
               {item.icon}
@@ -46,7 +47,7 @@ const InboxMenuLinks: React.FC = () => {
               {item.quantity}
             </span>
           </Link>
-        </motion.li>
+        </MotionLI>
       ))}
     </ul>
   );

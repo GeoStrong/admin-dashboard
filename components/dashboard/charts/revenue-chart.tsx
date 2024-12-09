@@ -21,6 +21,8 @@ const RevenueChart: React.FC<{ month: ChartData }> = ({ month }) => {
   const { themeProperty: axisColor } = useModeSwitch("#6b6e70", "#fff");
   const { isXsm, isSm } = useScreenSize();
 
+  const strokeColor = typeof axisColor === "string" ? axisColor : undefined;
+
   return (
     <ResponsiveContainer>
       <AreaChart
@@ -39,7 +41,7 @@ const RevenueChart: React.FC<{ month: ChartData }> = ({ month }) => {
         </defs>
         {!isXsm && (
           <XAxis
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             allowDataOverflow={true}
             tickSize={0}
@@ -53,7 +55,7 @@ const RevenueChart: React.FC<{ month: ChartData }> = ({ month }) => {
         )}
         {!isXsm && (
           <YAxis
-            stroke={axisColor}
+            stroke={strokeColor}
             axisLine={false}
             tickSize={0}
             tickMargin={15}
