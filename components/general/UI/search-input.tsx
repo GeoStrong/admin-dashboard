@@ -46,7 +46,12 @@ const SearchInput: React.FC = () => {
           }, 1);
         }}
       >
-        <Image src={bgImage} width={20} height={20} alt="search" />
+        <Image
+          src={bgImage || searchIcon.src}
+          width={20}
+          height={20}
+          alt="search"
+        />
       </Button>
       <input
         ref={searchRef}

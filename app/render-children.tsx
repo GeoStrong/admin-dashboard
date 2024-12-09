@@ -14,21 +14,21 @@ const RenderChildren: React.FC<{ children: React.ReactNode }> = ({
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null; // Render nothing on the server
-  }
-
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <StoreProvider>
-        <LoadingProgressBar>{children}</LoadingProgressBar>
-      </StoreProvider>
-    </ThemeProvider>
+    <>
+      {mounted ? (
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StoreProvider>
+            <LoadingProgressBar>{children}</LoadingProgressBar>
+          </StoreProvider>
+        </ThemeProvider>
+      ) : null}
+    </>
   );
 };
 export default RenderChildren;

@@ -25,6 +25,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           "grid-main bg-background font-sans antialiased",
           nunito_sans.variable,
         )}
+        suppressHydrationWarning={true}
       >
         {/* <ThemeProvider
           attribute="class"
