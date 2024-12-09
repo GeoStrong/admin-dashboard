@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/general/theme-proivder";
 import StoreProvider from "./store-provider";
 import LoadingProgressBar from "@/components/general/loading-progress-bar";
 import React from "react";
+import RenderChildren from "./render-children";
 
 export const metadata = {
   title: "DashStack",
@@ -25,16 +26,18 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           nunito_sans.variable,
         )}
       >
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <StoreProvider>
-            <LoadingProgressBar>{children}</LoadingProgressBar>
+            <LoadingProgressBar> */}
+        <RenderChildren>{children}</RenderChildren>
+        {/* </LoadingProgressBar>
           </StoreProvider>
-        </ThemeProvider>
+        </ThemeProvider> */}
       </body>
     </html>
   );
