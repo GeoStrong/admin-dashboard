@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@types/node": "22.10.1",
-    "@types/react": "^18.3.14",
+    "@types/react": "^19.0.1",
     "@types/react-world-flags": "^1.6.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
