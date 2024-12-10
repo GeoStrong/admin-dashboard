@@ -3,20 +3,22 @@
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-interface ThemeProviderProps {
-  attribute: string;
-  defaultTheme: string;
-  enableSystem: boolean;
-  disableTransitionOnChange: boolean;
-  children: React.ReactNode;
-}
+// interface ThemeProviderProps {
+//   attribute: string;
+//   defaultTheme: string;
+//   enableSystem: boolean;
+//   disableTransitionOnChange: boolean;
+//   children: React.ReactNode;
+// }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({
+const ThemeProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({
   children,
-  attribute,
-  defaultTheme,
-  enableSystem,
-  disableTransitionOnChange,
+  // attribute,
+  // defaultTheme,
+  // enableSystem,
+  // disableTransitionOnChange,
   ...props
 }) => {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
