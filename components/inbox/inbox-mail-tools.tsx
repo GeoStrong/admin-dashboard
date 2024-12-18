@@ -2,7 +2,6 @@ import MailSpamIcon from "@/public/svg/mail-icons/mail-spam-icon";
 import { Button } from "../general/UI/button";
 import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
-import { motion } from "framer-motion";
 import React from "react";
 import { MotionDiv } from "../motion/motion";
 

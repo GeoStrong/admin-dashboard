@@ -4,8 +4,15 @@ import React, { useState } from "react";
 import InboxMailTools from "./inbox-mail-tools";
 import InboxMessages from "./inbox-messages";
 import InboxSearchInput from "./inbox-search-input";
+import { RandomMessages } from "@/lib/dummy-database";
 
-const InboxDesktopContent: React.FC = () => {
+interface InboxMobileContentProps {
+  messages: RandomMessages[];
+}
+
+const InboxDesktopContent: React.FC<InboxMobileContentProps> = ({
+  messages,
+}) => {
   const [isMessageChecked, setIsMessageChecked] = useState(false);
 
   return (
@@ -21,6 +28,7 @@ const InboxDesktopContent: React.FC = () => {
       <InboxMessages
         isChecked={isMessageChecked}
         setIsChecked={setIsMessageChecked}
+        messages={messages}
       />
     </div>
   );

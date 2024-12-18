@@ -84,6 +84,15 @@ export interface Product {
   discount: number;
 }
 
+export interface RandomMessages {
+  id: string;
+  date: string;
+  text: string;
+  header: string;
+  sender: { email: string; fullname: string };
+  attachment: [{ filename: string; size: string }];
+}
+
 const generateRandomData = (
   data: RandomData[],
   name: string,
