@@ -19,7 +19,7 @@ export const getSingleProduct = async (
 };
 
 export const getInboxMessages = async (
-  quantity,
+  quantity: number,
 ): Promise<{
   randomMessages: RandomMessages[];
 }> => {
@@ -27,6 +27,10 @@ export const getInboxMessages = async (
     `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
   );
   const response = await request.json();
+
+  if (!Array.isArray(response)) {
+    throw new Error("Expected response to be an array");
+  }
 
   const randomMessages = response
     .sort(() => 0.5 - Math.random())
