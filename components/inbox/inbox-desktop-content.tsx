@@ -4,14 +4,9 @@ import React, { useState } from "react";
 import InboxMailTools from "./inbox-mail-tools";
 import InboxMessages from "./inbox-messages";
 import InboxSearchInput from "./inbox-search-input";
-import { RandomMessages } from "@/lib/dummy-database";
 
-interface InboxMobileContentProps {
-  messages: RandomMessages[];
-}
-
-const InboxDesktopContent: React.FC<InboxMobileContentProps> = ({
-  messages,
+const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
+  activeTab,
 }) => {
   const [isMessageChecked, setIsMessageChecked] = useState(false);
 
@@ -28,7 +23,7 @@ const InboxDesktopContent: React.FC<InboxMobileContentProps> = ({
       <InboxMessages
         isChecked={isMessageChecked}
         setIsChecked={setIsMessageChecked}
-        messages={messages}
+        activeMessageTab={activeTab}
       />
     </div>
   );

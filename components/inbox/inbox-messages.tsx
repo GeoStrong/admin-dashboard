@@ -4,24 +4,31 @@ import MailStarredIcon from "@/public/svg/mail-icons/mail-starred-icon";
 
 import { Checkbox } from "../general/UI/checkbox";
 import { Button } from "../general/UI/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLongPress } from "react-use";
 import useScreenSize from "@/lib/hooks/useScreenSize";
+import useLocation from "@/lib/hooks/useLocation";
+import path from "path";
+import { useAppSelector } from "@/lib/store/redux-hooks";
 import { RandomMessages } from "@/lib/dummy-database";
 
 interface InboxMessagesProps {
   isChecked: boolean;
   setIsChecked: (isChecked: boolean) => void;
-  messages: RandomMessages[];
+  activeMessageTab: string;
 }
 
 const InboxMessages: React.FC<InboxMessagesProps> = ({
   isChecked,
   setIsChecked,
-  messages,
+  activeMessageTab,
 }) => {
   const [isStarred, setIsStarred] = useState(false);
   const { isXsm, isSm } = useScreenSize();
+
+  const messages = useAppSelector(
+    (state) => state.inboxMessages[`${activeMessageTab || "inbox"}Messages`],
+  );
 
   const isMobile = isXsm || isSm;
 
@@ -35,7 +42,7 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
   };
   const longPressEvent = useLongPress(onLongPress, defaultOptions);
 
-  console.log(isChecked);
+  // console.log(isChecked);
 
   const retrieveDate = (date: string) => {
     const dateObj = new Date(date);
@@ -44,10 +51,12 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
 
   return (
     <div className="mt-3 flex flex-col">
-      {messages.map((message) => (
+      {messages.map((message: RandomMessages) => (
         <>
           <div
-            className={`flex items-center justify-between gap-3 rounded-lg rounded-b-none border border-x-0 border-t-0 border-gray-300 p-4 transition-all ${isChecked && "bg-gray-300 dark:bg-dark-150"}`}
+            key={message.id}
+            id={message.id}
+            className={`flex items-center justify-between gap-3 rounded-lg rounded-b-none border border-x-0 border-t-0 border-gray-300 p-4 transition-all last:border-0 ${isChecked && "bg-gray-300 dark:bg-dark-150"}`}
           >
             <div className="flex items-start gap-5 md:items-center">
               <div className="z-[2] flex flex-col-reverse md:flex-row md:items-center md:gap-5">

@@ -54,11 +54,6 @@ export interface Links {
   icon?: React.ReactNode;
 }
 
-interface MainMenuLinks extends Links {
-  quantity: number;
-  hash: string;
-}
-
 export interface ChartData {
   name: string;
   data?: RandomData[];
@@ -184,8 +179,8 @@ export const mainLinks: Links[] = [
   },
   {
     name: "Inbox",
-    href: "/main/inbox",
-    hrefName: "/main/inbox",
+    href: "/main/inbox/inbox",
+    hrefName: "/main/inbox/inbox",
     icon: <InboxIcon />,
   },
   {
@@ -351,54 +346,47 @@ export const getDividedProducts = async (products: Product[]) => {
 
 // export default favoriteProducts;
 
-export const mailMenu: MainMenuLinks[] = [
+export const mailMenu: Links[] = [
   {
     name: "Inbox",
     icon: <MailInboxIcon />,
-    quantity: 200,
-    href: "/main/inbox",
-    hash: "",
+    // quantity: 200,
+    href: "/main/inbox/inbox",
   },
   {
     name: "Starred",
     icon: <MailStarredIcon starred={undefined} />,
-    quantity: 200,
-    href: "#starred",
-    hash: "#starred",
+    // quantity: 200,
+    href: "/main/inbox/starred",
   },
   {
     name: "Sent",
     icon: <MailSentIcon />,
-    quantity: 200,
-    href: "#sent",
-    hash: "#sent",
+    // quantity: 200,
+    href: "/main/inbox/sent",
   },
   {
     name: "Drafts",
     icon: <MailDraftsIcon />,
-    quantity: 200,
-    href: "#drafts",
-    hash: "#drafts",
+    // quantity: 200,
+    href: "/main/inbox/drafts",
   },
   {
     name: "Spam",
     icon: <MailSpamIcon />,
-    quantity: 200,
-    href: "#spam",
-    hash: "#spam",
+    // quantity: 200,
+    href: "/main/inbox/spam",
   },
   {
     name: "Important",
     icon: <MailImportantIcon />,
-    quantity: 200,
-    href: "#important",
-    hash: "#important",
+    // quantity: 200,
+    href: "/main/inbox/important",
   },
   {
     name: "Bin",
     icon: <MailBinIcon />,
-    quantity: 200,
-    href: "#bin",
-    hash: "#bin",
+    // quantity: 200,
+    href: "/main/inbox/bin",
   },
 ];

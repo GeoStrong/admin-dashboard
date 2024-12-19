@@ -1,5 +1,5 @@
 import ProductsList from "@/components/products/products-list";
-import { RANDOM_PRODUCTS } from "@/lib/constants";
+// import { RANDOM_PRODUCTS } from "@/lib/constants";
 import {
   getDividedProducts,
   getRandomProducts,
@@ -13,7 +13,7 @@ const Favorites: React.FC<{ params: FavoriteProductPageParams }> = async ({
   params,
 }) => {
   const { favoriteProductPage } = await params;
-  const randomProducts = await getRandomProducts(RANDOM_PRODUCTS);
+  const randomProducts = await getRandomProducts(+process.env.RANDOM_PRODUCTS);
   const favoriteProducts = await getDividedProducts(randomProducts);
 
   return (

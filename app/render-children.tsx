@@ -1,6 +1,5 @@
 "use client";
 
-// import ThemeProvider from "@/components/general/theme-proivder";
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "next-themes";
 import StoreProvider from "./store-provider";

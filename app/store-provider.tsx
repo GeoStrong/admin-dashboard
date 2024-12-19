@@ -1,16 +1,15 @@
 "use client";
 
-import React, { ReactNode, useRef } from "react";
+import React, { useRef } from "react";
 import { Provider } from "react-redux";
-import { makeStore } from "../lib/store/store";
-import { EnhancedStore } from "@reduxjs/toolkit";
+import { AppStore, makeStore } from "../lib/store/store";
 
 interface StoreProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
-  const storeRef = useRef<EnhancedStore | null>(null);
+  const storeRef = useRef<AppStore>(null);
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }

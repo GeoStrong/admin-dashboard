@@ -1,9 +1,6 @@
 import { Nunito_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import ThemeProvider from "@/components/general/theme-proivder";
-import StoreProvider from "./store-provider";
-import LoadingProgressBar from "@/components/general/loading-progress-bar";
 import React from "react";
 import RenderChildren from "./render-children";
 
@@ -27,18 +24,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         )}
         suppressHydrationWarning={true}
       >
-        {/* <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <StoreProvider>
-            <LoadingProgressBar> */}
         <RenderChildren>{children}</RenderChildren>
-        {/* </LoadingProgressBar>
-          </StoreProvider>
-        </ThemeProvider> */}
       </body>
     </html>
   );

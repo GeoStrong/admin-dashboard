@@ -18,14 +18,21 @@ export const getSingleProduct = async (
   return { product: response.product };
 };
 
-export const getInboxMessages = async (): Promise<{
+export const getInboxMessages = async (
+  quantity,
+): Promise<{
   randomMessages: RandomMessages[];
 }> => {
   const request = await fetch(
-    `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=lra00kenlplwmz4c53iha6p7c22u0ufq3h6eb9f5`,
+    `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
   );
   const response = await request.json();
-  const sortedMessages = response.sort(
+
+  const randomMessages = response
+    .sort(() => 0.5 - Math.random())
+    .slice(0, quantity);
+
+  const sortedMessages = randomMessages.sort(
     (a: RandomMessages, b: RandomMessages) =>
       new Date(b.date).getTime() - new Date(a.date).getTime(),
   );

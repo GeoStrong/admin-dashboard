@@ -3,11 +3,9 @@ import InboxDesktopContent from "@/components/inbox/inbox-desktop-content";
 import InboxMenuLinks from "@/components/inbox/inbox-menu-links";
 import InboxMobileContent from "@/components/inbox/inbox-mobile-content";
 import InboxMobileMenu from "@/components/inbox/inbox-mobile-menu";
-import { getInboxMessages } from "@/lib/actions/getAsyncData";
 import React from "react";
 
-const Inbox: React.FC = async () => {
-  const { randomMessages } = await getInboxMessages();
+const Inbox: React.FC<{ children: React.ReactNode }> = async ({ children }) => {
   return (
     <>
       <h2 className="text-2xl font-bold">Inbox</h2>
@@ -20,8 +18,7 @@ const Inbox: React.FC = async () => {
             <InboxMenuLinks />
           </div>
         </div>
-        <InboxMobileContent messages={randomMessages} />
-        <InboxDesktopContent messages={randomMessages} />
+        {children}
       </div>
     </>
   );
