@@ -37,7 +37,7 @@ const InboxMenuLinks: React.FC = () => {
         <MotionLI key={item.name}>
           <Link
             href={item.href}
-            className={`hover:active-mail-link relative flex w-full items-center justify-between rounded-md px-5 py-3 transition-all hover:text-links-background
+            className={`hover:active-mail-link relative flex w-full items-center justify-between rounded-md px-5 py-3 text-links-background transition-all hover:text-links-background
               ${
                 item.href === pathname
                   ? "active-mail-link text-links-background"

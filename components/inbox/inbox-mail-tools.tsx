@@ -5,11 +5,11 @@ import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import React from "react";
 import { MotionDiv } from "../motion/motion";
 
-const InboxMailTools: React.FC<{ isChecked: boolean }> = ({ isChecked }) => {
+const InboxMailTools: React.FC<{ display: boolean }> = ({ display }) => {
   return (
     <MotionDiv
       animate={{
-        scale: isChecked && [0, 1],
+        scale: display && [0, 1],
       }}
       className="flex items-center"
     >

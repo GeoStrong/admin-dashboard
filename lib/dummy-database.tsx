@@ -293,6 +293,10 @@ export const customersData: ChartData[] = [
 
 export const salesAnalyticsData: RandomData[] = [];
 
+export interface CheckboxState {
+  [key: string]: boolean;
+}
+
 salesMonthlyData.forEach((month) =>
   generateRandomData(month.data, "sales", 30),
 );
@@ -350,43 +354,36 @@ export const mailMenu: Links[] = [
   {
     name: "Inbox",
     icon: <MailInboxIcon />,
-    // quantity: 200,
     href: "/main/inbox/inbox",
   },
   {
     name: "Starred",
     icon: <MailStarredIcon starred={undefined} />,
-    // quantity: 200,
     href: "/main/inbox/starred",
   },
   {
     name: "Sent",
     icon: <MailSentIcon />,
-    // quantity: 200,
     href: "/main/inbox/sent",
   },
   {
     name: "Drafts",
     icon: <MailDraftsIcon />,
-    // quantity: 200,
     href: "/main/inbox/drafts",
   },
   {
     name: "Spam",
     icon: <MailSpamIcon />,
-    // quantity: 200,
     href: "/main/inbox/spam",
   },
   {
     name: "Important",
     icon: <MailImportantIcon />,
-    // quantity: 200,
     href: "/main/inbox/important",
   },
   {
     name: "Bin",
     icon: <MailBinIcon />,
-    // quantity: 200,
     href: "/main/inbox/bin",
   },
 ];

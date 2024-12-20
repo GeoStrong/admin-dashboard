@@ -1,26 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAppSelector } from "@/lib/store/redux-hooks";
 import InboxMessages from "./inbox-messages";
 import InboxComposeButton from "./inbox-compose-button";
 import InboxMailTools from "./inbox-mail-tools";
+import { CheckboxState, RandomMessages } from "@/lib/dummy-database";
 
 const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
-  const [isMessageChecked, setIsMessageChecked] = useState(false);
+  const [displayTools, setDisplayTools] = useState(false);
+  const [messagesCheckboxState, setMessagesCheckboxState] =
+    useState<CheckboxState>();
+
+  const messages = useAppSelector(
+    (state) => state.inboxMessages[`${activeTab || "inbox"}Messages`],
+  );
 
   return (
     <div className="relative md:hidden">
       <div
-        className={`${isMessageChecked ? "block" : "hidden"} sticky top-28 z-10`}
+        className={`${displayTools ? "block" : "hidden"} sticky top-28 z-10`}
       >
-        <InboxMailTools isChecked={isMessageChecked} />
+        <InboxMailTools display={displayTools} />
       </div>
       <div className="">
-        <InboxMessages
-          isChecked={isMessageChecked}
-          setIsChecked={setIsMessageChecked}
-          activeMessageTab={activeTab}
-        />
+        {messages && (
+          <InboxMessages
+            messageCheckStatus={messagesCheckboxState}
+            setMessageCheckStatus={setMessagesCheckboxState}
+            dividedMessages={messages}
+            displayTools={displayTools}
+            setDisplayTools={setDisplayTools}
+          />
+        )}
       </div>
       <div className="fixed bottom-10 right-5">
         <InboxComposeButton />
