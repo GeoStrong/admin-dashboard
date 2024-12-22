@@ -1,4 +1,4 @@
-import { RandomMessages } from "../dummy-database";
+import { RandomMessages, ReactDispatchState } from "../dummy-database";
 
 export const divideMessagesPage = (
   messages: RandomMessages[],
@@ -12,4 +12,25 @@ export const divideMessagesPage = (
     j++;
   }
   return dividedMessages;
+};
+
+export const retrieveDate = (date: string, condition?: boolean) => {
+  const dateObj = new Date(date);
+
+  return dateObj.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    ...(condition ? {} : { year: "numeric" }),
+  });
+};
+
+export const toggleMessageStatus = (
+  id: string,
+  setStatusFnc: ReactDispatchState,
+  newState: boolean,
+) => {
+  setStatusFnc((prevState) => ({
+    ...prevState,
+    [id]: newState,
+  }));
 };
