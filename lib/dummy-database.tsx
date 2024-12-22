@@ -79,14 +79,25 @@ export interface Product {
   discount: number;
 }
 
-export interface RandomMessages {
-  id: string;
+export interface MessageTexts {
   date: string;
+  from: "receiver" | "sender";
   text: string;
-  header: string;
-  sender: { email: string; fullname: string };
-  attachment: [{ filename: string; size: string }];
 }
+
+export interface RandomMessages {
+  attachment: [{ filename: string; size: string }];
+  date: string;
+  header: string;
+  id: string;
+  messages: MessageTexts[];
+  sender: { email: string; fullname: string; profileImage: string };
+  text: string;
+}
+
+export type ReactDispatchState = React.Dispatch<
+  React.SetStateAction<InboxMessageState | InboxMessageState[]>
+>;
 
 const generateRandomData = (
   data: RandomData[],
@@ -179,8 +190,8 @@ export const mainLinks: Links[] = [
   },
   {
     name: "Inbox",
-    href: "/main/inbox/inbox",
-    hrefName: "/main/inbox/inbox",
+    href: "/main/inbox/primary",
+    hrefName: "/main/inbox/primary",
     icon: <InboxIcon />,
   },
   {
@@ -274,6 +285,44 @@ export const dashboardLinks: Links[] = [
   },
 ];
 
+export const mailMenu: Links[] = [
+  {
+    name: "Inbox",
+    icon: <MailInboxIcon />,
+    href: "/main/inbox/primary",
+  },
+  {
+    name: "Starred",
+    icon: <MailStarredIcon starred={undefined} />,
+    href: "/main/inbox/starred",
+  },
+  {
+    name: "Sent",
+    icon: <MailSentIcon />,
+    href: "/main/inbox/sent",
+  },
+  {
+    name: "Drafts",
+    icon: <MailDraftsIcon />,
+    href: "/main/inbox/drafts",
+  },
+  {
+    name: "Spam",
+    icon: <MailSpamIcon />,
+    href: "/main/inbox/spam",
+  },
+  {
+    name: "Important",
+    icon: <MailImportantIcon />,
+    href: "/main/inbox/important",
+  },
+  {
+    name: "Bin",
+    icon: <MailBinIcon />,
+    href: "/main/inbox/bin",
+  },
+];
+
 export const salesMonthlyData: ChartData[] = [
   { name: "April", data: [] },
   { name: "May", data: [] },
@@ -293,7 +342,7 @@ export const customersData: ChartData[] = [
 
 export const salesAnalyticsData: RandomData[] = [];
 
-export interface CheckboxState {
+export interface InboxMessageState {
   [key: string]: boolean;
 }
 
@@ -338,6 +387,11 @@ export const getDividedProducts = async (products: Product[]) => {
   return productsPage;
 };
 
+export const defaultOptions = {
+  isPreventDefault: true,
+  delay: 300,
+};
+
 // const favoriteProducts = [];
 
 // export const addFavoriteProduct = (productId) => {
@@ -349,41 +403,3 @@ export const getDividedProducts = async (products: Product[]) => {
 // };
 
 // export default favoriteProducts;
-
-export const mailMenu: Links[] = [
-  {
-    name: "Inbox",
-    icon: <MailInboxIcon />,
-    href: "/main/inbox/inbox",
-  },
-  {
-    name: "Starred",
-    icon: <MailStarredIcon starred={undefined} />,
-    href: "/main/inbox/starred",
-  },
-  {
-    name: "Sent",
-    icon: <MailSentIcon />,
-    href: "/main/inbox/sent",
-  },
-  {
-    name: "Drafts",
-    icon: <MailDraftsIcon />,
-    href: "/main/inbox/drafts",
-  },
-  {
-    name: "Spam",
-    icon: <MailSpamIcon />,
-    href: "/main/inbox/spam",
-  },
-  {
-    name: "Important",
-    icon: <MailImportantIcon />,
-    href: "/main/inbox/important",
-  },
-  {
-    name: "Bin",
-    icon: <MailBinIcon />,
-    href: "/main/inbox/bin",
-  },
-];
