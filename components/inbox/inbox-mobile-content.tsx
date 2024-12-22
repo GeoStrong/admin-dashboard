@@ -1,23 +1,30 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useAppSelector } from "@/lib/store/redux-hooks";
+import React, { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import InboxMessages from "./inbox-messages";
 import InboxComposeButton from "./inbox-compose-button";
 import InboxMailTools from "./inbox-mail-tools";
-import { CheckboxState, RandomMessages } from "@/lib/dummy-database";
+import { InboxMessageState } from "@/lib/dummy-database";
+import { useEffectOnce } from "react-use";
+import { activeSlugAction } from "@/lib/store/active-slug-slice";
+import InboxContainer from "./inbox-container";
 
 const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
   const [displayTools, setDisplayTools] = useState(false);
   const [messagesCheckboxState, setMessagesCheckboxState] =
-    useState<CheckboxState>();
-
+    useState<InboxMessageState>();
   const messages = useAppSelector(
-    (state) => state.inboxMessages[`${activeTab || "inbox"}Messages`],
+    (state) => state.inboxMessages[`${activeTab}Messages`],
   );
+  const dispatch = useAppDispatch();
+
+  useEffectOnce(() => {
+    dispatch(activeSlugAction.addInboxSlugName(activeTab));
+  });
 
   return (
-    <div className="relative md:hidden">
+    <InboxContainer className="relative md:hidden">
       <div
         className={`${displayTools ? "block" : "hidden"} sticky top-28 z-10`}
       >
@@ -37,7 +44,7 @@ const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
       <div className="fixed bottom-10 right-5">
         <InboxComposeButton />
       </div>
-    </div>
+    </InboxContainer>
   );
 };
 export default InboxMobileContent;
