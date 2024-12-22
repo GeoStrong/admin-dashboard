@@ -12,7 +12,9 @@ const useScreenSize = () => {
   const isXl = width >= 1280 && width < 1536;
   const is2xl = width >= 1536;
 
-  return { width, height, isXsm, isSm, isMd, isLg, isXl, is2xl };
+  const isMobile = isXsm || isSm;
+
+  return { width, height, isXsm, isSm, isMd, isLg, isXl, is2xl, isMobile };
 };
 
 export default useScreenSize;
