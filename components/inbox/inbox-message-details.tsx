@@ -29,7 +29,7 @@ const InboxMessageDetails: React.FC = () => {
   }, [activeMessage]);
 
   return (
-    <InboxContainer className="h-full">
+    <InboxContainer>
       <InboxMessageHeader activeTab={activeInboxTab} message={currentMessage} />
       <InboxMessageBody message={currentMessage} />
       <InboxMessageFooter />

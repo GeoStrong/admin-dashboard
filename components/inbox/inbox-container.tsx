@@ -1,7 +1,7 @@
 import React from "react";
 
 const InboxContainer: React.FC<{
-  className: string;
+  className?: string;
   children: React.ReactNode;
 }> = ({ className, children }, props) => {
   return (

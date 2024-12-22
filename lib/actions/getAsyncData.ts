@@ -36,6 +36,12 @@ export const getInboxMessages = async (
     .sort(() => 0.5 - Math.random())
     .slice(0, quantity);
 
+  randomMessages.forEach((message: RandomMessages) => {
+    return message.messages.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+  });
+
   const sortedMessages = randomMessages.sort(
     (a: RandomMessages, b: RandomMessages) =>
       new Date(b.date).getTime() - new Date(a.date).getTime(),

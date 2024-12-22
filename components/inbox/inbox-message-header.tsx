@@ -27,10 +27,6 @@ const InboxMessageHeader: React.FC<{
   activeTab: string;
   message: RandomMessages;
 }> = ({ activeTab, message }) => {
-  const avatarRef = useRef<HTMLDivElement>(null);
-  const { isMobile } = useScreenSize();
-  const [toggleTools, setToggleTools] = React.useState(false);
-
   return (
     <div className="border-gray-150 flex items-center justify-between border border-x-0 border-t-0 p-3 dark:border-dark-150 md:p-6">
       <Link

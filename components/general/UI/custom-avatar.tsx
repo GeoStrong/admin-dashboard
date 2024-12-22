@@ -6,7 +6,7 @@ const CustomAvatar: React.FC<{ imageSrc: string; size?: string }> = ({
   size,
 }) => {
   return (
-    <Avatar className="flex items-center">
+    <Avatar className={`flex items-center ${size || "h-7 w-7"}`}>
       <AvatarImage src={imageSrc} className={`${size || "h-7 w-7"}`} />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>

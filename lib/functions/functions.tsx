@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { RandomMessages, ReactDispatchState } from "../dummy-database";
 
 export const divideMessagesPage = (
@@ -11,6 +12,7 @@ export const divideMessagesPage = (
     i += 10;
     j++;
   }
+
   return dividedMessages;
 };
 
@@ -33,4 +35,23 @@ export const toggleMessageStatus = (
     ...prevState,
     [id]: newState,
   }));
+};
+
+export const isSender = (msg: string) => {
+  return msg === "sender";
+};
+
+export const getTime = (date: string) => {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+export const getYear = (date: string) => {
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString("en-US", {
+    year: "numeric",
+  });
 };
