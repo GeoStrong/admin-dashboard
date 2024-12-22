@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsSlice from "./products-slice";
 import inboxMessagesSlice from "./inbox-messages-slice";
+import activeSlugSlice from "./active-slug-slice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       products: productsSlice.reducer,
       inboxMessages: inboxMessagesSlice.reducer,
+      activeSlug: activeSlugSlice.reducer,
     },
   });
 };
