@@ -113,36 +113,40 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
               className={`relative flex items-center justify-between gap-3 rounded-lg border border-x-0 border-t-0 border-gray-300 p-4 transition-all last:border-0 ${messageCheckStatus && messageCheckStatus[message.id] && "bg-gray-100 dark:bg-dark-150"}`}
             >
               <div className="flex items-start gap-5 md:items-center">
-                <div className="z-[2] flex flex-col-reverse md:flex-row md:items-center md:gap-5">
-                  <Checkbox
-                    suppressHydrationWarning
-                    className={`${displayTools ? "block" : "hidden"} border-2 border-gray-400 data-[state=checked]:border-black data-[state=checked]:text-gray-200 dark:data-[state=checked]:border-white dark:data-[state=checked]:bg-white dark:data-[state=checked]:text-dark-50 md:block`}
-                    onClick={() => {
-                      toggleMessageStatus(
-                        message.id,
-                        setMessageCheckStatus,
-                        !messageCheckStatus[message.id],
-                      );
-                    }}
-                    checked={
-                      messageCheckStatus !== undefined &&
-                      messageCheckStatus[message.id]
-                    }
-                  />
-                  <Button
-                    className="items-start bg-transparent p-0 pt-1 hover:bg-transparent md:items-center md:pt-0"
-                    onClick={() => {
-                      toggleMessageStatus(
-                        message.id,
-                        setStarredMessages,
-                        !starredMessages[message.id],
-                      );
-                      setActiveMessageData(message);
-                    }}
-                  >
-                    <MailStarredIcon starred={findStarredMessage(message.id)} />
-                  </Button>
-                </div>
+                {inbox !== "bin" && (
+                  <div className="z-[2] flex flex-col-reverse md:flex-row md:items-center md:gap-5">
+                    <Checkbox
+                      suppressHydrationWarning
+                      className={`${displayTools ? "block" : "hidden"} border-2 border-gray-400 data-[state=checked]:border-black data-[state=checked]:text-gray-200 dark:data-[state=checked]:border-white dark:data-[state=checked]:bg-white dark:data-[state=checked]:text-dark-50 md:block`}
+                      onClick={() => {
+                        toggleMessageStatus(
+                          message.id,
+                          setMessageCheckStatus,
+                          !messageCheckStatus[message.id],
+                        );
+                      }}
+                      checked={
+                        messageCheckStatus !== undefined &&
+                        messageCheckStatus[message.id]
+                      }
+                    />
+                    <Button
+                      className="items-start bg-transparent p-0 pt-1 hover:bg-transparent md:items-center md:pt-0"
+                      onClick={() => {
+                        toggleMessageStatus(
+                          message.id,
+                          setStarredMessages,
+                          !starredMessages[message.id],
+                        );
+                        setActiveMessageData(message);
+                      }}
+                    >
+                      <MailStarredIcon
+                        starred={findStarredMessage(message.id)}
+                      />
+                    </Button>
+                  </div>
+                )}
                 <Link
                   href={`/main/inbox/${inbox}/${message.id}`}
                   className="z-[5] flex flex-col items-start justify-start gap-2 hover:text-links-background dark:hover:text-links-background md:flex-row md:items-center"

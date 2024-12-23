@@ -1,5 +1,9 @@
 import { FormEvent } from "react";
-import { RandomMessages, ReactDispatchState } from "../dummy-database";
+import {
+  InboxMessageState,
+  RandomMessages,
+  ReactDispatchState,
+} from "../dummy-database";
 
 export const divideMessagesPage = (
   messages: RandomMessages[],
@@ -54,4 +58,46 @@ export const getYear = (date: string) => {
   return dateObj.toLocaleDateString("en-US", {
     year: "numeric",
   });
+};
+
+export const getSelectedMessages = (
+  messagesCheckboxState: InboxMessageState,
+) => {
+  return Object.keys(messagesCheckboxState).filter(
+    (key) => messagesCheckboxState[key],
+  );
+};
+
+export const storeBlobInLocalStorage = (blob: Blob): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      localStorage.setItem("audioBlob", base64String);
+      resolve(base64String); // Return the Base64 string
+    };
+
+    reader.onerror = (error) => {
+      console.error("Error reading Blob: ", error);
+      reject(error);
+    };
+
+    reader.readAsDataURL(blob); // Convert Blob to Base64
+  });
+};
+
+export const retrieveBlobFromLocalStorage = (
+  base64String: string,
+): Blob | null => {
+  // Decode Base64 and recreate the Blob
+  const byteString = atob(base64String.split(",")[1]);
+  const mimeType = base64String.split(",")[0].split(":")[1].split(";")[0];
+
+  const byteNumbers = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) {
+    byteNumbers[i] = byteString.charCodeAt(i);
+  }
+
+  return new Blob([byteNumbers], { type: mimeType });
 };

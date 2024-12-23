@@ -1,0 +1,81 @@
+import React, { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
+import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
+import { BsFillStopCircleFill, BsFillPauseCircleFill } from "react-icons/bs";
+import { InboxRecorderControls } from "@/lib/dummy-database";
+
+const InboxRecordAudio: React.FC<{
+  setRecorderControls?: Dispatch<SetStateAction<InboxRecorderControls>>;
+  formHandler?: (value: string | Blob) => void;
+  className?: string;
+}> = ({ setRecorderControls, formHandler, className }) => {
+  const [displayVoiceRecorder, setDisplayVoiceRecorder] = React.useState(false);
+  const recorderControls = useVoiceVisualizer();
+  const { recordedBlob, error, isRecordingInProgress, audioRef } =
+    recorderControls;
+
+  // Get the recorded audio blob
+  useEffect(() => {
+    if (!recordedBlob) return;
+
+    formHandler(recordedBlob);
+  }, [recordedBlob, error]);
+
+  useEffect(() => {
+    if (!error) return;
+
+    // console.log(error);
+  }, [error]);
+
+  useEffect(() => {
+    setRecorderControls(recorderControls);
+  }, [isRecordingInProgress]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (className) {
+        setDisplayVoiceRecorder(false);
+      } else {
+        setDisplayVoiceRecorder(true);
+      }
+    }, 1);
+
+    return () => clearTimeout(timeoutId);
+  }, [className]);
+
+  // console.log(recorderControls);
+
+  return (
+    <div className={`${className} w-10/12`}>
+      <div className="flex items-center gap-2">
+        <BsFillPauseCircleFill
+          onClick={() => {
+            recorderControls.togglePauseResume();
+            recorderControls.saveAudioFile();
+          }}
+          className="cursor-pointer text-3xl text-gray-500 dark:text-white"
+        />
+        <BsFillStopCircleFill
+          onClick={() => {
+            recorderControls.stopRecording();
+          }}
+          className="cursor-pointer text-3xl text-gray-500 dark:text-white"
+        />
+        {displayVoiceRecorder && (
+          <VoiceVisualizer
+            isDefaultUIShown={false}
+            controls={recorderControls}
+            isControlPanelShown={false}
+            isAudioProcessingTextShown={false}
+            mainContainerClassName="w-10/12"
+            height={40}
+            barWidth={4}
+          />
+        )}
+        <span className="hidden text-xs md:block">
+          {recorderControls.formattedRecordingTime}
+        </span>
+      </div>
+    </div>
+  );
+};
+export default InboxRecordAudio;

@@ -11,10 +11,12 @@ import { divideMessagesPage } from "@/lib/functions/functions";
 import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
+import useInboxTools from "@/lib/hooks/useInboxTools";
 
 const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
   activeTab,
 }) => {
+  const dispatch = useAppDispatch();
   const [displayTools, setDisplayTools] = useState(false);
   const [messagesCheckboxState, setMessagesCheckboxState] =
     useState<InboxMessageState>();
@@ -25,7 +27,8 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
   const messages = useAppSelector(
     (state) => state.inboxMessages[`${activeTab}Messages`],
   );
-  const dispatch = useAppDispatch();
+  const { markSpamMessages, markImportantMessages, deleteMessages } =
+    useInboxTools();
 
   useEffectOnce(() => {
     dispatch(activeSlugAction.addInboxSlugName(activeTab));
@@ -39,6 +42,27 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activePage]);
 
+  const markTrash = () => {
+    deleteMessages(
+      messagesCheckboxState,
+      setMessagesCheckboxState,
+      messages,
+      activeTab,
+    );
+  };
+
+  const markImportant = () => {
+    markImportantMessages(
+      messagesCheckboxState,
+      setMessagesCheckboxState,
+      messages,
+    );
+  };
+
+  const markSpam = () => {
+    markSpamMessages(messagesCheckboxState, setMessagesCheckboxState, messages);
+  };
+
   return (
     <InboxContainer className="mx-2 hidden flex-col justify-between md:flex md:w-2/3">
       <div className="">
@@ -47,10 +71,21 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
             <InboxSearchInput />
           </div>
           <div className={`${displayTools ? "block" : "hidden"}`}>
-            <InboxMailTools display={displayTools} />
+            {activeTab !== "bin" && (
+              <InboxMailTools
+                display={displayTools}
+                functions={[markSpam, markImportant, markTrash]}
+              />
+            )}
           </div>
         </div>
-        {dividedMessages && (
+        {dividedMessages.length === 0 ? (
+          <div className="flex h-full items-center justify-center">
+            <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
+              There are no messages to display
+            </p>
+          </div>
+        ) : (
           <InboxMessages
             messageCheckStatus={messagesCheckboxState}
             setMessageCheckStatus={setMessagesCheckboxState}
@@ -60,11 +95,13 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
           />
         )}
       </div>
-      <InboxPagination
-        messages={dividedMessages}
-        activePage={activePage}
-        setActivePage={setActivePage}
-      />
+      {dividedMessages.length !== 0 && (
+        <InboxPagination
+          messages={dividedMessages}
+          activePage={activePage}
+          setActivePage={setActivePage}
+        />
+      )}
     </InboxContainer>
   );
 };

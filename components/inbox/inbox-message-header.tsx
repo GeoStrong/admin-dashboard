@@ -22,11 +22,14 @@ import InboxMailTools from "./inbox-mail-tools";
 import MailSpamIcon from "@/public/svg/mail-icons/mail-spam-icon";
 import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
+import useInboxTools from "@/lib/hooks/useInboxTools";
 
 const InboxMessageHeader: React.FC<{
   activeTab: string;
   message: RandomMessages;
 }> = ({ activeTab, message }) => {
+  const { addMessagesDispatch, deleteMessagesDispatch } = useInboxTools();
+
   return (
     <div className="border-gray-150 flex items-center justify-between border border-x-0 border-t-0 p-3 dark:border-dark-150 md:p-6">
       <Link
@@ -37,28 +40,51 @@ const InboxMessageHeader: React.FC<{
       </Link>
       <h3 className="text-xl font-bold">{message?.sender.fullname}</h3>
       <div className="flex items-center gap-3 md:flex-row-reverse">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <CustomAvatar
-              imageSrc={message?.sender.profileImage}
-              size="w-10 h-10"
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
-              <MailSpamIcon />
-              Mark Spam
-            </DropdownMenuLabel>
-            <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
-              <MailImportantIcon />
-              Mark Important
-            </DropdownMenuLabel>
-            <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
-              <MailBinIcon />
-              Delete
-            </DropdownMenuLabel>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {activeTab === "bin" ? (
+          <CustomAvatar
+            imageSrc={message?.sender.profileImage}
+            size="w-10 h-10"
+          />
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <CustomAvatar
+                imageSrc={message?.sender.profileImage}
+                size="w-10 h-10"
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel
+                onClick={() => {
+                  addMessagesDispatch("spamMessages", message);
+                }}
+                className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
+              >
+                <MailSpamIcon />
+                Mark Spam
+              </DropdownMenuLabel>
+              <DropdownMenuLabel
+                onClick={() => {
+                  addMessagesDispatch("importantMessages", message);
+                }}
+                className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
+              >
+                <MailImportantIcon />
+                Mark Important
+              </DropdownMenuLabel>
+              <DropdownMenuLabel
+                onClick={() => {
+                  addMessagesDispatch("binMessages", message);
+                  deleteMessagesDispatch(activeTab, message.id);
+                }}
+                className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
+              >
+                <MailBinIcon />
+                Delete
+              </DropdownMenuLabel>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );

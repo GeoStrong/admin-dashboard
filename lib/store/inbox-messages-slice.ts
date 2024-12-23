@@ -29,7 +29,7 @@ const inboxMessagesSlice = createSlice({
   initialState,
   reducers: {
     addMessages: (state, action) => {
-      state[action.payload.name].push(action.payload.data);
+      state[action.payload.name].unshift(action.payload.data);
     },
     removeMessage: (state, action) => {
       state[action.payload.name] = state[action.payload.name].filter(

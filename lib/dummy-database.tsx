@@ -95,6 +95,18 @@ export interface RandomMessages {
   text: string;
 }
 
+export interface InboxRecorderControls {
+  recordedBlob: Blob;
+  isRecordingInProgress: boolean;
+  isCleared: boolean;
+  isPausedRecording: boolean;
+  startRecording(): void;
+  stopRecording(): void;
+  clearCanvas(): void;
+}
+
+export type ToolFunctions = () => void;
+
 export type ReactDispatchState = React.Dispatch<
   React.SetStateAction<InboxMessageState | InboxMessageState[]>
 >;
