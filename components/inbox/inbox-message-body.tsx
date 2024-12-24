@@ -46,7 +46,9 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
           ) : (
             <>
               <p className="text-sm font-normal italic">Audio message</p>
-              <span className="text-xs">Can't play audio in your device</span>
+              <span className="text-xs">
+                Can&apos;t play audio in your device
+              </span>
             </>
           )}
         </>
