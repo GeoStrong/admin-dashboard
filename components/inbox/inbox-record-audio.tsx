@@ -1,6 +1,10 @@
 import React, { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
 import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
-import { BsFillStopCircleFill, BsFillPauseCircleFill } from "react-icons/bs";
+import {
+  BsFillStopCircleFill,
+  BsFillPauseCircleFill,
+  BsFillPlayCircleFill,
+} from "react-icons/bs";
 import { InboxRecorderControls } from "@/lib/dummy-database";
 
 const InboxRecordAudio: React.FC<{
@@ -47,18 +51,27 @@ const InboxRecordAudio: React.FC<{
   return (
     <div className={`${className} w-10/12`}>
       <div className="flex items-center gap-2">
-        <BsFillPauseCircleFill
-          onClick={() => {
-            recorderControls.togglePauseResume();
-            recorderControls.saveAudioFile();
-          }}
-          className="cursor-pointer text-3xl text-gray-500 dark:text-white"
-        />
+        {recorderControls.isPausedRecording ? (
+          <BsFillPlayCircleFill
+            onClick={() => {
+              recorderControls.togglePauseResume();
+            }}
+            className="cursor-pointer text-2xl text-gray-500 dark:text-white md:text-3xl"
+          />
+        ) : (
+          <BsFillPauseCircleFill
+            onClick={() => {
+              recorderControls.togglePauseResume();
+            }}
+            className="cursor-pointer text-2xl text-gray-500 dark:text-white md:text-3xl"
+          />
+        )}
         <BsFillStopCircleFill
           onClick={() => {
+            recorderControls.clearCanvas();
             recorderControls.stopRecording();
           }}
-          className="cursor-pointer text-3xl text-gray-500 dark:text-white"
+          className="cursor-pointer text-2xl text-gray-500 dark:text-white md:text-3xl"
         />
         {displayVoiceRecorder && (
           <VoiceVisualizer
@@ -69,6 +82,7 @@ const InboxRecordAudio: React.FC<{
             mainContainerClassName="w-10/12"
             height={40}
             barWidth={4}
+            speed={1}
           />
         )}
         <span className="hidden text-xs md:block">

@@ -17,6 +17,7 @@ import {
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
 import InboxRecordAudio from "./inbox-record-audio";
+import InboxAudioMessage from "./inbox-audio-message";
 
 const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
   message,
@@ -37,12 +38,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
     const isAudioMessage = msg.text.startsWith("data:audio/webm");
     if (isAudioMessage) {
       const blob = retrieveBlobFromLocalStorage(msg.text);
-      return (
-        <audio controls>
-          <source src={URL.createObjectURL(blob)} type="audio/webm" />
-          Your browser does not support the audio element.
-        </audio>
-      );
+      return <InboxAudioMessage blob={blob} />;
     } else {
       return <p className="text-sm font-normal">{msg.text}</p>;
     }

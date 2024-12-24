@@ -36,8 +36,6 @@ const InboxMessageFooter: React.FC = () => {
 
     activeMessage.messages.push(newMessage);
 
-    console.log(activeMessage);
-
     localStorage.setItem("activeMessage", JSON.stringify(activeMessage));
     dispatch(inboxMessagesAction.setActiveMessage(activeMessage));
 
