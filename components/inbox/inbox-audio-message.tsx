@@ -31,7 +31,7 @@ const InboxAudioMessage: React.FC<{ blob: Blob }> = ({ blob }) => {
         isDefaultUIShown={false}
         controls={recorderControls}
         isControlPanelShown={false}
-        mainContainerClassName="w-full"
+        mainContainerClassName="w-10/12 md:w-full"
         isAudioProcessingTextShown={false}
         height={40}
         barWidth={4}

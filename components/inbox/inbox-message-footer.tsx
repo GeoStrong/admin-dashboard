@@ -86,13 +86,13 @@ const InboxMessageFooter: React.FC = () => {
       <div className="">
         {isMobile ? (
           <Button
-            className={`${(controls?.isRecordingInProgress || !controls?.isCleared) && "animate-pulse animate-duration-1000"} rounded-full bg-links-background text-white dark:hover:bg-links-background/30`}
+            className={`${controls?.isRecordingInProgress && "animate-pulse animate-duration-1000"} rounded-full bg-links-background text-white dark:hover:bg-links-background/30`}
           >
             <BsFillSendFill className="text-xl" />
           </Button>
         ) : (
           <Button
-            className={`${(controls?.isRecordingInProgress || !controls?.isCleared) && "animate-pulse animate-duration-1000"} bg-links-background text-white dark:hover:bg-links-background/30`}
+            className={`${controls?.isRecordingInProgress && "animate-pulse animate-duration-1000"} bg-links-background text-white dark:hover:bg-links-background/30`}
           >
             Send
             <BsFillSendFill />
