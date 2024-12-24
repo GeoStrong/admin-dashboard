@@ -92,10 +92,7 @@ export const retrieveBlobFromLocalStorage = (
 ): Blob | null => {
   // Decode Base64 and recreate the Blob
   const byteString = atob(base64String.split(",")[1]);
-  // const mimeType = base64String.split(",")[0].split(":")[1].split(";")[0];
-  const mimeType = "audio/mpeg"; // Hardcoded for audio files
-
-  // console.log(mimeType);
+  const mimeType = base64String.split(",")[0].split(":")[1].split(";")[0];
 
   const byteNumbers = new Uint8Array(byteString.length);
   for (let i = 0; i < byteString.length; i++) {
