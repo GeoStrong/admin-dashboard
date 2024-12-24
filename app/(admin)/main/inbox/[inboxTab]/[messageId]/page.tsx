@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/general/UI/skeleton";
 import InboxMessageDetails from "@/components/inbox/inbox-message-details";
 
 type MessageParams = Promise<{ messageId: string }>;

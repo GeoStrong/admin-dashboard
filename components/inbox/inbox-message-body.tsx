@@ -64,82 +64,74 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
           </div>
         ))}
 
-      {message?.messages.map((msg, index) => {
-        console.log(msg.text.startsWith("data:audio/webm"));
-        return (
-          <div key={index}>
-            {(index === 0 ||
-              getYear(msg.date) !==
-                getYear(message?.messages[index - 1].date)) && (
-              <span className="mb-3 block text-center text-xs font-normal text-gray-500 dark:text-gray-400">
-                {getYear(msg.date)}
-              </span>
+      {message?.messages.map((msg, index) => (
+        <div key={index}>
+          {(index === 0 ||
+            getYear(msg.date) !==
+              getYear(message?.messages[index - 1].date)) && (
+            <span className="mb-3 block text-center text-xs font-normal text-gray-500 dark:text-gray-400">
+              {getYear(msg.date)}
+            </span>
+          )}
+          <div
+            className={`flex h-full w-full gap-2 ${
+              isSender(msg.from)
+                ? "animate-fade-right justify-start animate-duration-500"
+                : "animate-fade-left justify-end animate-duration-500"
+            } gap-1`}
+          >
+            {isSender(msg.from) && (
+              <div className="flex items-end">
+                <CustomAvatar imageSrc={message?.sender.profileImage} />
+              </div>
             )}
             <div
-              className={`flex h-full w-full gap-2 ${
+              className={`w-full rounded-xl md:w-1/2 ${
                 isSender(msg.from)
-                  ? "animate-fade-right justify-start animate-duration-500"
-                  : "animate-fade-left justify-end animate-duration-500"
-              } gap-1`}
+                  ? "rounded-bl-none bg-gray-100 dark:bg-dark-100"
+                  : "rounded-br-none bg-links-background text-white"
+              } p-4`}
             >
-              {isSender(msg.from) && (
-                <div className="flex items-end">
-                  <CustomAvatar imageSrc={message?.sender.profileImage} />
-                </div>
-              )}
-              <div
-                className={`w-full rounded-xl md:w-1/2 ${
-                  isSender(msg.from)
-                    ? "rounded-bl-none bg-gray-100 dark:bg-dark-100"
-                    : "rounded-br-none bg-links-background text-white"
-                } p-4`}
-              >
-                {displayMessageText(msg)}
-                <div className="flex items-center justify-end text-right">
-                  <span className="text-xs font-normal">
-                    {getTime(msg.date)}
-                  </span>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <AiOutlineMore className="text-md" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
-                        Edit
-                      </DropdownMenuLabel>
-                      <DropdownMenuLabel
-                        onClick={() => {
-                          const updatedMessages = message.messages.filter(
-                            (m) => m !== msg,
-                          );
-                          const updatedMessage = {
-                            ...message,
-                            messages: updatedMessages,
-                          };
+              {displayMessageText(msg)}
+              <div className="flex items-center justify-end text-right">
+                <span className="text-xs font-normal">{getTime(msg.date)}</span>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <AiOutlineMore className="text-md" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
+                      Edit
+                    </DropdownMenuLabel>
+                    <DropdownMenuLabel
+                      onClick={() => {
+                        const updatedMessages = message.messages.filter(
+                          (m) => m !== msg,
+                        );
+                        const updatedMessage = {
+                          ...message,
+                          messages: updatedMessages,
+                        };
 
-                          localStorage.setItem(
-                            "activeMessage",
-                            JSON.stringify(updatedMessage),
-                          );
-                          dispatch(
-                            inboxMessagesAction.setActiveMessage(
-                              updatedMessage,
-                            ),
-                          );
-                        }}
-                        className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
-                      >
-                        Delete
-                      </DropdownMenuLabel>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                        localStorage.setItem(
+                          "activeMessage",
+                          JSON.stringify(updatedMessage),
+                        );
+                        dispatch(
+                          inboxMessagesAction.setActiveMessage(updatedMessage),
+                        );
+                      }}
+                      className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
+                    >
+                      Delete
+                    </DropdownMenuLabel>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>
-        );
-      })}
-      {/* <InboxRecordAudio /> */}
+        </div>
+      ))}
     </div>
   );
 };

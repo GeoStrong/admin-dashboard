@@ -6,6 +6,7 @@ import {
   BsFillPlayCircleFill,
 } from "react-icons/bs";
 import { InboxRecorderControls } from "@/lib/dummy-database";
+import useModeSwitch from "@/lib/hooks/useModeSwitch";
 
 const InboxRecordAudio: React.FC<{
   setRecorderControls?: Dispatch<SetStateAction<InboxRecorderControls>>;
@@ -16,6 +17,7 @@ const InboxRecordAudio: React.FC<{
   const recorderControls = useVoiceVisualizer();
   const { recordedBlob, error, isRecordingInProgress, audioRef } =
     recorderControls;
+  const { theme } = useModeSwitch("red", "#fff");
 
   // Get the recorded audio blob
   useEffect(() => {
@@ -45,8 +47,6 @@ const InboxRecordAudio: React.FC<{
 
     return () => clearTimeout(timeoutId);
   }, [className]);
-
-  // console.log(recorderControls);
 
   return (
     <div className={`${className} w-10/12`}>
@@ -83,6 +83,7 @@ const InboxRecordAudio: React.FC<{
             height={40}
             barWidth={4}
             speed={1}
+            mainBarColor={theme === "light" ? "#000" : "#fff"}
           />
         )}
         <span className="hidden text-xs md:block">

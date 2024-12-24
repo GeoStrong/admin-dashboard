@@ -25,6 +25,8 @@ const InboxMessageFooter: React.FC = () => {
 
     if (!message || message === "") return;
 
+    message instanceof Blob && alert("Blob");
+
     const blob =
       message instanceof Blob && (await storeBlobInLocalStorage(message));
 
@@ -46,8 +48,15 @@ const InboxMessageFooter: React.FC = () => {
     <Form
       action=""
       onSubmit={(event: FormEvent) => {
+        const input = inputRef.current;
         event.preventDefault();
-        formSubmitHandler(inputRef.current?.value);
+
+        input?.value === "" && input?.classList.add("animate-pulse");
+
+        setTimeout(() => {
+          input?.classList.remove("animate-pulse");
+        }, 1500);
+        formSubmitHandler(input?.value);
         inputRef.current.value = "";
       }}
       className="border-gray-150 relative flex w-full items-center justify-between gap-3 border border-x-0 border-b-0 p-3 dark:border-dark-150 md:p-6"
@@ -73,7 +82,7 @@ const InboxMessageFooter: React.FC = () => {
             ref={inputRef}
             type="text"
             placeholder="Type a message"
-            className="w-full rounded-lg border-none bg-transparent p-2 "
+            className="w-full rounded-lg border-none bg-transparent p-2 animate-duration-500 animate-thrice "
           />
         </div>
         <div className="cursor-pointer">

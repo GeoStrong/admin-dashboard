@@ -17,14 +17,14 @@ const InboxAudioMessage: React.FC<{ blob: Blob }> = ({ blob }) => {
           onClick={() => {
             recorderControls.togglePauseResume();
           }}
-          className="cursor-pointer text-2xl text-gray-500 dark:text-white"
+          className="cursor-pointer text-2xl text-white"
         />
       ) : (
         <BsFillPauseCircleFill
           onClick={() => {
             recorderControls.togglePauseResume();
           }}
-          className="cursor-pointer text-2xl text-gray-500 dark:text-white"
+          className="cursor-pointer text-2xl text-white"
         />
       )}
       <VoiceVisualizer

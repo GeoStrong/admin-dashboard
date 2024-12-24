@@ -19,7 +19,7 @@ const ActiveLink: React.FC<{ link: Links }> = ({ link }) => {
       >
         <Link
           href={link.href}
-          className={`flex items-center gap-4 px-2 py-4 hover:text-links-background dark:hover:text-links-background md:p-4`}
+          className={`flex items-center gap-4 px-2 py-4 ${activeLink ? "hover:text-white" : "hover:text-links-background dark:hover:text-links-background"} md:p-4`}
         >
           {link.icon} {link.name}
         </Link>
