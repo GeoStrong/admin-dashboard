@@ -39,6 +39,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
     const isAudioMessage = msg.text.startsWith("data:audio/webm");
     if (isAudioMessage) {
       const blob = retrieveBlobFromLocalStorage(msg.text);
+      alert(isIOS());
       return (
         <>
           {!isIOS() ? (
