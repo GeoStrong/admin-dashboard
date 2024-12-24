@@ -42,8 +42,6 @@ const InboxMessageFooter: React.FC = () => {
     controls?.clearCanvas();
   };
 
-  // console.log("initial controls", controls);
-
   return (
     <Form
       action=""
@@ -87,11 +85,15 @@ const InboxMessageFooter: React.FC = () => {
       </div>
       <div className="">
         {isMobile ? (
-          <Button className="rounded-full bg-links-background text-white dark:hover:bg-links-background/30">
+          <Button
+            className={`${(controls?.isRecordingInProgress || !controls?.isCleared) && "animate-pulse animate-duration-1000"} rounded-full bg-links-background text-white dark:hover:bg-links-background/30`}
+          >
             <BsFillSendFill className="text-xl" />
           </Button>
         ) : (
-          <Button className="bg-links-background text-white dark:hover:bg-links-background/30">
+          <Button
+            className={`${(controls?.isRecordingInProgress || !controls?.isCleared) && "animate-pulse animate-duration-1000"} bg-links-background text-white dark:hover:bg-links-background/30`}
+          >
             Send
             <BsFillSendFill />
           </Button>

@@ -47,7 +47,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
   return (
     <div
       ref={messageBodyRef}
-      className="flex max-h-[65svh] min-h-[60svh] flex-col gap-4 overflow-y-auto overflow-x-hidden p-3 md:p-6 
+      className="flex max-h-[60svh] min-h-[60svh] flex-col gap-4 overflow-y-auto overflow-x-hidden p-3 md:max-h-[70svh] md:p-6 
       [&::-webkit-scrollbar-thumb]:bg-gray-300
       dark:[&::-webkit-scrollbar-thumb]:bg-dark-100
       [&::-webkit-scrollbar-track]:bg-gray-100
