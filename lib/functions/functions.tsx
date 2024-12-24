@@ -101,3 +101,7 @@ export const retrieveBlobFromLocalStorage = (
 
   return new Blob([byteNumbers], { type: mimeType });
 };
+
+export const isIOS = () => {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+};

@@ -4,6 +4,7 @@ import CustomAvatar from "../general/UI/custom-avatar";
 import {
   getTime,
   getYear,
+  isIOS,
   isSender,
   retrieveBlobFromLocalStorage,
 } from "@/lib/functions/functions";
@@ -38,7 +39,18 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
     const isAudioMessage = msg.text.startsWith("data:audio/webm");
     if (isAudioMessage) {
       const blob = retrieveBlobFromLocalStorage(msg.text);
-      return <InboxAudioMessage blob={blob} />;
+      return (
+        <>
+          {!isIOS() ? (
+            <InboxAudioMessage blob={blob} />
+          ) : (
+            <>
+              <p className="text-sm font-normal italic">Audio message</p>
+              <span className="text-xs">Can't play audio in your device</span>
+            </>
+          )}
+        </>
+      );
     } else {
       return <p className="text-sm font-normal">{msg.text}</p>;
     }
