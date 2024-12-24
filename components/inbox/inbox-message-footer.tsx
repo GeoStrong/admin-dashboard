@@ -25,8 +25,6 @@ const InboxMessageFooter: React.FC = () => {
 
     if (!message || message === "") return;
 
-    message instanceof Blob && alert("Blob");
-
     const blob =
       message instanceof Blob && (await storeBlobInLocalStorage(message));
 
