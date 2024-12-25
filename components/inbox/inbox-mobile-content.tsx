@@ -62,6 +62,8 @@ const InboxMobileContent: React.FC<{
     markSpamMessages(messagesCheckboxState, setMessagesCheckboxState, messages);
   };
 
+  console.log(displayedMessages);
+
   return (
     <InboxContainer className="relative md:hidden">
       {activeTab !== "bin" && (
@@ -75,7 +77,7 @@ const InboxMobileContent: React.FC<{
         </div>
       )}
       <div className="">
-        {displayedMessages ? (
+        {displayedMessages.length > 0 ? (
           <InboxMessages
             messageCheckStatus={messagesCheckboxState}
             setMessageCheckStatus={setMessagesCheckboxState}
@@ -84,7 +86,7 @@ const InboxMobileContent: React.FC<{
             setDisplayTools={setDisplayTools}
           />
         ) : (
-          <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
+          <p className="mt-3 text-center text-lg font-bold text-gray-500 dark:text-gray-400">
             {process.env.NEXT_PUBLIC_NO_MESSAGES}
           </p>
         )}
