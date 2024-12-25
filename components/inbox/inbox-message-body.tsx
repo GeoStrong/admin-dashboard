@@ -17,7 +17,6 @@ import {
 } from "../general/UI/dropdown-menu";
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
-import InboxRecordAudio from "./inbox-record-audio";
 import InboxAudioMessage from "./inbox-audio-message";
 
 const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
@@ -39,7 +38,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
     const isAudioMessage = msg.text.startsWith("data:audio/webm");
     if (isAudioMessage) {
       const blob = retrieveBlobFromLocalStorage(msg.text);
-      alert(isIOS());
+
       return (
         <>
           {!isIOS() ? (

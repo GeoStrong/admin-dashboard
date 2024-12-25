@@ -10,10 +10,10 @@ const InboxLoading: React.FC = () => {
             <Skeleton className="h-12 w-56 rounded-2xl bg-gray-400 dark:bg-dark-100" />
           </div>
           <div className="mt-3 flex flex-col gap-2">
-            <Skeleton className="h-12 w-full rounded-2xl bg-gray-400 dark:bg-dark-100" />
-            <Skeleton className="h-12 w-full rounded-2xl bg-gray-400 dark:bg-dark-100" />
-            <Skeleton className="h-12 w-full rounded-2xl bg-gray-400 dark:bg-dark-100" />
-            <Skeleton className="h-12 w-full rounded-2xl bg-gray-400 dark:bg-dark-100" />
+            <Skeleton className="h-12 w-full bg-gray-400 dark:bg-dark-100" />
+            <Skeleton className="h-12 w-full bg-gray-400 dark:bg-dark-100" />
+            <Skeleton className="h-12 w-full bg-gray-400 dark:bg-dark-100" />
+            <Skeleton className="h-12 w-full bg-gray-400 dark:bg-dark-100" />
           </div>
         </Skeleton>
       </div>

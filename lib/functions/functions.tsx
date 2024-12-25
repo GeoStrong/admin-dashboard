@@ -1,4 +1,3 @@
-import { FormEvent } from "react";
 import {
   InboxMessageState,
   RandomMessages,
@@ -104,4 +103,21 @@ export const retrieveBlobFromLocalStorage = (
 
 export const isIOS = () => {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
+
+export const sortMessagesByDate = (messages: RandomMessages[]) => {
+  return messages.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+};
+
+export const searchMessagesByQuery = (
+  messages: RandomMessages[],
+  query: string,
+) => {
+  return messages.filter((message) => {
+    const sender = Object.values(message.sender).join(" ");
+    const messageValues = Object.values(message).join(" ").concat(sender);
+    return messageValues.toLowerCase().includes(query.toLowerCase());
+  });
 };

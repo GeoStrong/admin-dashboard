@@ -7,15 +7,19 @@ import InboxSearchInput from "./inbox-search-input";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import { InboxMessageState, RandomMessages } from "@/lib/dummy-database";
 import InboxPagination from "./inbox-pagination";
-import { divideMessagesPage } from "@/lib/functions/functions";
+import {
+  divideMessagesPage,
+  searchMessagesByQuery,
+} from "@/lib/functions/functions";
 import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";
 
-const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
-  activeTab,
-}) => {
+const InboxDesktopContent: React.FC<{
+  activeTab: string;
+  searchResult: string;
+}> = ({ activeTab, searchResult }) => {
   const dispatch = useAppDispatch();
   const [displayTools, setDisplayTools] = useState(false);
   const [messagesCheckboxState, setMessagesCheckboxState] =
@@ -27,6 +31,7 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
   const messages = useAppSelector(
     (state) => state.inboxMessages[`${activeTab}Messages`],
   );
+  const { allMessages } = useAppSelector((state) => state.inboxMessages);
   const { markSpamMessages, markImportantMessages, deleteMessages } =
     useInboxTools();
 
@@ -35,8 +40,14 @@ const InboxDesktopContent: React.FC<{ activeTab: string }> = ({
   });
 
   useEffect(() => {
-    return setDividedMessages(divideMessagesPage(messages));
-  }, [messages]);
+    return setDividedMessages(
+      divideMessagesPage(
+        searchResult && searchResult !== ""
+          ? searchMessagesByQuery(allMessages, searchResult)
+          : messages,
+      ),
+    );
+  }, [allMessages, messages, searchResult]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

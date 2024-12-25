@@ -11,6 +11,7 @@ interface InboxMessagesState {
   importantMessages: RandomMessages[];
   binMessages: RandomMessages[];
   activeMessage: RandomMessages | null;
+  allMessages: RandomMessages[];
 }
 
 const initialState: InboxMessagesState = {
@@ -22,6 +23,7 @@ const initialState: InboxMessagesState = {
   importantMessages: (await getInboxMessages(1)).randomMessages,
   binMessages: (await getInboxMessages(15)).randomMessages,
   activeMessage: null,
+  allMessages: (await getInboxMessages()).allMessages,
 };
 
 const inboxMessagesSlice = createSlice({

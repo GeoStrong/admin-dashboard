@@ -1,23 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import InboxMessages from "./inbox-messages";
 import InboxComposeButton from "./inbox-compose-button";
 import InboxMailTools from "./inbox-mail-tools";
-import { InboxMessageState } from "@/lib/dummy-database";
+import { InboxMessageState, RandomMessages } from "@/lib/dummy-database";
 import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";
+import { searchMessagesByQuery } from "@/lib/functions/functions";
 
-const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
+const InboxMobileContent: React.FC<{
+  activeTab: string;
+  searchResult: string;
+}> = ({ activeTab, searchResult }) => {
   const [displayTools, setDisplayTools] = useState(false);
   const [messagesCheckboxState, setMessagesCheckboxState] =
     useState<InboxMessageState>();
+  const [displayedMessages, setDisplayedMessages] = useState<RandomMessages[]>(
+    [],
+  );
   const messages = useAppSelector(
     (state) => state.inboxMessages[`${activeTab}Messages`],
   );
+  const { allMessages } = useAppSelector((state) => state.inboxMessages);
   const dispatch = useAppDispatch();
   const { markSpamMessages, markImportantMessages, deleteMessages } =
     useInboxTools();
@@ -25,6 +33,14 @@ const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
   useEffectOnce(() => {
     dispatch(activeSlugAction.addInboxSlugName(activeTab));
   });
+
+  useEffect(() => {
+    setDisplayedMessages(
+      searchResult && searchResult !== ""
+        ? searchMessagesByQuery(allMessages, searchResult)
+        : messages,
+    );
+  }, [allMessages, messages, searchResult]);
 
   const markTrash = () => {
     deleteMessages(
@@ -60,11 +76,11 @@ const InboxMobileContent: React.FC<{ activeTab: string }> = ({ activeTab }) => {
         </div>
       )}
       <div className="">
-        {messages && (
+        {displayedMessages && (
           <InboxMessages
             messageCheckStatus={messagesCheckboxState}
             setMessageCheckStatus={setMessagesCheckboxState}
-            dividedMessages={messages}
+            dividedMessages={displayedMessages}
             displayTools={displayTools}
             setDisplayTools={setDisplayTools}
           />

@@ -1,4 +1,5 @@
 import { Product, RandomMessages } from "@/lib/dummy-database";
+import { sortMessagesByDate } from "../functions/functions";
 
 export const getProducts = async (): Promise<{
   response: any;
@@ -19,14 +20,15 @@ export const getSingleProduct = async (
 };
 
 export const getInboxMessages = async (
-  quantity: number,
+  quantity?: number,
 ): Promise<{
   randomMessages: RandomMessages[];
+  allMessages: RandomMessages[];
 }> => {
   const request = await fetch(
     `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
   );
-  const response = await request.json();
+  const response: RandomMessages[] = await request.json();
 
   if (!Array.isArray(response)) {
     throw new Error("Expected response to be an array");
@@ -36,17 +38,14 @@ export const getInboxMessages = async (
     .sort(() => 0.5 - Math.random())
     .slice(0, quantity);
 
-  randomMessages.forEach((message: RandomMessages) => {
-    return message.messages.sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
-  });
+  sortMessagesByDate(randomMessages);
+  sortMessagesByDate(response);
 
-  const sortedMessages = randomMessages.sort(
-    (a: RandomMessages, b: RandomMessages) =>
-      new Date(b.date).getTime() - new Date(a.date).getTime(),
+  response.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
-  return { randomMessages: sortedMessages };
+
+  return { randomMessages, allMessages: response };
 };
 
 // export const getFavoriteProducts = async (ids) => {
