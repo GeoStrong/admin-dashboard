@@ -75,7 +75,7 @@ const InboxMobileContent: React.FC<{
         </div>
       )}
       <div className="">
-        {displayedMessages && (
+        {displayedMessages ? (
           <InboxMessages
             messageCheckStatus={messagesCheckboxState}
             setMessageCheckStatus={setMessagesCheckboxState}
@@ -83,6 +83,10 @@ const InboxMobileContent: React.FC<{
             displayTools={displayTools}
             setDisplayTools={setDisplayTools}
           />
+        ) : (
+          <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
+            {process.env.NO_MESSAGES}
+          </p>
         )}
       </div>
       <div className="fixed bottom-10 right-5">

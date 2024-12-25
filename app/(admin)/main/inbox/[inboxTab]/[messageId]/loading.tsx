@@ -6,7 +6,7 @@ const InboxTabLoading: React.FC = () => {
     <>
       <div className="flex w-full flex-col justify-between gap-3 md:flex-row">
         <Skeleton className="w-full flex-col gap-3 rounded-xl md:mx-2 md:mt-2 md:flex">
-          <div className="flex items-center justify-between border border-x-0 border-t-0 p-3 md:block md:p-6">
+          <div className="flex items-center justify-between border border-x-0 border-t-0 p-3 md:p-6">
             <Skeleton className="h-8 w-16 rounded-2xl bg-gray-400 dark:bg-dark-100" />
             <Skeleton className="h-8 w-36 rounded-2xl bg-gray-400 dark:bg-dark-100" />
             <Skeleton className="h-10 w-10 rounded-full bg-gray-400 dark:bg-dark-100" />

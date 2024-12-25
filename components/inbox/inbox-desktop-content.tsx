@@ -94,7 +94,7 @@ const InboxDesktopContent: React.FC<{
         {dividedMessages.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
-              There are no messages to display
+              {process.env.NO_MESSAGES}
             </p>
           </div>
         ) : (
