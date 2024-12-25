@@ -2,11 +2,10 @@ import InboxDesktopContent from "@/components/inbox/inbox-desktop-content";
 import InboxMobileContent from "@/components/inbox/inbox-mobile-content";
 
 type InboxTabParams = Promise<{ inboxTab: string }>;
+type SearchParams = Promise<{ query: string }>;
 
 interface SearchParamsProps {
-  searchParams?: {
-    query?: string;
-  };
+  searchParams?: SearchParams;
   params: InboxTabParams;
 }
 
