@@ -73,7 +73,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
         (message.messages?.length === 0 && (
           <div className="flex h-full items-center justify-center">
             <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
-              {process.env.NO_MESSAGES}
+              {process.env.NEXT_PUBLIC_NO_MESSAGES}
             </p>
           </div>
         ))}

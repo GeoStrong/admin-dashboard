@@ -85,7 +85,7 @@ const InboxMobileContent: React.FC<{
           />
         ) : (
           <p className="text-lg font-bold text-gray-500 dark:text-gray-400">
-            {process.env.NO_MESSAGES}
+            {process.env.NEXT_PUBLIC_NO_MESSAGES}
           </p>
         )}
       </div>
