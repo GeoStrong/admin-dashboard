@@ -25,7 +25,6 @@ const InboxMobileContent: React.FC<{
   const messages = useAppSelector(
     (state) => state.inboxMessages[`${activeTab}Messages`],
   );
-  const { allMessages } = useAppSelector((state) => state.inboxMessages);
   const dispatch = useAppDispatch();
   const { markSpamMessages, markImportantMessages, deleteMessages } =
     useInboxTools();
@@ -37,10 +36,10 @@ const InboxMobileContent: React.FC<{
   useEffect(() => {
     setDisplayedMessages(
       searchResult && searchResult !== ""
-        ? searchMessagesByQuery(allMessages, searchResult)
+        ? searchMessagesByQuery(messages, searchResult)
         : messages,
     );
-  }, [allMessages, messages, searchResult]);
+  }, [messages, searchResult]);
 
   const markTrash = () => {
     deleteMessages(

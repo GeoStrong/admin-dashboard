@@ -1,3 +1,4 @@
+import { DebouncedState } from "use-debounce";
 import {
   InboxMessageState,
   RandomMessages,
@@ -120,4 +121,12 @@ export const searchMessagesByQuery = (
     const messageValues = Object.values(message).join(" ").concat(sender);
     return messageValues.toLowerCase().includes(query.toLowerCase());
   });
+};
+
+export const clearSearchValue = (
+  inputEl: HTMLInputElement,
+  handleSearchClear: () => void,
+) => {
+  inputEl.value = "";
+  handleSearchClear();
 };

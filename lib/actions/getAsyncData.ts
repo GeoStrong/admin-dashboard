@@ -23,7 +23,6 @@ export const getInboxMessages = async (
   quantity?: number,
 ): Promise<{
   randomMessages: RandomMessages[];
-  allMessages: RandomMessages[];
 }> => {
   const request = await fetch(
     `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
@@ -39,13 +38,14 @@ export const getInboxMessages = async (
     .slice(0, quantity);
 
   sortMessagesByDate(randomMessages);
-  sortMessagesByDate(response);
 
-  response.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  randomMessages.forEach((message: RandomMessages) => {
+    return message.messages.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+  });
 
-  return { randomMessages, allMessages: response };
+  return { randomMessages };
 };
 
 // export const getFavoriteProducts = async (ids) => {

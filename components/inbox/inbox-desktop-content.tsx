@@ -15,6 +15,7 @@ import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";
+import useLocation from "@/lib/hooks/useLocation";
 
 const InboxDesktopContent: React.FC<{
   activeTab: string;
@@ -31,7 +32,7 @@ const InboxDesktopContent: React.FC<{
   const messages = useAppSelector(
     (state) => state.inboxMessages[`${activeTab}Messages`],
   );
-  const { allMessages } = useAppSelector((state) => state.inboxMessages);
+
   const { markSpamMessages, markImportantMessages, deleteMessages } =
     useInboxTools();
 
@@ -43,11 +44,11 @@ const InboxDesktopContent: React.FC<{
     return setDividedMessages(
       divideMessagesPage(
         searchResult && searchResult !== ""
-          ? searchMessagesByQuery(allMessages, searchResult)
+          ? searchMessagesByQuery(messages, searchResult)
           : messages,
       ),
     );
-  }, [allMessages, messages, searchResult]);
+  }, [messages, searchResult]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
