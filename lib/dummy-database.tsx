@@ -83,6 +83,8 @@ export interface MessageTexts {
   date: string;
   from: "receiver" | "sender";
   text: string;
+  attachment?: string;
+  // attachment?: { file: string; name: string; type: string };
 }
 
 export interface RandomMessages {

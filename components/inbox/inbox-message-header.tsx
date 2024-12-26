@@ -37,7 +37,6 @@ const InboxMessageHeader: React.FC<{
   return (
     <div className="border-gray-150 flex items-center justify-between border border-x-0 border-t-0 p-3 dark:border-dark-150 md:p-6">
       <Button
-        // href={`/main/inbox/${activeTab}`}
         onClick={() => router.back()}
         className="block h-auto rounded-md bg-gray-100 p-1 hover:bg-gray-200 dark:bg-dark-100 dark:hover:bg-dark-150"
       >

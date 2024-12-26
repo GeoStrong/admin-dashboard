@@ -1,9 +1,11 @@
 import { DebouncedState } from "use-debounce";
 import {
   InboxMessageState,
+  MessageTexts,
   RandomMessages,
   ReactDispatchState,
 } from "../dummy-database";
+import { ExtFile } from "@files-ui/react";
 
 export const divideMessagesPage = (
   messages: RandomMessages[],
@@ -68,7 +70,7 @@ export const getSelectedMessages = (
   );
 };
 
-export const storeBlobInLocalStorage = (blob: Blob): Promise<string> => {
+export const stringifyBlobObject = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -101,6 +103,55 @@ export const retrieveBlobFromLocalStorage = (
 
   return new Blob([byteNumbers], { type: mimeType });
 };
+
+export const strungifyFileObject = async (
+  attachment: ExtFile,
+): Promise<string> => {
+  const base64File = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(attachment.file); // Convert File to Base64
+  });
+
+  const fileObject = {
+    ...attachment,
+    file: base64File,
+  };
+
+  return JSON.stringify(fileObject);
+};
+
+export const decodeFileObject = (fileObject: string) => {
+  const { file: base64File, name, type, size, id } = JSON.parse(fileObject);
+
+  const byteString = atob(base64File.split(",")[1]);
+  const byteNumbers = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) {
+    byteNumbers[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([byteNumbers], { type });
+
+  const recreatedFile: {
+    id: string | number;
+    name: string;
+    type: string;
+    file: File;
+  } = {
+    id,
+    name,
+    type,
+    file: new File([blob], name, { type }),
+  };
+
+  return recreatedFile;
+};
+
+export const checkIsMessageAudio = (msg: MessageTexts) =>
+  msg.text.startsWith("data:audio/webm");
+
+export const checkIsAttachmentImage = (attachment: string) =>
+  attachment.startsWith("image/");
 
 export const isIOS = () => {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);

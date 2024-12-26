@@ -2,6 +2,10 @@ import { AiOutlineMore } from "react-icons/ai";
 import { MessageTexts, RandomMessages } from "@/lib/dummy-database";
 import CustomAvatar from "../general/UI/custom-avatar";
 import {
+  checkIsAttachmentImage,
+  // checkIsAttachmentImage,
+  checkIsMessageAudio,
+  decodeFileObject,
   getTime,
   getYear,
   isIOS,
@@ -18,12 +22,15 @@ import {
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
 import InboxAudioMessage from "./inbox-audio-message";
+import Image from "next/image";
+import { FileCard, FileMosaic } from "@files-ui/react";
 
 const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
   message,
 }) => {
   const dispatch = useAppDispatch();
   const messageBodyRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = messageBodyRef?.current;
@@ -35,7 +42,8 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
   }, [message]);
 
   const displayMessageText = (msg: MessageTexts) => {
-    const isAudioMessage = msg.text.startsWith("data:audio/webm");
+    const isAudioMessage = checkIsMessageAudio(msg);
+
     if (isAudioMessage) {
       const blob = retrieveBlobFromLocalStorage(msg.text);
 
@@ -56,6 +64,29 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
     } else {
       return <p className="text-sm font-normal">{msg.text}</p>;
     }
+  };
+
+  const displayAttachment = (msg: MessageTexts) => {
+    if (!msg.attachment) return null;
+
+    const fileObject = msg.attachment && decodeFileObject(msg.attachment);
+    const fileUrl = fileObject && URL.createObjectURL(fileObject.file);
+
+    const sampleFileProps = {
+      file: fileObject.file,
+      name: fileObject.name,
+      type: fileObject.type,
+    };
+
+    return (
+      <div className="flex items-center gap-2 rounded-md bg-white p-2 dark:bg-dark-100">
+        {checkIsAttachmentImage(fileObject.type) ? (
+          <Image src={fileUrl} width={200} height={200} alt="attachment" />
+        ) : (
+          <FileMosaic {...sampleFileProps} preview downloadUrl={fileUrl} />
+        )}
+      </div>
+    );
   };
 
   return (
@@ -106,7 +137,18 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
                   : "rounded-br-none bg-links-background text-white"
               } p-4`}
             >
-              {displayMessageText(msg)}
+              <div className="relative flex w-full flex-col items-center gap-2">
+                {/* <Image
+                  src="/profile.jpg"
+                  className=""
+                  width={200}
+                  height={200}
+                  alt="image"
+                /> */}
+                {displayAttachment(msg)}
+                {displayMessageText(msg)}
+              </div>
+
               <div className="flex items-center justify-end text-right">
                 <span className="text-xs font-normal">{getTime(msg.date)}</span>
                 <DropdownMenu>
@@ -114,9 +156,20 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
                     <AiOutlineMore className="text-md" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100">
-                      Edit
-                    </DropdownMenuLabel>
+                    {!checkIsMessageAudio(msg) && (
+                      <DropdownMenuLabel
+                        ref={dropdownRef}
+                        onClick={() => {
+                          navigator.clipboard.writeText(msg.text);
+                          setTimeout(() => {
+                            dropdownRef.current.textContent = "Copied";
+                          }, 300);
+                        }}
+                        className="flex items-center gap-3 rounded-md hover:bg-gray-100 dark:hover:bg-dark-100"
+                      >
+                        Copy
+                      </DropdownMenuLabel>
+                    )}
                     <DropdownMenuLabel
                       onClick={() => {
                         const updatedMessages = message.messages.filter(

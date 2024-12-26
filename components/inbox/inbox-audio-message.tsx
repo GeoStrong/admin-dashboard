@@ -11,7 +11,7 @@ const InboxAudioMessage: React.FC<{ blob: Blob }> = ({ blob }) => {
   }, [blob]);
 
   return (
-    <div className="flex items-center justify-around gap-2">
+    <div className="flex w-full items-center justify-around gap-2">
       {recorderControls.isPausedRecordedAudio ? (
         <BsFillPlayCircleFill
           onClick={() => {

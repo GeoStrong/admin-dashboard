@@ -62,8 +62,6 @@ const InboxMobileContent: React.FC<{
     markSpamMessages(messagesCheckboxState, setMessagesCheckboxState, messages);
   };
 
-  console.log(displayedMessages);
-
   return (
     <InboxContainer className="relative md:hidden">
       {activeTab !== "bin" && (
