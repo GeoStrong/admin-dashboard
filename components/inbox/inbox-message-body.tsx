@@ -83,7 +83,14 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
         {checkIsAttachmentImage(fileObject.type) ? (
           <Image src={fileUrl} width={200} height={200} alt="attachment" />
         ) : (
-          <FileMosaic {...sampleFileProps} preview downloadUrl={fileUrl} />
+          <FileMosaic
+            color="white"
+            className="text-white"
+            preview
+            downloadUrl={fileUrl}
+            darkMode={true}
+            {...sampleFileProps}
+          />
         )}
       </div>
     );
@@ -138,13 +145,6 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
               } p-4`}
             >
               <div className="relative flex w-full flex-col items-center gap-2">
-                {/* <Image
-                  src="/profile.jpg"
-                  className=""
-                  width={200}
-                  height={200}
-                  alt="image"
-                /> */}
                 {displayAttachment(msg)}
                 {displayMessageText(msg)}
               </div>

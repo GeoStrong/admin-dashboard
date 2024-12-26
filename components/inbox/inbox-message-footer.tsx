@@ -10,6 +10,7 @@ import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import InboxRecordAudio from "./inbox-record-audio";
 import { InboxRecorderControls, MessageTexts } from "@/lib/dummy-database";
 import {
+  checkIsAttachmentImage,
   decodeFileObject,
   stringifyBlobObject,
   strungifyFileObject,
@@ -171,8 +172,13 @@ const InboxMessageFooter: React.FC = () => {
                 position: "after",
                 uploadButton: {
                   onClick: () => {
+                    if (files.length === 0) return;
+
                     setAttachment(files[0]);
-                    formSubmitHandler("file", files[0]);
+                    formSubmitHandler(
+                      checkIsAttachmentImage(files[0].type) ? "image" : "file",
+                      files[0],
+                    );
                     setFiles([]);
                     setDisplayDropzone(false);
                   },
@@ -189,8 +195,10 @@ const InboxMessageFooter: React.FC = () => {
                   key={file.id}
                   onDelete={removeFile}
                   alwaysActive
+                  color="white"
                   preview
-                  className="mt-5"
+                  className="mt-5 text-white"
+                  darkMode={true}
                   {...file}
                 />
               ))}
