@@ -87,13 +87,19 @@ export interface MessageTexts {
   // attachment?: { file: string; name: string; type: string };
 }
 
+export interface MessageSender {
+  email: string;
+  fullname: string;
+  profileImage: string;
+}
+
 export interface RandomMessages {
   attachment: [{ filename: string; size: string }];
   date: string;
   header: string;
   id: string;
   messages: MessageTexts[];
-  sender: { email: string; fullname: string; profileImage: string };
+  sender: MessageSender;
   text: string;
 }
 

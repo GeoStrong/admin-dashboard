@@ -89,7 +89,7 @@ const InboxMobileContent: React.FC<{
           </p>
         )}
       </div>
-      <div className="fixed bottom-10 right-5">
+      <div className="fixed bottom-10 right-5 z-20">
         <InboxComposeButton />
       </div>
     </InboxContainer>

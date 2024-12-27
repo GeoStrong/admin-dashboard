@@ -144,7 +144,7 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
                   : "rounded-br-none bg-links-background text-white"
               } p-4`}
             >
-              <div className="relative flex w-full flex-col items-center gap-2">
+              <div className="relative flex w-full flex-col gap-2">
                 {displayAttachment(msg)}
                 {displayMessageText(msg)}
               </div>

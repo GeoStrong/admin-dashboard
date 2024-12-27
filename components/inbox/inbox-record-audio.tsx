@@ -33,7 +33,7 @@ const InboxRecordAudio: React.FC<{
   }, [error]);
 
   useEffect(() => {
-    setRecorderControls(recorderControls);
+    setRecorderControls && setRecorderControls(recorderControls);
   }, [isRecordingInProgress]);
 
   useEffect(() => {

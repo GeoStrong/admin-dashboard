@@ -1,4 +1,4 @@
-import { Product, RandomMessages } from "@/lib/dummy-database";
+import { MessageSender, Product, RandomMessages } from "@/lib/dummy-database";
 import { sortMessagesByDate } from "../functions/functions";
 
 export const getProducts = async (): Promise<{
@@ -19,15 +19,21 @@ export const getSingleProduct = async (
   return { product: response.product };
 };
 
+const fetchInboxMessages = async (): Promise<RandomMessages[]> => {
+  const request = await fetch(
+    `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
+  );
+  const response: RandomMessages[] = await request.json();
+
+  return response;
+};
+
 export const getInboxMessages = async (
   quantity?: number,
 ): Promise<{
   randomMessages: RandomMessages[];
 }> => {
-  const request = await fetch(
-    `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,
-  );
-  const response: RandomMessages[] = await request.json();
+  const response = await fetchInboxMessages();
 
   if (!Array.isArray(response)) {
     throw new Error("Expected response to be an array");
@@ -46,6 +52,30 @@ export const getInboxMessages = async (
   });
 
   return { randomMessages };
+};
+
+export const getAllInboxContacts = async (): Promise<MessageSender[]> => {
+  const messages = await fetchInboxMessages();
+
+  const contacts = messages.map((message) => message.sender);
+
+  return contacts;
+};
+
+export const findInboxByContact = async (contact: MessageSender) => {
+  const messages = await fetchInboxMessages();
+
+  const inbox = messages.filter(
+    (message) => message.sender.email === contact.email,
+  );
+
+  inbox.forEach((message: RandomMessages) => {
+    return message.messages.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+  });
+
+  return inbox;
 };
 
 // export const getFavoriteProducts = async (ids) => {
