@@ -28,6 +28,9 @@ import MailSpamIcon from "@/public/svg/mail-icons/mail-spam-icon";
 import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import { StaticImageData } from "next/image";
+import { retrieveCategories } from "./functions/functions";
+import OrderCalendar from "@/components/order/order-calendar";
+import { DateRange } from "react-day-picker";
 
 export interface RandomData {
   name?: string;
@@ -113,11 +116,41 @@ export interface InboxRecorderControls {
   clearCanvas(): void;
 }
 
+type OrderFilterMenuStatus = "completed" | "processing" | "rejected";
+
+export interface OrderFilterMenuProps {
+  date: React.ReactNode;
+  type: Product["category"][];
+  status: OrderFilterMenuStatus[];
+}
+
 export type ToolFunctions = () => void;
 
 export type ReactDispatchState = React.Dispatch<
   React.SetStateAction<InboxMessageState | InboxMessageState[]>
 >;
+
+export const orderFilterMenu: OrderFilterMenuProps = {
+  date: <OrderCalendar />,
+  type: await retrieveCategories(),
+  status: ["completed", "processing", "rejected"],
+};
+
+export interface CalendarState {
+  isCalendarOpen: boolean;
+  setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface SelectedDateState {
+  selectedDate: DateRange | null;
+  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | null>>;
+}
+
+export interface OrderFilterMobileProps {
+  calendarState: CalendarState;
+  selectedDateState: SelectedDateState;
+  handleApply: () => void;
+}
 
 const generateRandomData = (
   data: RandomData[],

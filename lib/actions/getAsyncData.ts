@@ -4,11 +4,22 @@ import { sortMessagesByDate } from "../functions/functions";
 export const getProducts = async (): Promise<{
   response: any;
   products: Product[];
+  categories: string[];
 }> => {
   const request = await fetch("https://fakestoreapi.in/api/products");
   const response = await request.json();
 
-  return { response, products: response.products };
+  const categories: string[] = response.products.reduce(
+    (acc: string[], product: Product) => {
+      if (!acc.includes(product.category)) {
+        acc.push(product.category);
+      }
+      return acc;
+    },
+    [],
+  );
+
+  return { response, products: response.products, categories };
 };
 
 export const getSingleProduct = async (

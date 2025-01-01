@@ -1,4 +1,5 @@
-import { DebouncedState } from "use-debounce";
+import { DateRange } from "react-day-picker";
+import { getProducts } from "../actions/getAsyncData";
 import {
   InboxMessageState,
   MessageTexts,
@@ -180,4 +181,18 @@ export const clearSearchValue = (
 ) => {
   inputEl.value = "";
   handleSearchClear();
+};
+
+export const retrieveCategories = async () => {
+  const { categories } = await getProducts();
+  return categories;
+};
+
+export const makeFirstLetterUppercase = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+export const formatDateRange = (range: DateRange): string => {
+  if (!range.from || !range.to) return "Select Date Range";
+  const format = (date: Date) => date.toLocaleDateString();
+  return `${format(range.from)} - ${format(range.to)}`;
 };

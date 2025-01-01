@@ -11,12 +11,15 @@ import InboxContainer from "./inbox-container";
 import InboxMessageHeader from "./inbox-message-header";
 import InboxMessageBody from "./inbox-message-body";
 import InboxMessageFooter from "./inbox-message-footer";
+import useScreenSize from "@/lib/hooks/useScreenSize";
+import { Toaster } from "../general/UI/sonner";
 
 const InboxMessageDetails: React.FC = () => {
   const { activeMessage } = useAppSelector((state) => state.inboxMessages);
   const { inbox } = useAppSelector((state) => state.activeSlug);
   const [currentMessage, setCurrentMessage] = useState<RandomMessages>();
   const { pathname } = useLocation();
+  const { isMobile } = useScreenSize();
 
   const activeInboxTab = inbox || pathname.split("/")[3];
 
@@ -30,6 +33,10 @@ const InboxMessageDetails: React.FC = () => {
 
   return (
     <InboxContainer>
+      <Toaster
+        richColors
+        position={`${isMobile ? "top-center" : "bottom-right"}`}
+      />
       <InboxMessageHeader activeTab={activeInboxTab} message={currentMessage} />
       <InboxMessageBody message={currentMessage} />
       <InboxMessageFooter />
