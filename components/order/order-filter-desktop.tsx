@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { orderFilterMenu, OrderFilterMobileProps } from "@/lib/dummy-database";
+import React, { useEffect, useState } from "react";
+import { orderFilterMenu } from "@/lib/dummy-database";
 import {
   formatDateRange,
   makeFirstLetterUppercase,
@@ -16,16 +16,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../general/UI/select";
-import { useAppSelector } from "@/lib/store/redux-hooks";
-import { DateRange } from "react-day-picker";
+import { OrderFilterMobileProps } from "@/lib/types/types";
 
 const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
   calendarState,
   selectedDateState,
   handleApply,
+  handleFilter,
 }) => {
+  const [filterValues, setFilterValues] = useState({
+    type: "Type",
+    status: "Status",
+  });
   const { isCalendarOpen, setIsCalendarOpen } = calendarState;
-  const { selectedDate, setSelectedDate } = selectedDateState;
+  const { selectedDate } = selectedDateState;
+
+  const onFilterValueChange = (key: string, newValue: string) =>
+    setFilterValues((prevState) => ({
+      ...prevState,
+      [key]: newValue,
+    }));
+
+  useEffect(() => {
+    selectedDate && handleFilter("date", formatDateRange(selectedDate));
+  }, [handleFilter, selectedDate]);
 
   return (
     <div className="max-h-18 relative mt-3 flex w-full items-center">
@@ -37,14 +51,14 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
         <>
           {key !== "date" ? (
             <div key={key}>
-              <Select>
-                <SelectTrigger
-                  onClick={() => {
-                    setIsCalendarOpen(false);
-                  }}
-                  className="flex h-full min-w-40 items-center gap-2 rounded-none border border-l-0 bg-white p-5 text-sm font-bold hover:bg-gray-100 focus:ring-0 dark:bg-dark-150 hover:dark:bg-dark-50"
-                >
-                  <SelectValue placeholder={makeFirstLetterUppercase(key)} />
+              <Select
+                onValueChange={(value) => {
+                  handleFilter(key, value);
+                  return onFilterValueChange(key, value);
+                }}
+              >
+                <SelectTrigger className="flex h-full min-w-40 items-center gap-2 rounded-none border border-l-0 bg-white p-5 text-sm font-bold hover:bg-gray-100 focus:ring-0 dark:bg-dark-150 hover:dark:bg-dark-50">
+                  <SelectValue placeholder={filterValues[key]} />
                 </SelectTrigger>
                 <SelectContent className="bg-white text-center dark:bg-dark-150">
                   {value.map((item: string) => (
@@ -79,7 +93,14 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
           )}
         </>
       ))}
-      <Button className="flex h-full items-center gap-2 rounded-none rounded-r-xl border border-l-0 bg-white p-5 text-sm font-bold text-red-500 hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50">
+      <Button
+        onClick={() => {
+          Object.entries(orderFilterMenu).map(([key]) => {
+            handleFilter(key, "");
+          });
+        }}
+        className="flex h-full items-center gap-2 rounded-none rounded-r-xl border border-l-0 bg-white p-5 text-sm font-bold text-red-500 hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50"
+      >
         <GrPowerReset className="text-red-500" />
         Reset Filter
       </Button>

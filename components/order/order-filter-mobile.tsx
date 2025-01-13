@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "../general/UI/dialog";
 import { BiFilterAlt } from "react-icons/bi";
-import { orderFilterMenu, OrderFilterMobileProps } from "@/lib/dummy-database";
+import { orderFilterMenu } from "@/lib/dummy-database";
 import {
   Select,
   SelectContent,
@@ -24,18 +24,41 @@ import {
 } from "@/lib/functions/functions";
 import { Button } from "../general/UI/button";
 import { GrPowerReset } from "react-icons/gr";
+import { OrderFilterMobileProps } from "@/lib/types/types";
 
 const OrderFilterMobile: React.FC<OrderFilterMobileProps> = ({
   calendarState,
   selectedDateState,
   handleApply,
+  handleFilter,
 }) => {
+  const [filterValues, setFilterValues] = useState({
+    type: "Type",
+    status: "Status",
+  });
   const { isCalendarOpen, setIsCalendarOpen } = calendarState;
-  const { selectedDate, setSelectedDate } = selectedDateState;
+  const { selectedDate } = selectedDateState;
+
+  const onFilterValueChange = (key: string, newValue: string) =>
+    setFilterValues((prevState) => ({
+      ...prevState,
+      [key]: newValue,
+    }));
+
+  useEffect(() => {
+    selectedDate && handleFilter("date", formatDateRange(selectedDate));
+  }, [handleFilter, selectedDate]);
 
   return (
     <div className="mt-3 flex items-center justify-end gap-2">
-      <Button className="flex items-center gap-2 rounded-xl bg-white p-5 text-sm font-bold text-red-500 hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50">
+      <Button
+        onClick={() => {
+          Object.entries(orderFilterMenu).map(([key]) => {
+            handleFilter(key, "");
+          });
+        }}
+        className="flex items-center gap-2 rounded-xl bg-white p-5 text-sm font-bold text-red-500 hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50"
+      >
         <GrPowerReset className="text-red-500" />
         Reset Filter
       </Button>
@@ -52,11 +75,14 @@ const OrderFilterMobile: React.FC<OrderFilterMobileProps> = ({
                   <>
                     {key !== "date" ? (
                       <div key={key} className="flex gap-2">
-                        <Select>
+                        <Select
+                          onValueChange={(value) => {
+                            handleFilter(key, value);
+                            return onFilterValueChange(key, value);
+                          }}
+                        >
                           <SelectTrigger className="flex items-center gap-2 rounded-sm bg-white p-3 text-sm font-bold hover:bg-gray-100 focus:ring-0 dark:bg-dark-150 hover:dark:bg-dark-50">
-                            <SelectValue
-                              placeholder={makeFirstLetterUppercase(key)}
-                            />
+                            <SelectValue placeholder={filterValues[key]} />
                           </SelectTrigger>
                           <SelectContent className="bg-white text-center dark:bg-dark-150">
                             {value.map((item: string) => (
@@ -97,7 +123,15 @@ const OrderFilterMobile: React.FC<OrderFilterMobileProps> = ({
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="mt-3 flex flex-row items-center gap-2 sm:justify-start">
-            <Button className="w-10 bg-white text-red-500 dark:bg-dark-100">
+            <Button
+              onClick={() => {
+                Object.entries(orderFilterMenu).map(([key]) => {
+                  handleFilter(key, "");
+                });
+              }}
+              type="button"
+              className="w-10 bg-white text-red-500 dark:bg-dark-100"
+            >
               <GrPowerReset className="text-red-500" />
             </Button>
             <DialogClose asChild className="w-full">
