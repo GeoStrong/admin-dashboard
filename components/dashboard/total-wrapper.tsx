@@ -5,8 +5,8 @@ import profitIcon from "@/public/profit.svg";
 import lossIcon from "@/public/loss.svg";
 import useScreenSize from "@/lib/hooks/useScreenSize";
 import React from "react";
-import { TotalContainer } from "@/lib/dummy-database";
 import { MotionDiv } from "../motion/motion";
+import { TotalContainer } from "@/lib/types/types";
 
 const TotalWrapper: React.FC<{ totalInfo: TotalContainer }> = ({
   totalInfo,
