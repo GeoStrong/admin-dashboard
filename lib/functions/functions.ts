@@ -1,11 +1,13 @@
+import { faker } from "@faker-js/faker";
 import { DateRange } from "react-day-picker";
 import { getProducts } from "../actions/getAsyncData";
 import {
   InboxMessageState,
   MessageTexts,
+  Product,
   RandomMessages,
   ReactDispatchState,
-} from "../dummy-database";
+} from "../types/types";
 import { ExtFile } from "@files-ui/react";
 
 export const divideMessagesPage = (
@@ -196,3 +198,46 @@ export const formatDateRange = (range: DateRange): string => {
   const format = (date: Date) => date.toLocaleDateString();
   return `${format(range.from)} - ${format(range.to)}`;
 };
+
+export const assignDateToProducts = (products: Product[]) =>
+  products.map((product) => {
+    const start = new Date(2015, 0, 1).getTime();
+    const end = new Date().getTime();
+    const randomDate = new Date(
+      start + Math.random() * (end - start),
+    ).toLocaleDateString();
+
+    return {
+      ...product,
+      date: randomDate,
+    };
+  });
+
+export const assignAddressToProducts = (products: Product[]) =>
+  products.map((product) => {
+    const randomStreet = faker.location.streetAddress();
+    const randomCity = faker.location.city();
+    const randomState = faker.location.state();
+    const randomCountry = faker.location.country();
+    const randomAddress = `${randomStreet}, ${randomCity}, ${randomState}, ${randomCountry}`;
+
+    return {
+      ...product,
+      address: randomAddress,
+    };
+  });
+
+export const assignStatusToProducts = (products: Product[]) =>
+  products.map((product) => {
+    const randomStatus: Product["status"] =
+      Math.random() < 0.33
+        ? "completed"
+        : Math.random() < 0.5
+          ? "processing"
+          : "rejected";
+
+    return {
+      ...product,
+      status: randomStatus,
+    };
+  });
