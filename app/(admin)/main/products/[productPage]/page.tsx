@@ -1,6 +1,6 @@
 import ProductsList from "@/components/products/products-list";
 import { getProducts } from "@/lib/actions/getAsyncData";
-import { getDividedProducts, Product } from "@/lib/dummy-database";
+import { getDividedProducts } from "@/lib/dummy-database";
 import React from "react";
 
 type ProductPageParams = Promise<{ productPage: number }>;

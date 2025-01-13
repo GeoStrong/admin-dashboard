@@ -10,7 +10,7 @@ import FavoriteButton from "@/components/products/favorite-button";
 import { Button } from "@/components/general/UI/button";
 import ProductsPagination from "@/components/products/products-pagination";
 import Link from "next/link";
-import { Product } from "@/lib/dummy-database";
+import { Product } from "@/lib/types/types";
 
 const ProductsList: React.FC<{
   products: Product[];

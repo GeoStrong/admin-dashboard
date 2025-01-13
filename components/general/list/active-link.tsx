@@ -2,10 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { Links } from "@/lib/dummy-database";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { MotionDiv, MotionLI } from "@/components/motion/motion";
+import { Links } from "@/lib/types/types";
 
 const ActiveLink: React.FC<{ link: Links }> = ({ link }) => {
   const pathname = usePathname();

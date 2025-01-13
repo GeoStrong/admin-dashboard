@@ -8,10 +8,8 @@ import useScreenSize from "@/lib/hooks/useScreenSize";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import InboxRecordAudio from "./inbox-record-audio";
-import { InboxRecorderControls, MessageTexts } from "@/lib/dummy-database";
 import {
   checkIsAttachmentImage,
-  decodeFileObject,
   retrieveDate,
   stringifyBlobObject,
   strungifyFileObject,
@@ -21,8 +19,8 @@ import { TiDelete } from "react-icons/ti";
 import { AnimatePresence } from "framer-motion";
 import { MotionDiv } from "../motion/motion";
 import { toast } from "sonner";
-import { Toaster } from "../general/UI/sonner";
 import { useEffectOnce } from "react-use";
+import { InboxRecorderControls, MessageTexts } from "@/lib/types/types";
 
 const InboxMessageFooter: React.FC = () => {
   const dispatch = useAppDispatch();

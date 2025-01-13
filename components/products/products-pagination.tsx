@@ -10,7 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../general/UI/pagination";
-import { Product } from "@/lib/dummy-database";
+import { Product } from "@/lib/types/types";
 
 const ProductsPagination: React.FC<{
   pages: Product[];

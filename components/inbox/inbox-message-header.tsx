@@ -1,30 +1,19 @@
 import { MdOutlineArrowBackIos } from "react-icons/md";
-import React, { useRef } from "react";
-import { RandomMessages } from "@/lib/dummy-database";
-import Link from "next/link";
-import useScreenSize from "@/lib/hooks/useScreenSize";
-import { Avatar, AvatarFallback, AvatarImage } from "../general/UI/avatar";
-import ProfileSettings from "../general/profile/profile-settings";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../general/UI/dropdown-menu";
 import CustomAvatar from "../general/UI/custom-avatar";
-import InboxMailTools from "./inbox-mail-tools";
 import MailSpamIcon from "@/public/svg/mail-icons/mail-spam-icon";
 import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import useInboxTools from "@/lib/hooks/useInboxTools";
 import { Button } from "../general/UI/button";
 import { useRouter } from "next/navigation";
+import { RandomMessages } from "@/lib/types/types";
 
 const InboxMessageHeader: React.FC<{
   activeTab: string;

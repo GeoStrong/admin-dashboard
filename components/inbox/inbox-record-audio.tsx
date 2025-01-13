@@ -1,12 +1,12 @@
-import React, { Dispatch, FormEvent, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
 import {
   BsFillStopCircleFill,
   BsFillPauseCircleFill,
   BsFillPlayCircleFill,
 } from "react-icons/bs";
-import { InboxRecorderControls } from "@/lib/dummy-database";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
+import { InboxRecorderControls } from "@/lib/types/types";
 
 const InboxRecordAudio: React.FC<{
   setRecorderControls?: Dispatch<SetStateAction<InboxRecorderControls>>;
@@ -15,8 +15,7 @@ const InboxRecordAudio: React.FC<{
 }> = ({ setRecorderControls, formHandler, className }) => {
   const [displayVoiceRecorder, setDisplayVoiceRecorder] = React.useState(false);
   const recorderControls = useVoiceVisualizer();
-  const { recordedBlob, error, isRecordingInProgress, audioRef } =
-    recorderControls;
+  const { recordedBlob, error, isRecordingInProgress } = recorderControls;
   const { theme } = useModeSwitch("red", "#fff");
 
   // Get the recorded audio blob
@@ -24,16 +23,16 @@ const InboxRecordAudio: React.FC<{
     if (!recordedBlob) return;
 
     formHandler(recordedBlob);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordedBlob, error]);
 
   useEffect(() => {
     if (!error) return;
-
-    // console.log(error);
   }, [error]);
 
   useEffect(() => {
     setRecorderControls && setRecorderControls(recorderControls);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecordingInProgress]);
 
   useEffect(() => {

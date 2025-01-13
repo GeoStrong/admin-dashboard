@@ -6,7 +6,6 @@ import { useDebouncedCallback } from "use-debounce";
 import searchIcon from "@/public/search.svg";
 import searchDarkIcon from "@/public/search-dark.svg";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
-import useLocation from "@/lib/hooks/useLocation";
 import { useEffectOnce } from "react-use";
 import { TiDelete } from "react-icons/ti";
 import { clearSearchValue } from "@/lib/functions/functions";
@@ -15,7 +14,6 @@ import { useAppSelector } from "@/lib/store/redux-hooks";
 const InboxSearchInput: React.FC = () => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  // const { pathname } = useLocation();
   const { inbox } = useAppSelector((state) => state.activeSlug);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchValue, setSearchValue] = useState<string>("");

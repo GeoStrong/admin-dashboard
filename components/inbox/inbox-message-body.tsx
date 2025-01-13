@@ -1,9 +1,7 @@
 import { AiOutlineMore } from "react-icons/ai";
-import { MessageTexts, RandomMessages } from "@/lib/dummy-database";
 import CustomAvatar from "../general/UI/custom-avatar";
 import {
   checkIsAttachmentImage,
-  // checkIsAttachmentImage,
   checkIsMessageAudio,
   decodeFileObject,
   getTime,
@@ -25,6 +23,7 @@ import InboxAudioMessage from "./inbox-audio-message";
 import Image from "next/image";
 import { FileMosaic } from "@files-ui/react";
 import { toast } from "sonner";
+import { MessageTexts, RandomMessages } from "@/lib/types/types";
 
 const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
   message,

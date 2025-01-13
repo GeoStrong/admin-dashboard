@@ -4,7 +4,7 @@ import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import React from "react";
 import { MotionDiv } from "../motion/motion";
-import { ToolFunctions } from "@/lib/dummy-database";
+import { ToolFunctions } from "@/lib/types/types";
 
 const InboxMailTools: React.FC<{
   display: boolean;

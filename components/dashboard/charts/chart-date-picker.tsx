@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/general/UI/dropdown-menu";
 import DropdownIcon from "@/public/svg/dropdown-icon";
-import { MonthSettings } from "@/lib/dummy-database";
+import { MonthSettings } from "@/lib/types/types";
 
 const ChartDatePicker: React.FC<MonthSettings> = ({
   monthData,

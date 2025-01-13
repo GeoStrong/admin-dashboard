@@ -5,7 +5,6 @@ import Form from "next/form";
 import { useAppDispatch } from "@/lib/store/redux-hooks";
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { useFormStatus } from "react-dom";
-import { MessageSender } from "@/lib/dummy-database";
 import { AiOutlinePlus } from "react-icons/ai";
 import {
   Sheet,
@@ -33,6 +32,7 @@ import { MotionDiv } from "../motion/motion";
 import { Textarea } from "../general/UI/textarea";
 import { Button } from "../general/UI/button";
 import { ImSpinner2 } from "react-icons/im";
+import { MessageSender } from "@/lib/types/types";
 
 const InboxSendButton: React.FC<{
   disabledState: boolean;

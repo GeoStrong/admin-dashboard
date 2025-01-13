@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RandomMessages } from "@/lib/dummy-database";
 import { getInboxMessages } from "../actions/getAsyncData";
+import { RandomMessages } from "../types/types";
 
 interface InboxMessagesState {
   primaryMessages: RandomMessages[];

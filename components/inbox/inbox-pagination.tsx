@@ -7,8 +7,8 @@ import {
   PaginationItem,
   PaginationLink,
 } from "../general/UI/pagination";
-import { RandomMessages } from "@/lib/dummy-database";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { RandomMessages } from "@/lib/types/types";
 
 interface InboxPaginationProps {
   messages: RandomMessages[][];

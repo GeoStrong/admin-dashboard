@@ -5,12 +5,13 @@ import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import InboxMessages from "./inbox-messages";
 import InboxComposeButton from "./inbox-compose-button";
 import InboxMailTools from "./inbox-mail-tools";
-import { InboxMessageState, RandomMessages } from "@/lib/dummy-database";
+import { InboxMessageState } from "@/lib/dummy-database";
 import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";
 import { searchMessagesByQuery } from "@/lib/functions/functions";
+import { RandomMessages } from "@/lib/types/types";
 
 const InboxMobileContent: React.FC<{
   activeTab: string;

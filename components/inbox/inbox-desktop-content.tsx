@@ -5,7 +5,7 @@ import InboxMailTools from "./inbox-mail-tools";
 import InboxMessages from "./inbox-messages";
 import InboxSearchInput from "./inbox-search-input";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
-import { InboxMessageState, RandomMessages } from "@/lib/dummy-database";
+import { InboxMessageState } from "@/lib/dummy-database";
 import InboxPagination from "./inbox-pagination";
 import {
   divideMessagesPage,
@@ -15,7 +15,7 @@ import { useEffectOnce } from "react-use";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";
-import useLocation from "@/lib/hooks/useLocation";
+import { RandomMessages } from "@/lib/types/types";
 
 const InboxDesktopContent: React.FC<{
   activeTab: string;

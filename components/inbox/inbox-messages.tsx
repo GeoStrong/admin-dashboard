@@ -7,17 +7,13 @@ import { Button } from "../general/UI/button";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLongPress } from "react-use";
 import useScreenSize from "@/lib/hooks/useScreenSize";
-import {
-  defaultOptions,
-  InboxMessageState,
-  RandomMessages,
-  ReactDispatchState,
-} from "@/lib/dummy-database";
+import { defaultOptions, InboxMessageState } from "@/lib/dummy-database";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
 import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { retrieveDate, toggleMessageStatus } from "@/lib/functions/functions";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../general/UI/avatar";
+import { RandomMessages, ReactDispatchState } from "@/lib/types/types";
 
 interface InboxMessagesProps {
   messageCheckStatus: InboxMessageState | boolean;

@@ -1,10 +1,16 @@
-import { MessageSender, Product, RandomMessages } from "@/lib/dummy-database";
-import { sortMessagesByDate } from "../functions/functions";
+import {
+  assignAddressToProducts,
+  assignDateToProducts,
+  assignStatusToProducts,
+  sortMessagesByDate,
+} from "../functions/functions";
+import { MessageSender, Product, RandomMessages } from "../types/types";
 
 export const getProducts = async (): Promise<{
   response: any;
   products: Product[];
   categories: string[];
+  orderProducts: Product[];
 }> => {
   const request = await fetch("https://fakestoreapi.in/api/products");
   const response = await request.json();
@@ -19,7 +25,22 @@ export const getProducts = async (): Promise<{
     [],
   );
 
-  return { response, products: response.products, categories };
+  const productsWithDate = assignDateToProducts(response.products);
+  const productsWithAddress = assignAddressToProducts(productsWithDate);
+  const productsWithStatus = assignStatusToProducts(productsWithAddress);
+
+  productsWithStatus.sort((a, b) => {
+    const dateA = new Date(a.date.split(".").reverse().join("-"));
+    const dateB = new Date(b.date.split(".").reverse().join("-"));
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  return {
+    response,
+    products: response.products,
+    categories,
+    orderProducts: productsWithStatus,
+  };
 };
 
 export const getSingleProduct = async (

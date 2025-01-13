@@ -1,13 +1,6 @@
 import InboxDesktopContent from "@/components/inbox/inbox-desktop-content";
 import InboxMobileContent from "@/components/inbox/inbox-mobile-content";
-
-type InboxTabParams = Promise<{ inboxTab: string }>;
-type SearchParams = Promise<{ query: string }>;
-
-interface SearchParamsProps {
-  searchParams?: SearchParams;
-  params: InboxTabParams;
-}
+import { SearchParamsProps } from "@/lib/types/types";
 
 const InboxTab: React.FC<SearchParamsProps> = async ({
   params,

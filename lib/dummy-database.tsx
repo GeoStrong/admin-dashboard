@@ -27,130 +27,22 @@ import MailDraftsIcon from "@/public/svg/mail-icons/mail-drafts-icon";
 import MailSpamIcon from "@/public/svg/mail-icons/mail-spam-icon";
 import MailImportantIcon from "@/public/svg/mail-icons/mail-important-icon";
 import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
-import { StaticImageData } from "next/image";
 import { retrieveCategories } from "./functions/functions";
 import OrderCalendar from "@/components/order/order-calendar";
-import { DateRange } from "react-day-picker";
-
-export interface RandomData {
-  name?: string;
-  pv?: number;
-  Sales?: number;
-  Profit?: number;
-  uv?: number;
-  value?: number;
-}
-
-export interface TotalContainer {
-  name: string;
-  quantity: string | number;
-  icon: StaticImageData;
-  status: string;
-  percentage: string;
-  time: string;
-}
-
-export interface Links {
-  name: string;
-  href: string;
-  hrefName?: string;
-  icon?: React.ReactNode;
-}
-
-export interface ChartData {
-  name: string;
-  data?: RandomData[];
-  value?: RandomData[];
-}
-
-export interface MonthSettings {
-  monthData: ChartData[];
-  activeMonth: string;
-  setActiveMonth: (month: string) => void;
-}
-
-export interface Product {
-  id: number;
-  title: string;
-  image: string;
-  price: number;
-  description: string;
-  brand: string;
-  model: string;
-  color: string;
-  category: string;
-  discount: number;
-}
-
-export interface MessageTexts {
-  date: string;
-  from: "receiver" | "sender";
-  text: string;
-  attachment?: string;
-  // attachment?: { file: string; name: string; type: string };
-}
-
-export interface MessageSender {
-  email: string;
-  fullname: string;
-  profileImage: string;
-}
-
-export interface RandomMessages {
-  attachment: [{ filename: string; size: string }];
-  date: string;
-  header: string;
-  id: string;
-  messages: MessageTexts[];
-  sender: MessageSender;
-  text: string;
-}
-
-export interface InboxRecorderControls {
-  recordedBlob: Blob;
-  isRecordingInProgress: boolean;
-  isCleared: boolean;
-  isPausedRecording: boolean;
-  startRecording(): void;
-  stopRecording(): void;
-  clearCanvas(): void;
-}
-
-type OrderFilterMenuStatus = "completed" | "processing" | "rejected";
-
-export interface OrderFilterMenuProps {
-  date: React.ReactNode;
-  type: Product["category"][];
-  status: OrderFilterMenuStatus[];
-}
-
-export type ToolFunctions = () => void;
-
-export type ReactDispatchState = React.Dispatch<
-  React.SetStateAction<InboxMessageState | InboxMessageState[]>
->;
+import {
+  ChartData,
+  Links,
+  OrderFilterMenuProps,
+  Product,
+  RandomData,
+  TotalContainer,
+} from "./types/types";
 
 export const orderFilterMenu: OrderFilterMenuProps = {
   date: <OrderCalendar />,
   type: await retrieveCategories(),
   status: ["completed", "processing", "rejected"],
 };
-
-export interface CalendarState {
-  isCalendarOpen: boolean;
-  setIsCalendarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface SelectedDateState {
-  selectedDate: DateRange | null;
-  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | null>>;
-}
-
-export interface OrderFilterMobileProps {
-  calendarState: CalendarState;
-  selectedDateState: SelectedDateState;
-  handleApply: () => void;
-}
 
 const generateRandomData = (
   data: RandomData[],
