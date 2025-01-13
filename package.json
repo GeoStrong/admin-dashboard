@@ -50,6 +50,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@types/node": "22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-world-flags": "^1.6.0",
