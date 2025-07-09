@@ -145,12 +145,6 @@ export const mainLinks: Links[] = [
     hrefName: "/main/order",
     icon: <OrderIcon />,
   },
-  {
-    name: "Product Stock",
-    href: "/main/product-stock",
-    hrefName: "/main/product-stock",
-    icon: <ProductStockIcon />,
-  },
 ];
 
 export const pagesLinks: Links[] = [

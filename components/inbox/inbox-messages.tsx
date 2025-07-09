@@ -5,7 +5,7 @@ import MailStarredIcon from "@/public/svg/mail-icons/mail-starred-icon";
 import { Checkbox } from "../general/UI/checkbox";
 import { Button } from "../general/UI/button";
 import React, { useCallback, useEffect, useState } from "react";
-import { useLongPress } from "react-use";
+import { useLongPress } from "@/lib/hooks/useReactUse";
 import useScreenSize from "@/lib/hooks/useScreenSize";
 import { defaultOptions, InboxMessageState } from "@/lib/dummy-database";
 import { useAppDispatch, useAppSelector } from "@/lib/store/redux-hooks";
@@ -87,7 +87,7 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
     }
   }, [activeMessageData, dispatch, findStarredMessage, inbox]);
 
-  const onLongPress = (event: MouseEvent) => {
+  const onLongPress = (event: React.MouseEvent | React.TouchEvent) => {
     const target = event.target as HTMLDivElement;
     const checkedId = target.getAttribute("checked-id");
 
@@ -98,7 +98,7 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
     );
   };
 
-  const longPressEvent = useLongPress(onLongPress, defaultOptions);
+  const longPressEvent = useLongPress(onLongPress);
 
   return (
     <div className="mt-3 flex flex-col" suppressHydrationWarning>

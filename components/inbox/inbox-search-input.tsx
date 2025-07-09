@@ -6,7 +6,7 @@ import { useDebouncedCallback } from "use-debounce";
 import searchIcon from "@/public/search.svg";
 import searchDarkIcon from "@/public/search-dark.svg";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
-import { useEffectOnce } from "react-use";
+import { useEffectOnce } from "@/lib/hooks/useReactUse";
 import { TiDelete } from "react-icons/ti";
 import { clearSearchValue } from "@/lib/functions/functions";
 import { useAppSelector } from "@/lib/store/redux-hooks";

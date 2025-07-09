@@ -11,7 +11,7 @@ import {
   divideMessagesPage,
   searchMessagesByQuery,
 } from "@/lib/functions/functions";
-import { useEffectOnce } from "react-use";
+import { useEffectOnce } from "@/lib/hooks/useReactUse";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";

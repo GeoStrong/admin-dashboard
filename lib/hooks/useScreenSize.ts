@@ -1,9 +1,29 @@
 "use client";
 
-import { useWindowSize } from "react-use";
+import { useState, useEffect } from "react";
 
 const useScreenSize = () => {
-  const { width, height } = useWindowSize();
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const { width, height } = windowSize;
 
   const isXsm = width < 640;
   const isSm = width >= 640 && width < 768;

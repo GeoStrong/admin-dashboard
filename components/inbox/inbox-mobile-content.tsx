@@ -6,7 +6,7 @@ import InboxMessages from "./inbox-messages";
 import InboxComposeButton from "./inbox-compose-button";
 import InboxMailTools from "./inbox-mail-tools";
 import { InboxMessageState } from "@/lib/dummy-database";
-import { useEffectOnce } from "react-use";
+import { useEffectOnce } from "@/lib/hooks/useReactUse";
 import { activeSlugAction } from "@/lib/store/active-slug-slice";
 import InboxContainer from "./inbox-container";
 import useInboxTools from "@/lib/hooks/useInboxTools";

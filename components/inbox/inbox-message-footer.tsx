@@ -19,7 +19,7 @@ import { TiDelete } from "react-icons/ti";
 import { AnimatePresence } from "framer-motion";
 import { MotionDiv } from "../motion/motion";
 import { toast } from "sonner";
-import { useEffectOnce } from "react-use";
+import { useEffectOnce } from "@/lib/hooks/useReactUse";
 import { InboxRecorderControls, MessageTexts } from "@/lib/types/types";
 
 const InboxMessageFooter: React.FC = () => {
