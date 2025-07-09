@@ -56,7 +56,7 @@ const SearchInput: React.FC = () => {
       <input
         ref={searchRef}
         type="text"
-        className={`search-input w-full rounded-full border bg-gray-100 bg-left bg-no-repeat p-2 pl-10 text-sm font-normal text-gray-700 dark:bg-dark-150 dark:text-white sm:block lg:block ${isSearchOpen ? "absolute bottom-5 left-0 z-10 block animate-fade-down p-3 animate-duration-500" : "max-[420px]:hidden"}`}
+        className={`search-input w-full rounded-md border bg-gray-100 bg-left bg-no-repeat p-2 pl-10 text-sm font-normal text-gray-700 dark:bg-dark-150 dark:text-white sm:block lg:block ${isSearchOpen ? "absolute bottom-5 left-0 z-10 block animate-fade-down p-3 animate-duration-500" : "max-[420px]:hidden"}`}
         placeholder="Search"
         style={{
           backgroundImage: `url(${bgImage})`,

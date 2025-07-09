@@ -5,6 +5,7 @@ import Image from "next/image";
 import BackNavigation from "@/components/general/UI/back-navigation";
 import FavoriteButton from "@/components/products/favorite-button";
 import { Button } from "@/components/general/UI/button";
+import Link from "next/link";
 
 type ProductIdParams = Promise<{ productId: string }>;
 
@@ -53,9 +54,11 @@ const Product: React.FC<{ params: ProductIdParams }> = async ({ params }) => {
       </div>
       <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <ProductDescriptionAccordion description={product?.description} />
-        <Button className="rounded-xl bg-gray-200 font-bold text-black hover:bg-gray-300 dark:bg-dark-150 dark:text-white">
-          Edit Product
-        </Button>
+        <Link href={`/main/product/${product?.id}/edit`}>
+          <Button className="rounded-xl bg-gray-200 font-bold text-black hover:bg-gray-300 dark:bg-dark-150 dark:text-white">
+            Edit Product
+          </Button>
+        </Link>
       </div>
     </>
   );

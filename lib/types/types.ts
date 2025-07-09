@@ -118,8 +118,8 @@ export interface CalendarState {
 }
 
 export interface SelectedDateState {
-  selectedDate: DateRange | null;
-  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | null>>;
+  selectedDate: DateRange | undefined;
+  setSelectedDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
 }
 
 export interface OrderFilterMobileProps {
@@ -127,6 +127,7 @@ export interface OrderFilterMobileProps {
   selectedDateState: SelectedDateState;
   handleApply: () => void;
   handleFilter: (filter: string, value: string) => void;
+  handleReset: () => void;
 }
 
 export interface SearchParamsProps {

@@ -51,6 +51,37 @@ export const getSingleProduct = async (
   return { product: response.product };
 };
 
+export const updateProduct = async (
+  id: string,
+  productData: Partial<Product>,
+): Promise<{ product: Product }> => {
+  try {
+    const request = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: productData.title,
+        price: productData.price,
+        description: productData.description,
+        image: productData.image,
+        category: productData.category,
+      }),
+    });
+
+    if (!request.ok) {
+      throw new Error(`HTTP error! status: ${request.status}`);
+    }
+
+    const response = await request.json();
+    return { product: response };
+  } catch (error) {
+    console.error("Error updating product:", error);
+    throw new Error("Failed to update product");
+  }
+};
+
 const fetchInboxMessages = async (): Promise<RandomMessages[]> => {
   const request = await fetch(
     `https://api.json-generator.com/templates/MHiNV6u2IvNx/data?access_token=${process.env.NEXT_PUBLIC_MESSAGES_API_KEY}`,

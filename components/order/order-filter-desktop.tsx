@@ -17,19 +17,22 @@ import {
   SelectValue,
 } from "../general/UI/select";
 import { OrderFilterMobileProps } from "@/lib/types/types";
+import { useSearchParams } from "next/navigation";
 
 const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
   calendarState,
   selectedDateState,
   handleApply,
   handleFilter,
+  handleReset,
 }) => {
   const [filterValues, setFilterValues] = useState({
     type: "Type",
     status: "Status",
   });
   const { isCalendarOpen, setIsCalendarOpen } = calendarState;
-  const { selectedDate } = selectedDateState;
+  const { selectedDate, setSelectedDate } = selectedDateState;
+  const searchParams = useSearchParams();
 
   const onFilterValueChange = (key: string, newValue: string) =>
     setFilterValues((prevState) => ({
@@ -37,14 +40,33 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
       [key]: newValue,
     }));
 
+  const resetFilters = () => {
+    setFilterValues({
+      type: "Type",
+      status: "Status",
+    });
+    handleReset();
+  };
+
+  const activeFiltersCount = Array.from(searchParams.entries()).length;
+
   useEffect(() => {
-    selectedDate && handleFilter("date", formatDateRange(selectedDate));
+    if (selectedDate && selectedDate.from && selectedDate.to) {
+      handleFilter("date", formatDateRange(selectedDate));
+    }
   }, [handleFilter, selectedDate]);
 
   return (
     <div className="max-h-18 relative mt-3 flex w-full items-center">
       <div className="flex items-center gap-2 rounded-none rounded-l-xl border bg-white p-5 text-sm font-bold hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50">
-        <BiFilterAlt className="text-xl" />
+        <div className="relative">
+          <BiFilterAlt className="text-xl" />
+          {activeFiltersCount > 0 && (
+            <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
+              {activeFiltersCount}
+            </span>
+          )}
+        </div>
         <span className="hidden lg:block">Filter By</span>
       </div>
       {Object.entries(orderFilterMenu).map(([key, value]) => (
@@ -52,6 +74,11 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
           {key !== "date" ? (
             <div key={key}>
               <Select
+                value={
+                  filterValues[key] === makeFirstLetterUppercase(key)
+                    ? ""
+                    : filterValues[key]
+                }
                 onValueChange={(value) => {
                   handleFilter(key, value);
                   return onFilterValueChange(key, value);
@@ -82,7 +109,10 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
                 <div className="absolute z-10 mt-2 rounded-md border bg-white p-4 dark:bg-dark-150">
                   {value}
                   <Button
-                    onClick={handleApply}
+                    onClick={() => {
+                      handleApply();
+                      setIsCalendarOpen(false);
+                    }}
                     className="mt-2 w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
                   >
                     Apply
@@ -94,11 +124,7 @@ const OrderFilterDesktop: React.FC<OrderFilterMobileProps> = ({
         </>
       ))}
       <Button
-        onClick={() => {
-          Object.entries(orderFilterMenu).map(([key]) => {
-            handleFilter(key, "");
-          });
-        }}
+        onClick={resetFilters}
         className="flex h-full items-center gap-2 rounded-none rounded-r-xl border border-l-0 bg-white p-5 text-sm font-bold text-red-500 hover:bg-gray-100 dark:bg-dark-150 hover:dark:bg-dark-50"
       >
         <GrPowerReset className="text-red-500" />
