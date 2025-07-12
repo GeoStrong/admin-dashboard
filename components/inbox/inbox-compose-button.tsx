@@ -21,7 +21,7 @@ import {
   CommandInput,
   CommandList,
 } from "../general/UI/command";
-import CommandSubItem from "../general/command-sub-item";
+import CommandSubItem from "../general/UI/command-sub-item";
 import {
   findInboxByContact,
   getAllInboxContacts,

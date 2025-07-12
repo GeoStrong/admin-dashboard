@@ -184,10 +184,10 @@ const InboxMessageBody: React.FC<{ message: RandomMessages }> = ({
                             messages: updatedMessages,
                           };
 
-                          localStorage.setItem(
-                            "activeMessage",
-                            JSON.stringify(updatedMessage),
-                          );
+                          // localStorage.setItem(
+                          //   "activeMessage",
+                          //   JSON.stringify(updatedMessage),
+                          // );
                           dispatch(
                             inboxMessagesAction.setActiveMessage(
                               updatedMessage,

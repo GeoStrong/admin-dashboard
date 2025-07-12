@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Product } from "@/lib/types/types";
+import { EditProductFormProps, Product } from "@/lib/types/types";
 import { Button } from "@/components/general/UI/button";
 import { Textarea } from "@/components/general/UI/textarea";
 import {
@@ -16,12 +16,8 @@ import { X } from "lucide-react";
 import { updateProduct } from "@/lib/actions/getAsyncData";
 import { Label } from "../general/UI/label";
 import { Input } from "../general/UI/input";
-
-interface EditProductFormProps {
-  product: Product;
-  onSave: () => void;
-  onCancel: () => void;
-}
+import { toast, Toaster } from "sonner";
+import useScreenSize from "@/lib/hooks/useScreenSize";
 
 const EditProductForm: React.FC<EditProductFormProps> = ({
   product,
@@ -42,7 +38,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreview, setImagePreview] = useState<string>(product.image || "");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [successMessage, setSuccessMessage] = useState("");
+  const { isMobile } = useScreenSize();
 
   const categories = [
     "mobile",
@@ -137,7 +133,6 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
     e.preventDefault();
 
     if (!validateForm()) {
-      setSuccessMessage("");
       return;
     }
 
@@ -159,7 +154,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
 
       console.log("Product updated successfully:", updatedProduct);
 
-      setSuccessMessage("Product updated successfully!");
+      toast.success("Product updated successfully!");
       setTimeout(() => {
         onSave();
       }, 1500);
@@ -191,23 +186,15 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
     });
     setImagePreview(product.image || "");
     setErrors({});
-    setSuccessMessage("Form reset to original values");
-    setTimeout(() => setSuccessMessage(""), 3000);
+    toast.success("Form reset to original values");
   };
 
   return (
     <div className="rounded-xl bg-white p-6 dark:bg-dark-150">
-      {successMessage && (
-        <div className="mb-6 rounded-lg bg-green-50 p-4 dark:bg-green-900/20">
-          <div className="flex">
-            <div className="ml-3">
-              <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                {successMessage}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      <Toaster
+        richColors
+        position={`${isMobile ? "top-center" : "bottom-right"}`}
+      />
 
       {errors.general && (
         <div className="mb-6 rounded-lg bg-red-50 p-4 dark:bg-red-900/20">
@@ -422,7 +409,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-blue-600 text-white hover:bg-blue-700"
             >
               {isSubmitting ? (
                 <>

@@ -33,10 +33,12 @@ import {
   ChartData,
   Links,
   OrderFilterMenuProps,
+  PricingPlan,
   Product,
   RandomData,
   TotalContainer,
 } from "./types/types";
+import { TodoItem } from "@/lib/types/types";
 
 export const orderFilterMenu: OrderFilterMenuProps = {
   date: <OrderCalendar />,
@@ -330,6 +332,136 @@ export const defaultOptions = {
   isPreventDefault: true,
   delay: 300,
 };
+
+export const pricingPlans: PricingPlan[] = [
+  {
+    name: "Basic",
+    price: "$14.99",
+    period: "Monthly Charge",
+    buttonText: "Get Started",
+    buttonVariant: "outline",
+    subText: "Start Your 30 Day Free Trial",
+    features: [
+      { text: "Free Setup", included: true },
+      { text: "Bandwidth Limit 10 GB", included: true },
+      { text: "20 User Connection", included: true },
+      { text: "Analytics Report", included: false },
+      { text: "Public API Access", included: false },
+      { text: "Plugins Integration", included: false },
+      { text: "Custom Content Management", included: false },
+    ],
+  },
+  {
+    name: "Standard",
+    price: "$49.99",
+    period: "Monthly Charge",
+    buttonText: "Get Started",
+    buttonVariant: "outline",
+    subText: "Start Your 30 Day Free Trial",
+    isPopular: true,
+    features: [
+      { text: "Free Setup", included: true },
+      { text: "Bandwidth Limit 10 GB", included: true },
+      { text: "20 User Connection", included: true },
+      { text: "Analytics Report", included: true },
+      { text: "Public API Access", included: true },
+      { text: "Plugins Integration", included: false },
+      { text: "Custom Content Management", included: false },
+    ],
+  },
+  {
+    name: "Premium",
+    price: "$89.99",
+    period: "Monthly Charge",
+    buttonText: "Get Started",
+    buttonVariant: "default",
+    subText: "Start Your 30 Day Free Trial",
+    features: [
+      { text: "Free Setup", included: true },
+      { text: "Bandwidth Limit 10 GB", included: true },
+      { text: "20 User Connection", included: true },
+      { text: "Analytics Report", included: true },
+      { text: "Public API Access", included: true },
+      { text: "Plugins Integration", included: true },
+      { text: "Custom Content Management", included: true },
+    ],
+  },
+];
+
+export const pricingFAQs = [
+  {
+    question: "Can I change my plan at any time?",
+    answer:
+      "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.",
+  },
+  {
+    question: "Is there a setup fee?",
+    answer:
+      "No, all our plans include free setup. You can get started immediately with no additional costs.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept all major credit cards, PayPal, and bank transfers for annual subscriptions.",
+  },
+  {
+    question: "Is there a free trial?",
+    answer:
+      "Yes, all plans come with a 30-day free trial. No credit card required to get started.",
+  },
+];
+
+export const initialTodos: TodoItem[] = [
+  {
+    id: "1",
+    text: "Meeting with CEO",
+    completed: false,
+    starred: false,
+    order: 0,
+  },
+  {
+    id: "2",
+    text: "Pick up kids from school",
+    completed: false,
+    starred: true,
+    order: 1,
+  },
+  {
+    id: "3",
+    text: "Shopping with Brother",
+    completed: false,
+    starred: false,
+    order: 2,
+  },
+  {
+    id: "4",
+    text: "Review with HR",
+    completed: true,
+    starred: false,
+    order: 3,
+  },
+  {
+    id: "5",
+    text: "Going to Dia's School",
+    completed: false,
+    starred: false,
+    order: 4,
+  },
+  {
+    id: "6",
+    text: "Check design files",
+    completed: false,
+    starred: true,
+    order: 5,
+  },
+  {
+    id: "7",
+    text: "Update File",
+    completed: false,
+    starred: false,
+    order: 6,
+  },
+];
 
 // const favoriteProducts = [];
 

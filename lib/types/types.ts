@@ -92,6 +92,15 @@ export interface RandomMessages {
   text: string;
 }
 
+export interface ContactProfile {
+  id: string;
+  profiles: MessageSender;
+}
+
+export interface ContactCardProps {
+  contact: ContactProfile;
+}
+
 export interface InboxRecorderControls {
   recordedBlob: Blob;
   isRecordingInProgress: boolean;
@@ -133,4 +142,107 @@ export interface OrderFilterMobileProps {
 export interface SearchParamsProps {
   searchParams?: SearchParams;
   params: InboxTabParams;
+}
+
+export interface TodoItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  starred: boolean;
+  order: number;
+}
+
+export type TodoFilter = "all" | "active" | "completed" | "starred";
+
+export interface InboxMessagesProps {
+  messageCheckStatus: InboxMessageState | boolean;
+  setMessageCheckStatus: ReactDispatchState;
+  dividedMessages: RandomMessages[];
+  displayTools: boolean;
+  setDisplayTools: (display: boolean) => void;
+}
+
+export interface PricingPlan {
+  name: string;
+  price: string;
+  period: string;
+  features: PricingFeatureItem[];
+  buttonText: string;
+  buttonVariant: "outline" | "default";
+  subText: string;
+  isPopular?: boolean;
+}
+
+export interface PricingFeatureItem {
+  text: string;
+  included: boolean;
+}
+
+export interface PricingCardProps {
+  plan: PricingPlan;
+}
+
+export interface InboxPaginationProps {
+  messages: RandomMessages[][];
+  activePage: number;
+  setActivePage: (activePage: number) => void;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface PricingFAQProps {
+  faqs: FAQItem[];
+}
+
+export interface PricingFeatureProps {
+  text: string;
+  included: boolean;
+}
+
+export interface InboxToolsFunction {
+  (
+    messagesCheckboxState: InboxMessageState,
+    setMessagesCheckboxState: (
+      value: React.SetStateAction<InboxMessageState>,
+    ) => void,
+    messages: RandomMessages[],
+    activeTab?: string,
+  ): void;
+}
+
+export interface TodoListProps {
+  todos: TodoItem[];
+  onReorder: (todos: TodoItem[]) => void;
+  onToggleComplete: (id: string) => void;
+  onToggleStar: (id: string) => void;
+  onDelete: (id: string) => void;
+}
+
+export interface TodoItemComponentProps {
+  todo: TodoItem;
+  onToggleComplete: (id: string) => void;
+  onToggleStar: (id: string) => void;
+  onDelete: (id: string) => void;
+}
+
+export interface TodoHeaderProps {
+  onAddTask: () => void;
+}
+
+export interface AddTaskFormProps {
+  onAddTask: (text: string) => void;
+  onCancel: () => void;
+}
+
+export interface EditProductFormProps {
+  product: Product;
+  onSave: () => void;
+  onCancel: () => void;
+}
+
+export interface PricingGridProps {
+  plans: PricingPlan[];
 }

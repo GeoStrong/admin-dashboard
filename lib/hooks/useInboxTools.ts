@@ -1,19 +1,7 @@
-import { InboxMessageState } from "../dummy-database";
 import { getSelectedMessages } from "../functions/functions";
 import { inboxMessagesAction } from "../store/inbox-messages-slice";
 import { useAppDispatch } from "../store/redux-hooks";
-import { RandomMessages } from "../types/types";
-
-interface InboxToolsFunction {
-  (
-    messagesCheckboxState: InboxMessageState,
-    setMessagesCheckboxState: (
-      value: React.SetStateAction<InboxMessageState>,
-    ) => void,
-    messages: RandomMessages[],
-    activeTab?: string,
-  ): void;
-}
+import { InboxToolsFunction, RandomMessages } from "../types/types";
 
 const useInboxTools = () => {
   const dispatch = useAppDispatch();

@@ -8,13 +8,7 @@ import {
   PaginationLink,
 } from "../general/UI/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { RandomMessages } from "@/lib/types/types";
-
-interface InboxPaginationProps {
-  messages: RandomMessages[][];
-  activePage: number;
-  setActivePage: (activePage: number) => void;
-}
+import { InboxPaginationProps } from "@/lib/types/types";
 
 const InboxPagination: React.FC<InboxPaginationProps> = ({
   messages,

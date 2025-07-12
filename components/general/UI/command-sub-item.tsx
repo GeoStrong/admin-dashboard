@@ -1,5 +1,5 @@
 import { useCommandState } from "cmdk";
-import { CommandItem } from "./UI/command";
+import { CommandItem } from "./command";
 
 const CommandSubItem: React.FC<{
   children: React.ReactNode;

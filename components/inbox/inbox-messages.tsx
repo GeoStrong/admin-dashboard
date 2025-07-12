@@ -13,15 +13,11 @@ import { inboxMessagesAction } from "@/lib/store/inbox-messages-slice";
 import { retrieveDate, toggleMessageStatus } from "@/lib/functions/functions";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../general/UI/avatar";
-import { RandomMessages, ReactDispatchState } from "@/lib/types/types";
-
-interface InboxMessagesProps {
-  messageCheckStatus: InboxMessageState | boolean;
-  setMessageCheckStatus: ReactDispatchState;
-  dividedMessages: RandomMessages[];
-  displayTools: boolean;
-  setDisplayTools: (display: boolean) => void;
-}
+import {
+  InboxMessagesProps,
+  RandomMessages,
+  ReactDispatchState,
+} from "@/lib/types/types";
 
 const InboxMessages: React.FC<InboxMessagesProps> = ({
   messageCheckStatus,
@@ -148,10 +144,10 @@ const InboxMessages: React.FC<InboxMessagesProps> = ({
                   className="z-[5] flex flex-col items-start justify-start gap-2 hover:text-links-background dark:hover:text-links-background md:flex-row md:items-center"
                   onClick={() => {
                     dispatch(inboxMessagesAction.setActiveMessage(message));
-                    localStorage.setItem(
-                      "activeMessage",
-                      JSON.stringify(message),
-                    );
+                    // localStorage.setItem(
+                    //   "activeMessage",
+                    //   JSON.stringify(message),
+                    // );
                   }}
                 >
                   <h3 className="w-40 font-bold">{message.sender.fullname}</h3>

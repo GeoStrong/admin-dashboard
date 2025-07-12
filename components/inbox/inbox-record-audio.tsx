@@ -22,7 +22,13 @@ const InboxRecordAudio: React.FC<{
   useEffect(() => {
     if (!recordedBlob) return;
 
-    formHandler(recordedBlob);
+    console.log("Voice recording completed, sending audio blob:", recordedBlob);
+
+    if (formHandler) {
+      formHandler(recordedBlob);
+    } else {
+      console.error("No formHandler provided to InboxRecordAudio");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recordedBlob, error]);
 
