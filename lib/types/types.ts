@@ -97,6 +97,16 @@ export interface ContactProfile {
   profiles: MessageSender;
 }
 
+export interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: "male" | "female" | "other";
+  profileImage?: string;
+}
+
 export interface ContactCardProps {
   contact: ContactProfile;
 }
@@ -245,4 +255,102 @@ export interface EditProductFormProps {
 
 export interface PricingGridProps {
   plans: PricingPlan[];
+}
+
+export interface AddContactFormProps {
+  onSubmit?: (data: ContactFormData) => void;
+  onCancel?: () => void;
+}
+
+export interface ContactHeaderProps {
+  onAddContact?: () => void;
+  totalContacts?: number;
+}
+
+export interface ContactGridProps {
+  contacts: ContactProfile[];
+}
+
+export interface ContactContainerProps {
+  children: React.ReactNode;
+}
+
+export interface ContactPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  totalContacts: number;
+  contactsPerPage: number;
+  onPageSizeChange?: (pageSize: number) => void;
+}
+
+export interface ContactSearchProps {
+  searchTerm: string;
+  onSearchChange: (searchTerm: string) => void;
+  placeholder?: string;
+}
+
+export interface InvoiceItem {
+  id: string;
+  description: string;
+  quantity: number;
+  baseCost: number;
+  totalCost: number;
+}
+
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  from: {
+    name: string;
+    address: string;
+  };
+  to: {
+    name: string;
+    address: string;
+  };
+  invoiceDate: string;
+  dueDate: string;
+  items: InvoiceItem[];
+  total: number;
+  status: "paid" | "pending" | "overdue" | "draft";
+}
+
+export interface InvoiceListProps {
+  invoices: Invoice[];
+  onSelectInvoice: (invoice: Invoice) => void;
+  selectedInvoiceId?: string;
+}
+
+export interface InvoiceDetailProps {
+  invoice: Invoice;
+  onBack: () => void;
+}
+
+export interface InvoiceHeaderProps {
+  totalInvoices: number;
+  onCreateInvoice?: () => void;
+  onFilterChange?: () => void;
+  hasActiveFilters?: boolean;
+}
+
+export interface InvoiceFilters {
+  status: Invoice["status"] | "all";
+  searchTerm: string;
+  dateRange: "all" | "thisMonth" | "lastMonth" | "thisYear";
+  minAmount: string;
+  maxAmount: string;
+}
+
+export interface InvoiceFilterProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApplyFilters: (filters: InvoiceFilters) => void;
+  filters: InvoiceFilters;
+}
+
+export interface CreateInvoiceFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onCreateInvoice: (invoice: Omit<Invoice, "id">) => void;
 }

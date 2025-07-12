@@ -31,6 +31,7 @@ import { retrieveCategories } from "./functions/functions";
 import OrderCalendar from "@/components/order/order-calendar";
 import {
   ChartData,
+  Invoice,
   Links,
   OrderFilterMenuProps,
   PricingPlan,
@@ -463,14 +464,193 @@ export const initialTodos: TodoItem[] = [
   },
 ];
 
-// const favoriteProducts = [];
-
-// export const addFavoriteProduct = (productId) => {
-//   favoriteProducts.push(productId);
-// };
-
-// export const removeFavoriteProduct = (productId) => {
-//   favoriteProducts.filter((id) => id !== productId);
-// };
-
-// export default favoriteProducts;
+export const MOCK_INVOICES: Invoice[] = [
+  {
+    id: "1",
+    invoiceNumber: "INV-001",
+    from: {
+      name: "Virginia Walker",
+      address: "9694 Krajcik Locks Suite 635",
+    },
+    to: {
+      name: "Austin Miller",
+      address: "Brookview",
+    },
+    invoiceDate: "2024-11-12",
+    dueDate: "2024-12-25",
+    items: [
+      {
+        id: "1",
+        description: "Children Toy",
+        quantity: 2,
+        baseCost: 20,
+        totalCost: 80,
+      },
+      {
+        id: "2",
+        description: "Makeup",
+        quantity: 2,
+        baseCost: 50,
+        totalCost: 100,
+      },
+      {
+        id: "3",
+        description: "Asus Laptop",
+        quantity: 5,
+        baseCost: 100,
+        totalCost: 500,
+      },
+      {
+        id: "4",
+        description: "Iphone X",
+        quantity: 4,
+        baseCost: 1000,
+        totalCost: 4000,
+      },
+    ],
+    total: 4680,
+    status: "pending",
+  },
+  {
+    id: "2",
+    invoiceNumber: "INV-002",
+    from: {
+      name: "TechCorp Solutions",
+      address: "1234 Business Ave, Suite 100",
+    },
+    to: {
+      name: "Global Industries",
+      address: "5678 Commerce Street",
+    },
+    invoiceDate: "2024-11-15",
+    dueDate: "2024-12-15",
+    items: [
+      {
+        id: "1",
+        description: "Software License",
+        quantity: 10,
+        baseCost: 299,
+        totalCost: 2990,
+      },
+      {
+        id: "2",
+        description: "Training Services",
+        quantity: 1,
+        baseCost: 1500,
+        totalCost: 1500,
+      },
+    ],
+    total: 4490,
+    status: "paid",
+  },
+  {
+    id: "3",
+    invoiceNumber: "INV-003",
+    from: {
+      name: "Creative Agency",
+      address: "456 Design Boulevard",
+    },
+    to: {
+      name: "StartupCo",
+      address: "789 Innovation Drive",
+    },
+    invoiceDate: "2024-11-20",
+    dueDate: "2024-12-20",
+    items: [
+      {
+        id: "1",
+        description: "Logo Design",
+        quantity: 1,
+        baseCost: 800,
+        totalCost: 800,
+      },
+      {
+        id: "2",
+        description: "Website Development",
+        quantity: 1,
+        baseCost: 3200,
+        totalCost: 3200,
+      },
+      {
+        id: "3",
+        description: "Brand Guidelines",
+        quantity: 1,
+        baseCost: 500,
+        totalCost: 500,
+      },
+    ],
+    total: 4500,
+    status: "overdue",
+  },
+  {
+    id: "4",
+    invoiceNumber: "INV-004",
+    from: {
+      name: "Consulting Pro",
+      address: "321 Advisory Lane",
+    },
+    to: {
+      name: "Enterprise Corp",
+      address: "654 Executive Plaza",
+    },
+    invoiceDate: "2024-11-25",
+    dueDate: "2025-01-25",
+    items: [
+      {
+        id: "1",
+        description: "Strategy Consultation",
+        quantity: 20,
+        baseCost: 150,
+        totalCost: 3000,
+      },
+      {
+        id: "2",
+        description: "Market Analysis",
+        quantity: 1,
+        baseCost: 2500,
+        totalCost: 2500,
+      },
+    ],
+    total: 5500,
+    status: "draft",
+  },
+  {
+    id: "5",
+    invoiceNumber: "INV-005",
+    from: {
+      name: "Digital Solutions",
+      address: "987 Tech Park Way",
+    },
+    to: {
+      name: "Retail Chain Ltd",
+      address: "147 Shopping Center Blvd",
+    },
+    invoiceDate: "2024-12-01",
+    dueDate: "2024-12-31",
+    items: [
+      {
+        id: "1",
+        description: "E-commerce Platform",
+        quantity: 1,
+        baseCost: 5000,
+        totalCost: 5000,
+      },
+      {
+        id: "2",
+        description: "Payment Integration",
+        quantity: 1,
+        baseCost: 1200,
+        totalCost: 1200,
+      },
+      {
+        id: "3",
+        description: "Mobile App",
+        quantity: 1,
+        baseCost: 3500,
+        totalCost: 3500,
+      },
+    ],
+    total: 9700,
+    status: "pending",
+  },
+];

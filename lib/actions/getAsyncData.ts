@@ -223,7 +223,7 @@ export const getProfiles = async (): Promise<
     const response = await fetchInboxMessages();
 
     if (!Array.isArray(response) || response.length === 0) {
-      return [];
+      return generateMockContacts();
     }
 
     const profiles = response.map((message) => ({
@@ -231,11 +231,110 @@ export const getProfiles = async (): Promise<
       profiles: message.sender,
     }));
 
+    // If we have less than 20 contacts, add some mock ones to demonstrate pagination
+    if (profiles.length < 20) {
+      const mockContacts = generateMockContacts(20 - profiles.length);
+      return [...profiles, ...mockContacts];
+    }
+
     return profiles;
   } catch (error) {
     console.error("Error in getProfiles:", error);
-    return [];
+    return generateMockContacts();
   }
+};
+
+// Helper function to generate mock contacts for demonstration
+const generateMockContacts = (
+  count: number = 25,
+): { id: string; profiles: MessageSender }[] => {
+  const firstNames = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "Diana",
+    "Edward",
+    "Fiona",
+    "George",
+    "Hannah",
+    "Ian",
+    "Julia",
+    "Kevin",
+    "Laura",
+    "Michael",
+    "Nina",
+    "Oliver",
+    "Paula",
+    "Quinn",
+    "Rachel",
+    "Samuel",
+    "Tina",
+    "Uma",
+    "Victor",
+    "Wendy",
+    "Xavier",
+    "Yara",
+    "Zoe",
+  ];
+
+  const lastNames = [
+    "Anderson",
+    "Brown",
+    "Clark",
+    "Davis",
+    "Evans",
+    "Garcia",
+    "Harris",
+    "Johnson",
+    "Jones",
+    "Miller",
+    "Moore",
+    "Rodriguez",
+    "Smith",
+    "Taylor",
+    "Thomas",
+    "White",
+    "Williams",
+    "Wilson",
+    "Martinez",
+    "Lopez",
+    "Gonzalez",
+    "Perez",
+    "Sanchez",
+    "Ramirez",
+  ];
+
+  const companies = [
+    "@tech-corp.com",
+    "@innovate.io",
+    "@startup.co",
+    "@enterprise.net",
+    "@digital.com",
+    "@solutions.org",
+    "@systems.biz",
+    "@creative.agency",
+    "@consulting.pro",
+    "@design.studio",
+  ];
+
+  const mockContacts = [];
+
+  for (let i = 0; i < count; i++) {
+    const firstName = firstNames[i % firstNames.length];
+    const lastName = lastNames[i % lastNames.length];
+    const company = companies[i % companies.length];
+
+    mockContacts.push({
+      id: `mock-contact-${i + 1}`,
+      profiles: {
+        email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${company}`,
+        fullname: `${firstName} ${lastName}`,
+        profileImage: `https://ui-avatars.com/api/?name=${firstName}+${lastName}&background=random&size=200`,
+      },
+    });
+  }
+
+  return mockContacts;
 };
 
 export const clearInboxMessagesCache = (): void => {

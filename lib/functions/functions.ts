@@ -3,6 +3,7 @@ import { DateRange } from "react-day-picker";
 import { getProducts } from "../actions/getAsyncData";
 import {
   InboxMessageState,
+  Invoice,
   MessageTexts,
   Product,
   RandomMessages,
@@ -241,3 +242,33 @@ export const assignStatusToProducts = (products: Product[]) =>
       status: randomStatus,
     };
   });
+
+export const getStatusColor = (status: Invoice["status"]) => {
+  switch (status) {
+    case "paid":
+      return "bg-green-100 text-green-800";
+    case "pending":
+      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200";
+    case "overdue":
+      return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200";
+    case "draft":
+      return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
+    default:
+      return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
+  }
+};
+
+export const formatCurrency = (amount: number): string => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+};
+
+export const formatDate = (dateString: string): string => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
