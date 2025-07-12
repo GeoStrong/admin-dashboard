@@ -7,6 +7,7 @@ const nextConfig = {
       "picsum.photos",
       "api.json-generator.com",
       "images.unsplash.com",
+      "i.pravatar.cc",
     ],
   },
 };

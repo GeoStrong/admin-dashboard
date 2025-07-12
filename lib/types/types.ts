@@ -354,3 +354,41 @@ export interface CreateInvoiceFormProps {
   onClose: () => void;
   onCreateInvoice: (invoice: Omit<Invoice, "id">) => void;
 }
+
+// Team interfaces
+export interface TeamMember {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  position: string;
+  department: string;
+  profileImage: string;
+  joinDate: string;
+  status: "active" | "inactive" | "on-leave";
+  skills: string[];
+  location: string;
+}
+
+export interface TeamFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  position: string;
+  department: string;
+  profileImage?: string;
+  skills: string[];
+  location: string;
+}
+
+export interface TeamCardProps {
+  member: TeamMember;
+}
+
+export interface TeamFilters {
+  department: string;
+  status: string;
+  search: string;
+}

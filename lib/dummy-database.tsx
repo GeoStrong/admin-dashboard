@@ -1,4 +1,5 @@
 import React from "react";
+import { faker } from "@faker-js/faker";
 import usersIcon from "@/public/users.svg";
 import orderIcon from "@/public/order.svg";
 import salesIcon from "@/public/sales.svg";
@@ -37,6 +38,7 @@ import {
   PricingPlan,
   Product,
   RandomData,
+  TeamMember,
   TotalContainer,
 } from "./types/types";
 import { TodoItem } from "@/lib/types/types";
@@ -654,3 +656,180 @@ export const MOCK_INVOICES: Invoice[] = [
     status: "pending",
   },
 ];
+
+// Mock data for charts
+export const barChartData = [
+  { name: "Jan", sales: 4000, revenue: 2400, profit: 1200 },
+  { name: "Feb", sales: 3000, revenue: 1398, profit: 900 },
+  { name: "Mar", sales: 2000, revenue: 9800, profit: 3200 },
+  { name: "Apr", sales: 2780, revenue: 3908, profit: 1800 },
+  { name: "May", sales: 1890, revenue: 4800, profit: 2100 },
+  { name: "Jun", sales: 2390, revenue: 3800, profit: 1600 },
+  { name: "Jul", sales: 3490, revenue: 4300, profit: 2200 },
+  { name: "Aug", sales: 4200, revenue: 5100, profit: 2800 },
+  { name: "Sep", sales: 3800, revenue: 4500, profit: 2400 },
+  { name: "Oct", sales: 4100, revenue: 4800, profit: 2600 },
+  { name: "Nov", sales: 3900, revenue: 4200, profit: 2300 },
+  { name: "Dec", sales: 4500, revenue: 5200, profit: 3000 },
+];
+
+export const lineChartData = [
+  { name: "Week 1", users: 400, sessions: 240 },
+  { name: "Week 2", users: 300, sessions: 139 },
+  { name: "Week 3", users: 200, sessions: 980 },
+  { name: "Week 4", users: 278, sessions: 390 },
+  { name: "Week 5", users: 189, sessions: 480 },
+  { name: "Week 6", users: 239, sessions: 380 },
+  { name: "Week 7", users: 349, sessions: 430 },
+];
+
+export const areaChartData = [
+  { name: "Jan", mobile: 4000, desktop: 2400, tablet: 1200 },
+  { name: "Feb", mobile: 3000, desktop: 1398, tablet: 900 },
+  { name: "Mar", mobile: 2000, desktop: 9800, tablet: 3200 },
+  { name: "Apr", mobile: 2780, desktop: 3908, tablet: 1800 },
+  { name: "May", mobile: 1890, desktop: 4800, tablet: 2100 },
+  { name: "Jun", mobile: 2390, desktop: 3800, tablet: 1600 },
+];
+
+export const pieChartData = [
+  { name: "Desktop", value: 400, color: "#0088FE" },
+  { name: "Mobile", value: 300, color: "#00C49F" },
+  { name: "Tablet", value: 200, color: "#FFBB28" },
+  { name: "Other", value: 100, color: "#FF8042" },
+];
+
+export const donutChartData = [
+  { name: "Product A", value: 35, color: "#8884d8" },
+  { name: "Product B", value: 25, color: "#82ca9d" },
+  { name: "Product C", value: 20, color: "#ffc658" },
+  { name: "Product D", value: 15, color: "#ff7300" },
+  { name: "Product E", value: 5, color: "#00ff88" },
+];
+
+export const radarChartData = [
+  { subject: "Math", A: 120, B: 110, fullMark: 150 },
+  { subject: "Chinese", A: 98, B: 130, fullMark: 150 },
+  { subject: "English", A: 86, B: 130, fullMark: 150 },
+  { subject: "Geography", A: 99, B: 100, fullMark: 150 },
+  { subject: "Physics", A: 85, B: 90, fullMark: 150 },
+  { subject: "History", A: 65, B: 85, fullMark: 150 },
+];
+
+export const composedChartData = [
+  { name: "Page A", uv: 590, pv: 800, amt: 1400 },
+  { name: "Page B", uv: 868, pv: 967, amt: 1506 },
+  { name: "Page C", uv: 1397, pv: 1098, amt: 989 },
+  { name: "Page D", uv: 1480, pv: 1200, amt: 1228 },
+  { name: "Page E", uv: 1520, pv: 1108, amt: 1100 },
+  { name: "Page F", uv: 1400, pv: 680, amt: 1700 },
+];
+
+export const chartColors = {
+  primary: "#8884d8",
+  secondary: "#82ca9d",
+  tertiary: "#ffc658",
+  quaternary: "#ff7300",
+  quinary: "#00ff88",
+};
+
+export const chartConfig = {
+  responsive: true,
+  maintainAspectRatio: false,
+};
+
+// Team Mock Data
+const generateTeamMember = (id: string): TeamMember => {
+  const departments = [
+    "Engineering",
+    "Marketing",
+    "Sales",
+    "HR",
+    "Finance",
+    "Design",
+    "Operations",
+  ];
+  const positions = [
+    "Software Engineer",
+    "Senior Developer",
+    "Product Manager",
+    "UX Designer",
+    "Marketing Manager",
+    "Sales Representative",
+    "HR Specialist",
+    "Financial Analyst",
+    "DevOps Engineer",
+    "QA Engineer",
+    "Data Scientist",
+    "Project Manager",
+  ];
+  const skills = [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Python",
+    "TypeScript",
+    "AWS",
+    "Docker",
+    "GraphQL",
+    "MongoDB",
+    "PostgreSQL",
+    "Git",
+    "Agile",
+    "Scrum",
+    "UI/UX",
+    "Marketing",
+    "Sales",
+    "Analytics",
+    "Project Management",
+    "Leadership",
+  ];
+  const locations = [
+    "New York",
+    "San Francisco",
+    "London",
+    "Berlin",
+    "Tokyo",
+    "Remote",
+  ];
+  const statuses = ["active", "inactive", "on-leave"] as const;
+
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+  const selectedSkills = faker.helpers.arrayElements(skills, {
+    min: 2,
+    max: 5,
+  });
+
+  return {
+    id,
+    firstName,
+    lastName,
+    email: faker.internet.email({ firstName, lastName }),
+    phoneNumber: faker.phone.number(),
+    position: faker.helpers.arrayElement(positions),
+    department: faker.helpers.arrayElement(departments),
+    profileImage: `https://i.pravatar.cc/150?img=${parseInt(id)}`,
+    joinDate: faker.date.past({ years: 5 }).toISOString().split("T")[0],
+    status: faker.helpers.arrayElement(statuses),
+    skills: selectedSkills,
+    location: faker.helpers.arrayElement(locations),
+  };
+};
+
+export const teamMembers: TeamMember[] = Array.from(
+  { length: 24 },
+  (_, index) => generateTeamMember((index + 1).toString()),
+);
+
+export const teamDepartments = [
+  "All",
+  "Engineering",
+  "Marketing",
+  "Sales",
+  "HR",
+  "Finance",
+  "Design",
+  "Operations",
+];
+export const teamStatuses = ["All", "active", "inactive", "on-leave"];

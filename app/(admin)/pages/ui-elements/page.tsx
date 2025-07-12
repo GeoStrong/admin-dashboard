@@ -1,6 +1,8 @@
 import React from "react";
+import UIElementsContainer from "@/components/ui-elements/ui-elements-container";
 
 const UIElements: React.FC = () => {
-  return <h2>UI Elements</h2>;
+  return <UIElementsContainer />;
 };
+
 export default UIElements;

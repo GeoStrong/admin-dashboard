@@ -8,6 +8,7 @@ import {
   Product,
   RandomMessages,
   ReactDispatchState,
+  TeamMember,
 } from "../types/types";
 import { ExtFile } from "@files-ui/react";
 
@@ -271,4 +272,43 @@ export const formatDate = (dateString: string): string => {
     month: "short",
     day: "numeric",
   });
+};
+
+// Team Functions
+export const filterTeamMembers = (
+  members: TeamMember[],
+  filters: { department: string; status: string; search: string },
+): TeamMember[] => {
+  return members.filter((member) => {
+    const matchesDepartment =
+      filters.department === "All" || member.department === filters.department;
+    const matchesStatus =
+      filters.status === "All" || member.status === filters.status;
+    const matchesSearch =
+      !filters.search ||
+      `${member.firstName} ${member.lastName}`
+        .toLowerCase()
+        .includes(filters.search.toLowerCase()) ||
+      member.email.toLowerCase().includes(filters.search.toLowerCase()) ||
+      member.position.toLowerCase().includes(filters.search.toLowerCase());
+
+    return matchesDepartment && matchesStatus && matchesSearch;
+  });
+};
+
+export const paginateTeamMembers = (
+  members: TeamMember[],
+  currentPage: number,
+  itemsPerPage: number,
+): TeamMember[] => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return members.slice(startIndex, endIndex);
+};
+
+export const getTotalTeamPages = (
+  totalMembers: number,
+  itemsPerPage: number,
+): number => {
+  return Math.ceil(totalMembers / itemsPerPage);
 };
