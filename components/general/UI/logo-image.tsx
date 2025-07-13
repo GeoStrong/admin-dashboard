@@ -8,6 +8,8 @@ import logoDark from "@/public/logo-dark.png";
 const LogoImage: React.FC<{ className: string }> = ({ className }) => {
   const { themeProperty: logo } = useModeSwitch(logoLight, logoDark);
 
-  return <Image src={logo} alt="logo" className={className} />;
+  return (
+    <Image src={logo ? logo : logoLight} alt="logo" className={className} />
+  );
 };
 export default LogoImage;

@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import useLocation from "@/lib/hooks/useLocation";
 import { mailMenu } from "@/lib/dummy-database";
 import { MotionDiv, MotionLI } from "../motion/motion";
+import { useAppSelector } from "@/lib/store/redux-hooks";
 
 const InboxMenuLinks: React.FC = () => {
-  const { location } = useLocation();
+  const { pathname } = useLocation();
   const [isMounted, setIsMounted] = useState(false);
+  const inboxMessages = useAppSelector((state) => state.inboxMessages);
 
   useEffect(() => {
     setIsMounted(true);
@@ -19,21 +20,32 @@ const InboxMenuLinks: React.FC = () => {
     return null;
   }
 
+  const getMessageQuantity = (name: string): number => {
+    let quantity = 0;
+    Object.keys(inboxMessages).forEach((key) => {
+      if (key.split("Messages")[0] === name.toLocaleLowerCase()) {
+        quantity = inboxMessages[key].length;
+      }
+    });
+
+    return quantity;
+  };
+
   return (
     <ul className="mt-5 flex w-full flex-col gap-3">
       {mailMenu.map((item) => (
         <MotionLI key={item.name}>
           <Link
             href={item.href}
-            className={`hover:active-mail-link relative flex w-full items-center justify-between rounded-md px-5 py-3 transition-all hover:text-links-background
+            className={`hover:active-mail-link relative flex w-full items-center justify-between rounded-md px-5 py-3 transition-all hover:text-links-background dark:hover:text-links-background
               ${
-                item.hash === location.hash
+                pathname.split("/").includes(item.href.split("/")[3])
                   ? "active-mail-link text-links-background"
                   : "text-dark-100 dark:text-white"
               }
                 `}
           >
-            {item.hash === location.hash && (
+            {pathname.split("/").includes(item.href.split("/")[3]) && (
               <MotionDiv
                 layoutId="active"
                 className="active-link-background absolute left-0 h-full w-full rounded-md"
@@ -44,7 +56,9 @@ const InboxMenuLinks: React.FC = () => {
               <span>{item.name}</span>
             </span>
             <span className="text-sm font-thin md:hidden lg:block">
-              {item.quantity}
+              {getMessageQuantity(
+                item.name === "Inbox" ? "primary" : item.name,
+              )}
             </span>
           </Link>
         </MotionLI>

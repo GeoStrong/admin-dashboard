@@ -1,6 +1,8 @@
+import TeamContainer from "@/components/team/team-container";
 import React from "react";
 
 const Team: React.FC = () => {
-  return <h2>Team</h2>;
+  return <TeamContainer />;
 };
+
 export default Team;

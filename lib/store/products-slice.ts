@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "@/lib/dummy-database";
+import { Product } from "../types/types";
 
 const initialState: { favoriteProducts: Product[] } = {
   favoriteProducts: [],

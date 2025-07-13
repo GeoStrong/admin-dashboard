@@ -1,6 +1,6 @@
 import React from "react";
 import ActiveLink from "./active-link";
-import { Links } from "@/lib/dummy-database";
+import { Links } from "@/lib/types/types";
 
 const List: React.FC<{ links: Links[]; borderBottom: boolean }> = ({
   links,

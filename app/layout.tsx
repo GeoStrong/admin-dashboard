@@ -1,10 +1,8 @@
 import { Nunito_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import ThemeProvider from "@/components/general/theme-proivder";
-import StoreProvider from "./store-provider";
-import LoadingProgressBar from "@/components/general/loading-progress-bar";
 import React from "react";
+import RenderChildren from "./render-children";
 
 export const metadata = {
   title: "DashStack",
@@ -24,17 +22,9 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           "grid-main bg-background font-sans antialiased",
           nunito_sans.variable,
         )}
+        suppressHydrationWarning={true}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <StoreProvider>
-            <LoadingProgressBar>{children}</LoadingProgressBar>
-          </StoreProvider>
-        </ThemeProvider>
+        <RenderChildren>{children}</RenderChildren>
       </body>
     </html>
   );

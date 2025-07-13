@@ -10,7 +10,7 @@ import {
   Legend,
 } from "recharts";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
-import { ChartData } from "@/lib/dummy-database";
+import { ChartData } from "@/lib/types/types";
 
 const RenderActiveShape = ({
   cx,

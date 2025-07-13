@@ -1,6 +1,8 @@
 import React from "react";
+import { SettingsContainer } from "@/components/settings/settings-container";
 
 const Settings: React.FC = () => {
-  return <h2>Settings</h2>;
+  return <SettingsContainer />;
 };
+
 export default Settings;

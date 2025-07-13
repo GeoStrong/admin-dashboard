@@ -1,7 +1,11 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-const Skeleton: React.FC<{ className: string }> = ({ className, ...props }) => {
+const Skeleton: React.FC<{ className: string; children?: React.ReactNode }> = ({
+  className,
+  children,
+  ...props
+}) => {
   return (
     <div
       className={cn(
@@ -9,7 +13,9 @@ const Skeleton: React.FC<{ className: string }> = ({ className, ...props }) => {
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 };
 

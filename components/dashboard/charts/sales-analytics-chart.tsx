@@ -1,8 +1,8 @@
 "use client";
 
-import { RandomData } from "@/lib/dummy-database";
 import useModeSwitch from "@/lib/hooks/useModeSwitch";
 import useScreenSize from "@/lib/hooks/useScreenSize";
+import { RandomData } from "@/lib/types/types";
 import React from "react";
 import {
   CartesianGrid,

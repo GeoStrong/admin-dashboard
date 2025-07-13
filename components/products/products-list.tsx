@@ -10,7 +10,7 @@ import FavoriteButton from "@/components/products/favorite-button";
 import { Button } from "@/components/general/UI/button";
 import ProductsPagination from "@/components/products/products-pagination";
 import Link from "next/link";
-import { Product } from "@/lib/dummy-database";
+import { Product } from "@/lib/types/types";
 
 const ProductsList: React.FC<{
   products: Product[];
@@ -48,9 +48,12 @@ const ProductsList: React.FC<{
               <FavoriteButton productId={product.id} />
             </CardContent>
             <CardFooter>
-              <Button className="rounded-xl bg-gray-100 font-bold text-black hover:bg-gray-200 dark:bg-dark-150 dark:text-white">
+              <Link
+                href={`/main/product/${product.id}/edit`}
+                className="rounded-xl bg-gray-100 p-2 text-sm font-bold text-black hover:bg-gray-200 dark:bg-dark-150 dark:text-white"
+              >
                 Edit Product
-              </Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}

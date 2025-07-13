@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/general/UI/carousel";
-import { Product } from "@/lib/dummy-database";
+import { Product } from "@/lib/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
