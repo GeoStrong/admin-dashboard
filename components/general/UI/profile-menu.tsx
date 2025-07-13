@@ -17,9 +17,18 @@ import ProfileSettings from "../profile/profile-settings";
 import { LogOut, Moon, PlusCircle, Sun } from "lucide-react";
 import { MdSystemSecurityUpdateGood } from "react-icons/md";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const ProfileMenu: React.FC = () => {
   const { setTheme } = useTheme();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Clear any authentication tokens/data here if you have them
+    // For now, just redirect to login page
+    router.push("/login");
+  };
 
   return (
     <DropdownMenu>
@@ -29,8 +38,12 @@ const ProfileMenu: React.FC = () => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/account/profile">Profile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/account/settings">Settings</Link>
+        </DropdownMenuItem>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="sm:hidden">
             <span>Theme</span>
@@ -53,7 +66,7 @@ const ProfileMenu: React.FC = () => {
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-700">
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

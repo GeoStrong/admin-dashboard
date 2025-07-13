@@ -392,3 +392,130 @@ export interface TeamFilters {
   status: string;
   search: string;
 }
+
+// Calendar interfaces
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  endTime?: string;
+  location: string;
+  type: "conference" | "festival" | "meeting" | "reminder" | "other";
+  attendees: CalendarAttendee[];
+  color: string;
+}
+
+export interface CalendarAttendee {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  status: "accepted" | "declined" | "pending";
+}
+
+export interface CalendarFormData {
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  endTime: string;
+  location: string;
+  type: CalendarEvent["type"];
+  attendees: string[];
+}
+
+export interface CalendarViewType {
+  view: "month" | "week" | "day";
+}
+
+export interface CalendarFilters {
+  type: string;
+  search: string;
+}
+
+// Settings interfaces
+export interface UserProfile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  avatar: string;
+  role: string;
+  department: string;
+  bio: string;
+  location: string;
+  timezone: string;
+  language: string;
+  joinDate: string;
+}
+
+export interface NotificationSettings {
+  emailNotifications: boolean;
+  pushNotifications: boolean;
+  smsNotifications: boolean;
+  marketingEmails: boolean;
+  securityAlerts: boolean;
+  taskReminders: boolean;
+  meetingReminders: boolean;
+  projectUpdates: boolean;
+}
+
+export interface SecuritySettings {
+  twoFactorAuth: boolean;
+  sessionTimeout: number;
+  passwordChangeRequired: boolean;
+  lastPasswordChange: string;
+  activeSessions: SecuritySession[];
+}
+
+export interface SecuritySession {
+  id: string;
+  device: string;
+  browser: string;
+  location: string;
+  ipAddress: string;
+  lastActive: string;
+  isCurrent: boolean;
+}
+
+export interface AppearanceSettings {
+  theme: "light" | "dark" | "system";
+  language: string;
+  timezone: string;
+  dateFormat: string;
+  timeFormat: "12h" | "24h";
+  compactMode: boolean;
+}
+
+export interface PrivacySettings {
+  profileVisibility: "public" | "team" | "private";
+  showOnlineStatus: boolean;
+  allowDirectMessages: boolean;
+  showEmail: boolean;
+  showPhoneNumber: boolean;
+  activityTracking: boolean;
+}
+
+export interface BillingInfo {
+  plan: string;
+  billingCycle: "monthly" | "yearly";
+  nextBillingDate: string;
+  paymentMethod: {
+    type: "card" | "paypal";
+    last4?: string;
+    expiryDate?: string;
+  };
+  billingHistory: BillingTransaction[];
+}
+
+export interface BillingTransaction {
+  id: string;
+  date: string;
+  amount: number;
+  description: string;
+  status: "paid" | "pending" | "failed";
+  invoice?: string;
+}

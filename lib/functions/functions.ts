@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { DateRange } from "react-day-picker";
 import { getProducts } from "../actions/getAsyncData";
 import {
+  CalendarEvent,
   InboxMessageState,
   Invoice,
   MessageTexts,
@@ -311,4 +312,84 @@ export const getTotalTeamPages = (
   itemsPerPage: number,
 ): number => {
   return Math.ceil(totalMembers / itemsPerPage);
+};
+
+// Calendar Functions
+export const filterCalendarEvents = (
+  events: CalendarEvent[],
+  filters: { type: string; search: string },
+): CalendarEvent[] => {
+  return events.filter((event) => {
+    const matchesType = filters.type === "All" || event.type === filters.type;
+    const matchesSearch =
+      !filters.search ||
+      event.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      event.description.toLowerCase().includes(filters.search.toLowerCase()) ||
+      event.location.toLowerCase().includes(filters.search.toLowerCase());
+
+    return matchesType && matchesSearch;
+  });
+};
+
+export const getEventsForDate = (
+  events: CalendarEvent[],
+  date: string,
+): CalendarEvent[] => {
+  return events.filter((event) => event.date === date);
+};
+
+export const getEventsForMonth = (
+  events: CalendarEvent[],
+  year: number,
+  month: number,
+): CalendarEvent[] => {
+  return events.filter((event) => {
+    const eventDate = new Date(event.date);
+    return eventDate.getFullYear() === year && eventDate.getMonth() === month;
+  });
+};
+
+export const formatEventTime = (time: string, endTime?: string): string => {
+  if (endTime) {
+    return `${time} - ${endTime}`;
+  }
+  return time;
+};
+
+export const getCalendarDays = (year: number, month: number): Date[] => {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startDate = new Date(firstDay);
+  startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+  const days: Date[] = [];
+  const endDate = new Date(lastDay);
+  endDate.setDate(endDate.getDate() + (6 - lastDay.getDay()));
+
+  for (
+    let date = new Date(startDate);
+    date <= endDate;
+    date.setDate(date.getDate() + 1)
+  ) {
+    days.push(new Date(date));
+  }
+
+  return days;
+};
+
+export const formatCalendarDate = (date: Date): string => {
+  return date.toISOString().split("T")[0];
+};
+
+export const isToday = (date: Date): boolean => {
+  const today = new Date();
+  return date.toDateString() === today.toDateString();
+};
+
+export const isSameMonth = (
+  date: Date,
+  year: number,
+  month: number,
+): boolean => {
+  return date.getFullYear() === year && date.getMonth() === month;
 };

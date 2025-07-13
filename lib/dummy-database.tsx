@@ -9,7 +9,6 @@ import ProductsIcon from "@/public/svg/menu-icons/products-icon";
 import FavoritesIcon from "@/public/svg/menu-icons/favorites-icon";
 import InboxIcon from "@/public/svg/menu-icons/inbox-icon";
 import OrderIcon from "@/public/svg/menu-icons/order-icon";
-import ProductStockIcon from "@/public/svg/menu-icons/product-stock-icon";
 import PricingIcon from "@/public/svg/menu-icons/pricing-icon";
 import CalendarIcon from "@/public/svg/menu-icons/calendar-icon";
 import ToDoIcon from "@/public/svg/menu-icons/todo-icon";
@@ -18,7 +17,6 @@ import InvoiceIcon from "@/public/svg/menu-icons/invoice-icon";
 import UIElementsIcon from "@/public/svg/menu-icons/ui-elements-icon";
 import TeamIcon from "@/public/svg/menu-icons/team-icon";
 import LogoutIcon from "@/public/svg/menu-icons/logout-icon";
-import TableIcon from "@/public/svg/menu-icons/table-icon";
 import SettingsIcon from "@/public/svg/menu-icons/settings-icon";
 import { getProducts } from "./actions/getAsyncData";
 import MailInboxIcon from "@/public/svg/mail-icons/main-inbox-icon";
@@ -31,17 +29,26 @@ import MailBinIcon from "@/public/svg/mail-icons/mail-bin-icon";
 import { retrieveCategories } from "./functions/functions";
 import OrderCalendar from "@/components/order/order-calendar";
 import {
+  AppearanceSettings,
+  BillingInfo,
+  CalendarEvent,
+  CalendarAttendee,
   ChartData,
   Invoice,
   Links,
+  NotificationSettings,
   OrderFilterMenuProps,
   PricingPlan,
+  PrivacySettings,
   Product,
   RandomData,
+  SecuritySettings,
   TeamMember,
   TotalContainer,
+  UserProfile,
 } from "./types/types";
 import { TodoItem } from "@/lib/types/types";
+import avatarImg from "@/public/avatar.png";
 
 export const orderFilterMenu: OrderFilterMenuProps = {
   date: <OrderCalendar />,
@@ -194,12 +201,6 @@ export const pagesLinks: Links[] = [
     href: "/pages/team",
     hrefName: "/pages/team",
     icon: <TeamIcon />,
-  },
-  {
-    name: "Table",
-    href: "/pages/table",
-    hrefName: "/pages/table",
-    icon: <TableIcon />,
   },
 ];
 
@@ -833,3 +834,354 @@ export const teamDepartments = [
   "Operations",
 ];
 export const teamStatuses = ["All", "active", "inactive", "on-leave"];
+
+// Calendar Mock Data
+const generateCalendarEvent = (id: string): CalendarEvent => {
+  const eventTypes = [
+    "conference",
+    "festival",
+    "meeting",
+    "reminder",
+    "other",
+  ] as const;
+  const locations = [
+    "56 Davion Mission Suite 157, Meaghenberg",
+    "852 Moore Flats Suite 158, Sweden",
+    "645 Walter Road Apt. 571, Turks and Caicos Islands",
+    "506 Satterfield Tunnel Apt. 953, San Marino",
+    "Virtual Meeting Room",
+    "Conference Center",
+    "Company Headquarters",
+  ];
+
+  const eventTitles = [
+    "Design Conference",
+    "Weekend Festival",
+    "Glastonbury Festival",
+    "Ultra Europe 2019",
+    "Product Planning Meeting",
+    "Team Standup",
+    "Client Presentation",
+    "Code Review Session",
+    "Marketing Campaign Review",
+    "Quarterly Business Review",
+  ];
+
+  const eventColors = {
+    conference: "#3B82F6", // Blue
+    festival: "#F59E0B", // Orange
+    meeting: "#10B981", // Green
+    reminder: "#EF4444", // Red
+    other: "#8B5CF6", // Purple
+  };
+
+  const type = faker.helpers.arrayElement(eventTypes);
+  const startDate = faker.date.between({
+    from: new Date(2024, 9, 1), // October 2024
+    to: new Date(2024, 9, 31),
+  });
+
+  const hour = faker.number.int({ min: 8, max: 18 });
+  const minute = faker.number.int({ min: 0, max: 59 });
+  const startTime = `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+  const endHour = Math.min(hour + faker.number.int({ min: 1, max: 3 }), 23);
+  const endTime = `${endHour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+
+  // Generate attendees
+  const attendeeCount = faker.number.int({ min: 1, max: 5 });
+  const attendees: CalendarAttendee[] = Array.from(
+    { length: attendeeCount },
+    (_, index) => ({
+      id: `attendee-${id}-${index}`,
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      avatar: `https://i.pravatar.cc/150?img=${parseInt(id) + index}`,
+      status: faker.helpers.arrayElement(["accepted", "declined", "pending"]),
+    }),
+  );
+
+  return {
+    id,
+    title: faker.helpers.arrayElement(eventTitles),
+    description: faker.lorem.paragraph(),
+    date: startDate.toISOString().split("T")[0],
+    time: startTime,
+    endTime: endTime,
+    location: faker.helpers.arrayElement(locations),
+    type,
+    attendees,
+    color: eventColors[type],
+  };
+};
+
+export const calendarEvents: CalendarEvent[] = Array.from(
+  { length: 15 },
+  (_, index) => generateCalendarEvent((index + 1).toString()),
+);
+
+export const eventTypes = [
+  "All",
+  "conference",
+  "festival",
+  "meeting",
+  "reminder",
+  "other",
+];
+
+export const eventColors = {
+  conference: "#3B82F6",
+  festival: "#F59E0B",
+  meeting: "#10B981",
+  reminder: "#EF4444",
+  other: "#8B5CF6",
+};
+
+// Settings Mock Data
+export const userProfile: UserProfile = {
+  id: "user-001",
+  firstName: "Giorgi",
+  lastName: "Jobava",
+  email: "giorgi.jobava03@gmail.com",
+  phoneNumber: "+372 5353 8485",
+  avatar: avatarImg.src,
+  role: "Frontend Developer",
+  department: "Engineering",
+  bio: "Passionate Frontend Developer with experience in React, TypeScript, and modern web technologies. Skilled in creating responsive, user-friendly interfaces and working with various development tools and frameworks.",
+  location: "Tartu, Estonia",
+  timezone: "Europe/Tallinn",
+  language: "Georgian, English, Russian",
+  joinDate: "2023-01-15",
+};
+
+export const notificationSettings: NotificationSettings = {
+  emailNotifications: true,
+  pushNotifications: true,
+  smsNotifications: false,
+  marketingEmails: false,
+  securityAlerts: true,
+  taskReminders: true,
+  meetingReminders: true,
+  projectUpdates: true,
+};
+
+export const securitySettings: SecuritySettings = {
+  twoFactorAuth: true,
+  sessionTimeout: 480, // 8 hours in minutes
+  passwordChangeRequired: false,
+  lastPasswordChange: "2024-09-15",
+  activeSessions: [
+    {
+      id: "session-001",
+      device: "MacBook Pro",
+      browser: "Chrome 120.0",
+      location: "Tartu, Estonia",
+      ipAddress: "192.168.1.100",
+      lastActive: "2024-10-15T14:30:00Z",
+      isCurrent: true,
+    },
+    {
+      id: "session-002",
+      device: "iPhone 15",
+      browser: "Safari Mobile",
+      location: "Tbilisi, Georgia",
+      ipAddress: "192.168.1.101",
+      lastActive: "2024-10-15T12:15:00Z",
+      isCurrent: false,
+    },
+    {
+      id: "session-003",
+      device: "iPad Air",
+      browser: "Safari",
+      location: "Tbilisi, Georgia",
+      ipAddress: "192.168.1.102",
+      lastActive: "2024-10-14T18:45:00Z",
+      isCurrent: false,
+    },
+  ],
+};
+
+export const appearanceSettings: AppearanceSettings = {
+  theme: "system",
+  language: "Georgian",
+  timezone: "Asia/Tbilisi",
+  dateFormat: "DD/MM/YYYY",
+  timeFormat: "24h",
+  compactMode: false,
+};
+
+export const privacySettings: PrivacySettings = {
+  profileVisibility: "team",
+  showOnlineStatus: true,
+  allowDirectMessages: true,
+  showEmail: false,
+  showPhoneNumber: false,
+  activityTracking: true,
+};
+
+export const billingInfo: BillingInfo = {
+  plan: "Pro Plan",
+  billingCycle: "monthly",
+  nextBillingDate: "2024-11-15",
+  paymentMethod: {
+    type: "card",
+    last4: "4242",
+    expiryDate: "12/27",
+  },
+  billingHistory: [
+    {
+      id: "inv-001",
+      date: "2024-10-15",
+      amount: 29.99,
+      description: "Pro Plan - Monthly",
+      status: "paid",
+      invoice: "INV-2024-001",
+    },
+    {
+      id: "inv-002",
+      date: "2024-09-15",
+      amount: 29.99,
+      description: "Pro Plan - Monthly",
+      status: "paid",
+      invoice: "INV-2024-002",
+    },
+    {
+      id: "inv-003",
+      date: "2024-08-15",
+      amount: 29.99,
+      description: "Pro Plan - Monthly",
+      status: "paid",
+      invoice: "INV-2024-003",
+    },
+  ],
+};
+
+// Profile-specific data
+export const profileStats = {
+  tasksCompleted: 89,
+  projectsActive: 4,
+  teamMembers: 6,
+  experienceYears: 2,
+};
+
+export const profileAchievements = [
+  {
+    id: "1",
+    title: "React & TypeScript Mastery",
+    date: "2024-09-15",
+    description:
+      "Successfully delivered multiple complex React applications with TypeScript, implementing modern patterns and best practices",
+    icon: "⚛️",
+  },
+  {
+    id: "2",
+    title: "UI/UX Excellence Award",
+    date: "2024-08-20",
+    description:
+      "Recognized for creating exceptional user experiences with responsive design and intuitive interfaces",
+    icon: "🎨",
+  },
+  {
+    id: "3",
+    title: "Code Quality Champion",
+    date: "2024-07-10",
+    description:
+      "Established coding standards and mentored team members in clean code practices and component architecture",
+    icon: "💻",
+  },
+  {
+    id: "4",
+    title: "Performance Optimization Expert",
+    date: "2024-06-01",
+    description:
+      "Improved application performance by 40% through code optimization and modern techniques",
+    icon: "⚡",
+  },
+  {
+    id: "5",
+    title: "Modern Frontend Architecture",
+    date: "2024-05-15",
+    description:
+      "Led migration to Next.js and implemented modern development workflows with Git and CI/CD",
+    icon: "🏗️",
+  },
+];
+
+export const profileActivities = [
+  {
+    id: "1",
+    type: "task" as const,
+    title: "Completed Admin Dashboard Enhancement",
+    description:
+      "Built responsive admin dashboard with React, TypeScript, and Tailwind CSS",
+    timestamp: "2024-10-15T14:30:00Z",
+    status: "completed" as const,
+  },
+  {
+    id: "2",
+    type: "review" as const,
+    title: "Component Architecture Review",
+    description:
+      "Reviewed and optimized React component structure for better maintainability",
+    timestamp: "2024-10-15T11:45:00Z",
+    status: "completed" as const,
+  },
+  {
+    id: "3",
+    type: "meeting" as const,
+    title: "Frontend Team Standup",
+    description:
+      "Discussed progress on responsive design implementation and Next.js migration",
+    timestamp: "2024-10-15T09:00:00Z",
+    status: "completed" as const,
+  },
+  {
+    id: "4",
+    type: "project" as const,
+    title: "React Component Library",
+    description:
+      "Developing reusable component library with TypeScript and Storybook",
+    timestamp: "2024-10-14T16:20:00Z",
+    status: "in-progress" as const,
+  },
+  {
+    id: "5",
+    type: "task" as const,
+    title: "Mobile Responsiveness Testing",
+    description:
+      "Tested and optimized mobile experience across different devices and browsers",
+    timestamp: "2024-10-14T10:15:00Z",
+    status: "completed" as const,
+  },
+  {
+    id: "6",
+    type: "task" as const,
+    title: "Performance Optimization",
+    description:
+      "Implemented code splitting and lazy loading to improve page load times",
+    timestamp: "2024-10-13T13:00:00Z",
+    status: "completed" as const,
+  },
+];
+
+export const profileSkills = [
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "HTML5",
+  "CSS3",
+  "Tailwind CSS",
+  "SCSS/Sass",
+  "Next.js",
+  "Node.js",
+  "Git",
+  "GitHub",
+  "Responsive Design",
+  "UI/UX Design",
+  "Figma",
+  "VS Code",
+  "Webpack",
+  "Vite",
+  "REST APIs",
+  "Component Libraries",
+  "Testing (Jest)",
+];

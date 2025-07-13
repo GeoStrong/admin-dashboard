@@ -8,7 +8,7 @@ const ProfileSettings: React.FC = () => {
     <div className="flex items-center justify-center gap-2">
       <CustomAvatar imageSrc={avatarIcon.src} />
       <div className="hidden flex-col text-dark-100 dark:text-white lg:flex">
-        <h3 className="text-sm font-bold">John Doe</h3>
+        <h3 className="text-sm font-bold">Giorgi Jobava</h3>
         <p className="text-xs font-semibold">Admin</p>
       </div>
     </div>

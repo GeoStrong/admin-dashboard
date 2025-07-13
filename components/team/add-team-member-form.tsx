@@ -243,7 +243,7 @@ const AddTeamMemberForm: React.FC = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Select position" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white dark:bg-dark-150">
                       {positions.map((position) => (
                         <SelectItem key={position} value={position}>
                           {position}
@@ -263,7 +263,7 @@ const AddTeamMemberForm: React.FC = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Select department" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white dark:bg-dark-150">
                       {departments.map((department) => (
                         <SelectItem key={department} value={department}>
                           {department}
@@ -285,7 +285,7 @@ const AddTeamMemberForm: React.FC = () => {
                   <SelectTrigger>
                     <SelectValue placeholder="Select location" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white dark:bg-dark-150">
                     {locations.map((location) => (
                       <SelectItem key={location} value={location}>
                         {location}
