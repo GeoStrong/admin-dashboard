@@ -303,7 +303,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Giorgi Jobava**
 
 - Frontend Developer
-- Email: giorgi.jobava@gmail.com
+- Email: giorgi.jobava03@gmail.com
 - Location: Tbilisi, Georgia
 
 ## 🙏 Acknowledgments
