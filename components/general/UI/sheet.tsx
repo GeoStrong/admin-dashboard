@@ -4,6 +4,7 @@ import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -30,24 +31,19 @@ const SheetOverlay = React.forwardRef<
 ));
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
-const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
-  {
-    variants: {
-      side: {
-        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
-        bottom:
-          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
-        right:
-          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
-      },
-    },
-    defaultVariants: {
-      side: "right",
+const sheetVariants = cva("fixed z-50 gap-4 bg-background p-6 shadow-lg", {
+  variants: {
+    side: {
+      top: "inset-x-0 top-0 border-b",
+      bottom: "inset-x-0 bottom-0 border-t",
+      left: "inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
+      right: "inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
     },
   },
-);
+  defaultVariants: {
+    side: "right",
+  },
+});
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
@@ -58,22 +54,150 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, onCloseClick, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cn(sheetVariants({ side }), className)}
-      {...props}
-    >
-      {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+>(({ side = "right", className, children, onCloseClick, ...props }, ref) => {
+  // Apple-level motion variants based on sheet side
+  const getMotionVariants = (side: string) => {
+    const baseVariants = {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          type: "spring",
+          damping: 25,
+          stiffness: 120,
+          staggerChildren: 0.1,
+        },
+      },
+      exit: {
+        opacity: 0,
+        transition: {
+          type: "spring",
+          damping: 30,
+          stiffness: 200,
+        },
+      },
+    };
+
+    switch (side) {
+      case "right":
+        return {
+          ...baseVariants,
+          hidden: { ...baseVariants.hidden, x: "100%" },
+          visible: {
+            ...baseVariants.visible,
+            x: 0,
+            transition: {
+              type: "spring",
+              damping: 20,
+              stiffness: 150,
+              mass: 0.8,
+            },
+          },
+          exit: { ...baseVariants.exit, x: "100%" },
+        };
+      case "left":
+        return {
+          ...baseVariants,
+          hidden: { ...baseVariants.hidden, x: "-100%" },
+          visible: {
+            ...baseVariants.visible,
+            x: 0,
+            transition: {
+              type: "spring",
+              damping: 20,
+              stiffness: 150,
+              mass: 0.8,
+            },
+          },
+          exit: { ...baseVariants.exit, x: "-100%" },
+        };
+      case "top":
+        return {
+          ...baseVariants,
+          hidden: { ...baseVariants.hidden, y: "-100%" },
+          visible: {
+            ...baseVariants.visible,
+            y: 0,
+            transition: {
+              type: "spring",
+              damping: 20,
+              stiffness: 150,
+              mass: 0.8,
+            },
+          },
+          exit: { ...baseVariants.exit, y: "-100%" },
+        };
+      case "bottom":
+        return {
+          ...baseVariants,
+          hidden: { ...baseVariants.hidden, y: "100%" },
+          visible: {
+            ...baseVariants.visible,
+            y: 0,
+            transition: {
+              type: "spring",
+              damping: 20,
+              stiffness: 150,
+              mass: 0.8,
+            },
+          },
+          exit: { ...baseVariants.exit, y: "100%" },
+        };
+      default:
+        return baseVariants;
+    }
+  };
+
+  const motionVariants = getMotionVariants(side);
+
+  return (
+    <SheetPortal>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cn(sheetVariants({ side }), className)}
+        {...props}
+        asChild
+      >
+        <motion.div
+          variants={motionVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          {children}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              transition: {
+                type: "spring",
+                damping: 20,
+                stiffness: 200,
+                delay: 0.2,
+              },
+            }}
+            whileHover={{
+              scale: 1.1,
+              transition: {
+                type: "spring",
+                damping: 15,
+                stiffness: 300,
+              },
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </SheetPrimitive.Close>
+          </motion.div>
+        </motion.div>
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  );
+});
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({

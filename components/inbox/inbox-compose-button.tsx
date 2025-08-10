@@ -33,6 +33,11 @@ import { Textarea } from "../general/UI/textarea";
 import { Button } from "../general/UI/button";
 import { ImSpinner2 } from "react-icons/im";
 import { MessageSender } from "@/lib/types/types";
+import {
+  modalVariants,
+  fadeInUp,
+  hoverScale,
+} from "@/lib/motion/apple-variants";
 
 const InboxSendButton: React.FC<{
   disabledState: boolean;
@@ -120,12 +125,21 @@ const InboxComposeButton: React.FC<{}> = () => {
             <SheetDescription>
               <div className="flex items-start gap-2">
                 <span className="pt-3 text-base">To</span>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {openDialog && (
                     <MotionDiv
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      variants={fadeInUp}
+                      initial="hidden"
+                      animate="visible"
+                      exit={{
+                        opacity: 0,
+                        y: -20,
+                        transition: {
+                          type: "spring",
+                          damping: 30,
+                          stiffness: 400,
+                        },
+                      }}
                       className="w-full"
                     >
                       <Command className="bg-gray-50 dark:bg-dark-100">
@@ -162,13 +176,24 @@ const InboxComposeButton: React.FC<{}> = () => {
                     </MotionDiv>
                   )}
                 </AnimatePresence>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {!openDialog && (
                     <MotionDiv
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="mt-1 flex w-full justify-center text-base "
+                      variants={hoverScale}
+                      initial="initial"
+                      animate="initial"
+                      exit={{
+                        opacity: 0,
+                        scale: 0.9,
+                        transition: {
+                          type: "spring",
+                          damping: 30,
+                          stiffness: 400,
+                        },
+                      }}
+                      whileHover="hover"
+                      whileTap="tap"
+                      className="mt-1 flex w-full justify-center text-base"
                     >
                       <button
                         type="button"
