@@ -1,8 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion, HTMLMotionProps } from "framer-motion";
-
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
@@ -34,8 +35,11 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+interface ButtonProps
+  extends Omit<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      "onAnimationStart" | "onDragStart" | "onDragEnd" | "onDrag"
+    >,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   enableMotion?: boolean;
@@ -53,60 +57,35 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "button";
+    if (asChild) {
+      return (
+        <Slot
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        />
+      );
+    }
 
-    // Apple-level motion variants
-    const motionVariants = {
-      initial: { scale: 1 },
-      hover: {
-        scale: 1.02,
-        y: -1,
-        transition: {
-          type: "spring",
-          damping: 20,
-          stiffness: 400,
-          mass: 0.5,
-        },
-      },
-      tap: {
-        scale: 0.98,
-        y: 0,
-        transition: {
-          type: "spring",
-          damping: 30,
-          stiffness: 500,
-          mass: 0.3,
-        },
-      },
-    };
-
-    if (enableMotion && !asChild) {
-      // Create clean props for motion.button to avoid type conflicts
-      const {
-        onAnimationStart,
-        onAnimationEnd,
-        onTransitionEnd,
-        onDrag,
-        onDragStart,
-        onDragEnd,
-        ...cleanProps
-      } = props;
-
+    if (enableMotion) {
       return (
         <motion.button
           className={cn(buttonVariants({ variant, size, className }))}
           ref={ref}
-          variants={motionVariants}
-          initial="initial"
-          whileHover="hover"
-          whileTap="tap"
-          {...(cleanProps as any)}
+          whileHover={{ scale: 1.02, y: -1 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{
+            type: "spring",
+            damping: 20,
+            stiffness: 400,
+          }}
+          {...props}
         />
       );
     }
 
     return (
-      <Comp
+      <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
@@ -114,6 +93,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
+
 Button.displayName = "Button";
 
 export { Button, buttonVariants };

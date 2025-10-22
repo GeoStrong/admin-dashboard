@@ -40,7 +40,7 @@ const DealsDetails: React.FC = async () => {
                 <AvatarImage src={product.image} />
                 <AvatarFallback></AvatarFallback>
               </Avatar>
-              {product.brand.toUpperCase()} {product.model}
+              {/* {product.brand.toUpperCase()} {product.model} */}
             </TableCell>
             <TableCell>{product.category}</TableCell>
             <TableCell>{Math.floor(Math.random() * 10) + 1}</TableCell>

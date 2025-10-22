@@ -303,19 +303,60 @@ generateRandomData(salesAnalyticsData, "sales analytics", 7);
 export const getRandomProducts = async (
   quantity: number,
 ): Promise<Product[]> => {
-  const { products } = await getProducts();
-  const randomProducts = [];
-  const selectedIndices = new Set();
+  try {
+    const { products } = await getProducts();
 
-  while (randomProducts.length < quantity) {
-    const randomIndex = Math.floor(Math.random() * products.length);
-    if (!selectedIndices.has(randomIndex)) {
-      selectedIndices.add(randomIndex);
-      randomProducts.push(products[randomIndex]);
+    if (!Array.isArray(products) || products.length === 0) {
+      console.warn("No products received from API");
+      return [];
     }
-  }
 
-  return randomProducts;
+    const validProducts = products.filter(
+      (product) =>
+        product &&
+        typeof product === "object" &&
+        typeof product.title === "string" &&
+        typeof product.image === "string" &&
+        typeof product.price === "number" &&
+        typeof product.description === "string" &&
+        typeof product.category === "string",
+    );
+
+    if (validProducts.length === 0) {
+      console.warn("No valid products found after filtering");
+      return [];
+    }
+
+    const randomProducts = [];
+    const selectedIndices = new Set();
+    const maxAttempts = validProducts.length * 2;
+    let attempts = 0;
+
+    while (
+      randomProducts.length < Math.min(quantity, validProducts.length) &&
+      attempts < maxAttempts
+    ) {
+      const randomIndex = Math.floor(Math.random() * validProducts.length);
+      if (!selectedIndices.has(randomIndex)) {
+        selectedIndices.add(randomIndex);
+        const product = validProducts[randomIndex];
+        // Ensure default values for optional fields
+        randomProducts.push({
+          ...product,
+          brand: product.brand || "",
+          model: product.model || "",
+          color: product.color || "",
+          discount: product.discount || 0,
+        });
+      }
+      attempts++;
+    }
+
+    return randomProducts;
+  } catch (error) {
+    console.error("Error in getRandomProducts:", error);
+    return [];
+  }
 };
 
 export const getDividedProducts = async (products: Product[]) => {

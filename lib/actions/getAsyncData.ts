@@ -12,10 +12,11 @@ export const getProducts = async (): Promise<{
   categories: string[];
   orderProducts: Product[];
 }> => {
-  const request = await fetch("https://fakestoreapi.in/api/products");
+  const request = await fetch("https://fakestoreapi.com/products");
   const response = await request.json();
 
-  const categories: string[] = response.products.reduce(
+  // const categories: string[] = []
+  const categories: string[] = response.reduce(
     (acc: string[], product: Product) => {
       if (!acc.includes(product.category)) {
         acc.push(product.category);
@@ -25,7 +26,7 @@ export const getProducts = async (): Promise<{
     [],
   );
 
-  const productsWithDate = assignDateToProducts(response.products);
+  const productsWithDate = assignDateToProducts(response);
   const productsWithAddress = assignAddressToProducts(productsWithDate);
   const productsWithStatus = assignStatusToProducts(productsWithAddress);
 
@@ -37,7 +38,7 @@ export const getProducts = async (): Promise<{
 
   return {
     response,
-    products: response.products,
+    products: response,
     categories,
     orderProducts: productsWithStatus,
   };
@@ -46,9 +47,9 @@ export const getProducts = async (): Promise<{
 export const getSingleProduct = async (
   id: string,
 ): Promise<{ product: Product }> => {
-  const request = await fetch(`https://fakestoreapi.in/api/products/${id}`);
+  const request = await fetch(`https://fakestoreapi.com/products/${id}`);
   const response = await request.json();
-  return { product: response.product };
+  return { product: response };
 };
 
 export const updateProduct = async (

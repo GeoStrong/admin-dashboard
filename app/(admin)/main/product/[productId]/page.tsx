@@ -13,6 +13,8 @@ const Product: React.FC<{ params: ProductIdParams }> = async ({ params }) => {
   const { productId } = await params;
   const { product } = await getSingleProduct(productId);
 
+  console.log("product", product);
+
   return (
     <>
       <BackNavigation />

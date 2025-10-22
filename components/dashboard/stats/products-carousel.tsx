@@ -47,7 +47,7 @@ const ProductsCarousel: React.FC<{ products: Product[] }> = ({ products }) => {
       <div className="mt-8 flex flex-col items-center justify-center text-center">
         <h4 className="min-h-12 text-lg font-semibold">
           <Link href={`/main/product/${activeProduct.id}`}>
-            {activeProduct.brand.toUpperCase()} {activeProduct.model}
+            {activeProduct.title}
           </Link>
         </h4>
         <p className="text-lg font-bold text-[#F2AC34]">

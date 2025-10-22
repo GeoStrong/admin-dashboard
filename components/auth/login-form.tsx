@@ -17,7 +17,7 @@ import { Checkbox } from "../general/UI/checkbox";
 import { Button } from "../general/UI/button";
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState("giorgi.jobava@gmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberPassword, setRememberPassword] = useState(false);

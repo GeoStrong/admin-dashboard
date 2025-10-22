@@ -11,6 +11,8 @@ const Favorites: React.FC<{ params: FavoriteProductPageParams }> = async ({
   const randomProducts = await getRandomProducts(+process.env.RANDOM_PRODUCTS);
   const favoriteProducts = await getDividedProducts(randomProducts);
 
+  console.log("favorite", favoriteProductPage);
+
   return (
     <>
       <h2 className="mb-5 text-2xl font-bold">Favorite Products</h2>

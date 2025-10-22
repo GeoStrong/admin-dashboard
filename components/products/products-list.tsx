@@ -20,43 +20,46 @@ const ProductsList: React.FC<{
   return (
     <>
       <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-        {products?.map((product, index) => (
-          <Card key={index} id={product.id.toString()}>
-            <CardHeader className="h-66 flex items-center justify-center">
-              <Link href={`/main/product/${product.id}`}>
-                <Image
-                  width={200}
-                  height={100}
-                  src={product.image}
-                  alt={product.title}
-                  className="rounded-2xl"
-                />
-              </Link>
-            </CardHeader>
-            <CardContent className="flex h-40 items-center justify-between">
-              <div>
-                <h3 className="font-bold">
-                  <Link href={`/main/product/${product.id}`}>
-                    {product.brand.toUpperCase()} {product.model}
-                  </Link>
-                </h3>
-                <p className="mt-2 font-bold text-blue-500">
-                  ${product.price}.00
-                </p>
-                <ProductRating />
-              </div>
-              <FavoriteButton productId={product.id} />
-            </CardContent>
-            <CardFooter>
-              <Link
-                href={`/main/product/${product.id}/edit`}
-                className="rounded-xl bg-gray-100 p-2 text-sm font-bold text-black hover:bg-gray-200 dark:bg-dark-150 dark:text-white"
-              >
-                Edit Product
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
+        {products?.map((product, index) => {
+          return (
+            <Card key={index} id={product.id.toString()}>
+              <CardHeader className="h-66 flex items-center justify-center">
+                <Link href={`/main/product/${product.id}`}>
+                  <Image
+                    width={200}
+                    height={100}
+                    src={product.image}
+                    alt={product.title}
+                    className="h-40 w-40 rounded-2xl object-contain"
+                  />
+                </Link>
+              </CardHeader>
+              <CardContent className="flex h-40 items-center justify-between">
+                <div>
+                  <h3 className="font-bold">
+                    <Link href={`/main/product/${product.id}`}>
+                      {product.title}
+                      {/* {product.brand.toUpperCase()} {product.model} */}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 font-bold text-blue-500">
+                    ${product.price}.00
+                  </p>
+                  <ProductRating />
+                </div>
+                <FavoriteButton productId={product.id} />
+              </CardContent>
+              <CardFooter>
+                <Link
+                  href={`/main/product/${product.id}/edit`}
+                  className="rounded-xl bg-gray-100 p-2 text-sm font-bold text-black hover:bg-gray-200 dark:bg-dark-150 dark:text-white"
+                >
+                  Edit Product
+                </Link>
+              </CardFooter>
+            </Card>
+          );
+        })}
       </div>
       <ProductsPagination pages={allProducts} activePage={activePage} />
     </>
