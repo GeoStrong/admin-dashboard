@@ -18,7 +18,11 @@ const DashboardPagination: React.FC = () => {
       <PaginationContent>
         {dashboardLinks.map((link, index) => (
           <PaginationItem key={link.name}>
-            <PaginationLink href={link.href} isActive={pathname === link.href}>
+            <PaginationLink
+              href={link.href}
+              isActive={pathname === link.href}
+              size="default"
+            >
               {index + 1}
             </PaginationLink>
           </PaginationItem>
