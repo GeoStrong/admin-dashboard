@@ -7,18 +7,22 @@ import {
 import { MessageSender, Product, RandomMessages } from "../types/types";
 
 export async function safeJsonFetch(url: string) {
-  const res = await fetch(url);
+  try {
+    const res = await fetch(url);
 
-  const contentType = res.headers.get("content-type");
+    const contentType = res.headers.get("content-type");
 
-  // not JSON
-  if (!contentType?.includes("application/json")) {
-    const html = await res.text();
-    console.log("Non-JSON response:", html.slice(0, 200));
-    throw new Error("API did not return JSON");
+    if (!contentType?.includes("application/json")) {
+      const text = await res.text();
+      console.log("Non-JSON response:", text.slice(0, 200));
+      return null; // <- don't throw during build
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.log("Fetch failed:", err);
+    return null; // <- return fallback
   }
-
-  return res.json();
 }
 
 export const getProducts = async (): Promise<{
@@ -28,6 +32,10 @@ export const getProducts = async (): Promise<{
   orderProducts: Product[];
 }> => {
   const response = await safeJsonFetch("https://fakestoreapi.com/products");
+
+  if (!response) {
+    return { response: [], products: [], categories: [], orderProducts: [] };
+  }
 
   // const categories: string[] = []
   const categories: string[] = response.reduce(
@@ -64,6 +72,10 @@ export const getSingleProduct = async (
   const response = await safeJsonFetch(
     `https://fakestoreapi.com/products/${id}`,
   );
+
+  if (!response) {
+    return;
+  }
 
   return { product: response };
 };
