@@ -2,12 +2,12 @@ import ProductsList from "@/components/products/products-list";
 import { getDividedProducts, getRandomProducts } from "@/lib/dummy-database";
 import React from "react";
 
-type FavoriteProductPageParams = Promise<{ favoriteProductPage: number }>;
+type FavoriteProductPageParams = { favoriteProductPage: string };
 
 const Favorites: React.FC<{ params: FavoriteProductPageParams }> = async ({
   params,
 }) => {
-  const { favoriteProductPage } = await params;
+  const favoriteProductPage = Number(params.favoriteProductPage);
   const randomProducts = await getRandomProducts(+process.env.RANDOM_PRODUCTS);
   const favoriteProducts = await getDividedProducts(randomProducts);
 

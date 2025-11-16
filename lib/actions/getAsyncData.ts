@@ -6,14 +6,28 @@ import {
 } from "../functions/functions";
 import { MessageSender, Product, RandomMessages } from "../types/types";
 
+export async function safeJsonFetch(url: string) {
+  const res = await fetch(url);
+
+  const contentType = res.headers.get("content-type");
+
+  // not JSON
+  if (!contentType?.includes("application/json")) {
+    const html = await res.text();
+    console.log("Non-JSON response:", html.slice(0, 200));
+    throw new Error("API did not return JSON");
+  }
+
+  return res.json();
+}
+
 export const getProducts = async (): Promise<{
   response: any;
   products: Product[];
   categories: string[];
   orderProducts: Product[];
 }> => {
-  const request = await fetch("https://fakestoreapi.com/products");
-  const response = await request.json();
+  const response = await safeJsonFetch("https://fakestoreapi.com/products");
 
   // const categories: string[] = []
   const categories: string[] = response.reduce(
@@ -48,7 +62,14 @@ export const getSingleProduct = async (
   id: string,
 ): Promise<{ product: Product }> => {
   const request = await fetch(`https://fakestoreapi.com/products/${id}`);
-  const response = await request.json();
+
+  if (!request.ok) {
+    console.error("Fetch failed:", request.status, await request.text());
+  }
+
+  const response = await request.json().catch((err) => {
+    console.error(`JSON parse error: ${err}`);
+  });
   return { product: response };
 };
 
@@ -72,10 +93,16 @@ export const updateProduct = async (
     });
 
     if (!request.ok) {
+      console.error("Fetch failed:", request.status, await request.text());
+    }
+
+    if (!request.ok) {
       throw new Error(`HTTP error! status: ${request.status}`);
     }
 
-    const response = await request.json();
+    const response = await request.json().catch((err) => {
+      console.error(`JSON parse error: ${err}`);
+    });
     return { product: response };
   } catch (error) {
     console.error("Error updating product:", error);
