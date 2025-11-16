@@ -15,6 +15,10 @@ const Products: React.FC<{ params: ProductPageParams }> = async ({
   return (
     <>
       <h2 className="mb-5 text-2xl font-bold">Products</h2>
+      {(!products || products.length === 0) && (
+        <p className="text-center text-xl font-bold">No products to display</p>
+      )}
+
       <ProductsList
         products={productsPage[productPage - 1]}
         allProducts={productsPage}
