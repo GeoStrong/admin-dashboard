@@ -61,15 +61,10 @@ export const getProducts = async (): Promise<{
 export const getSingleProduct = async (
   id: string,
 ): Promise<{ product: Product }> => {
-  const request = await fetch(`https://fakestoreapi.com/products/${id}`);
+  const response = await safeJsonFetch(
+    `https://fakestoreapi.com/products/${id}`,
+  );
 
-  if (!request.ok) {
-    console.error("Fetch failed:", request.status, await request.text());
-  }
-
-  const response = await request.json().catch((err) => {
-    console.error(`JSON parse error: ${err}`);
-  });
   return { product: response };
 };
 
